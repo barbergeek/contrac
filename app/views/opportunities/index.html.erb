@@ -1,0 +1,27 @@
+<h1>Listing opportunities</h1>
+
+<table>
+  <tr>
+    <th>Acronym</th>
+    <th>Program Name</th>
+    <th>Department</th>
+	<th></th>
+	<th></th>
+	<th></th>
+  </tr>
+
+<% @opportunities.each do |opportunity| %>
+  <tr>
+	<td><%= opportunity.acronym %></td>
+	<td><%= opportunity.program %></td>
+	<td><%= opportunity.department %></td>
+    <td><%= link_to 'Show', opportunity %></td>
+    <td><%= link_to 'Edit', edit_opportunity_path(opportunity) %></td>
+    <td><%= link_to 'Destroy', opportunity, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Opportunity', new_opportunity_path %>
