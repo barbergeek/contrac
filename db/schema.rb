@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20110202191731) do
     t.string   "agency"
     t.text     "description"
     t.string   "location"
-    t.integer  "input_id"
+    t.integer  "input_number"
     t.integer  "total_value"
     t.integer  "win_probability"
     t.string   "contract_length"

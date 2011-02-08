@@ -5,6 +5,8 @@
     <th>Acronym</th>
     <th>Program Name</th>
     <th>Department</th>
+	<th>Agency</th>
+    <th>Description</th>
 	<th></th>
 	<th></th>
 	<th></th>
@@ -15,6 +17,8 @@
 	<td><%= opportunity.acronym %></td>
 	<td><%= opportunity.program %></td>
 	<td><%= opportunity.department %></td>
+	<td><%= opportunity.agency %></td>
+	<td><%= opportunity.description %></td>
     <td><%= link_to 'Show', opportunity %></td>
     <td><%= link_to 'Edit', edit_opportunity_path(opportunity) %></td>
     <td><%= link_to 'Destroy', opportunity, :confirm => 'Are you sure?', :method => :delete %></td>

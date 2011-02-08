@@ -1,0 +1,8 @@
+<p>Acronym: <%= f.acronym %></p>
+<p>Program Name: <%= f.program %></p>
+<p>Department: <%= f.department %></p>
+<p>Agency: <%= f.agency %></p>
+<p>Location: <%= f.location %></p>
+<p>Input ID: <%= link_to(f.input_number,
+	"http://www.input.com/index.cfm?fractal=opportunities.dsp.search.detail&PrdctCd=PFOIT&OppID=#{f.input_number}") 
+	if f.input_number %></p>

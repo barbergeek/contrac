@@ -10,7 +10,7 @@
 #  agency                :string(255)
 #  description           :text
 #  location              :string(255)
-#  input_id              :integer
+#  input_number          :integer
 #  total_value           :integer
 #  win_probability       :integer
 #  contract_length       :string(255)
@@ -29,7 +29,7 @@
 
 class Opportunity < ActiveRecord::Base
   attr_accessible :acronym, :program, :department, :agency, :description, :location,
-                  :input_id, :total_value, :win_probability, :contract_length, :solicitation_type,
+                  :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
                   :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase
                   
   validates :acronym, :presence => true
