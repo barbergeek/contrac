@@ -1,31 +1,7 @@
-<p id="notice"><%= notice %></p>
-<p>
-<h1><%= @opportunity.acronym %></h1>
-<h2><%= @opportunity.program %></h2>
-<p>
-Department: <%= @opportunity.department %><br />
-Agency: <%= @opportunity.agency %><br />
-Description: <%= @opportunity.description %><br />
-Location: <%= @opportunity.location %><br />
-Input Opportunity ID: <%= link_to_unless @opportunity.input_number.nil?,
-				@opportunity.input_number, input_opportunity_url(@opportunity.input_number),
-				:target => "_blank" %><br />
-Total Value: <%= @opportunity.total_value %><br />
-Win Probability: <%= @opportunity.win_probability %><br />
-Contract Length: <%= @opportunity.contract_length %><br />
-Solicitation Type: <%= @opportunity.solicitation_type %><br />
-Contract Type: <%= @opportunity.contract_type %><br />
-RFP Release Date: <%= @opportunity.rfp_release_date %><br />
-RFP Due Date: <%= @opportunity.rfp_due_date %><br />
-Award Date: <%= @opportunity.award_date %><br />
-Prime: <%= @opportunity.prime %><br />
-Capture Phase: <%= @opportunity.capture_phase %><br />
-Business Developer (ID): <%= @opportunity.business_developer_id %><br />
-Comments: <%= @opportunity.comments %><br />
-Created At: <%= @opportunity.created_at %><br />
-Updated At: <%= @opportunity.updated_at %>
-</p>
-<p>
-<%= link_to 'Edit', edit_opportunity_path(@opportunity) %> |
-<%= link_to 'Back', opportunities_path %>
-</p>
+$("#dialog-modal")
+	.html("<%= escape_javascript(render(:partial => 'show')) %>")
+	.dialog({
+		width: 600,
+		title: "<%= @opportunity.acronym %>"
+	})
+	.dialog('open');

@@ -10,18 +10,33 @@ $(function() {
 	$( "button, input:submit" ).button();
 });
 
-// Enable tabs
-$(function() {
-	$( "#tabs" ).tabs({
-		ajaxOptions: {
-			error: function( xhr, status, index, anchor ) {
-				$( anchor.hash ).html(
-					"Couldn't load this tab. We'll try to fix this as soon as possible. " +
-					"If this wouldn't be a demo." );
+$(document).ready(function() {
+	var $dialog = $('<div id="dialog-modal"></div>')
+		.html('This dialog will show every time!')
+		.dialog({
+			modal: true,
+			autoOpen: false,
+			title: 'Basic Dialog',
+			buttons: {
+				Ok: function() {
+					$( this ).dialog( "close" );
+				}
 			}
-		}
-	});
+		});
 });
+
+// Enable tabs
+//  $(function() {
+//  	$( "#tabs" ).tabs({
+//  		ajaxOptions: {
+//  			error: function( xhr, status, index, anchor ) {
+//  				$( anchor.hash ).html(
+//  					"Couldn't load this tab. We'll try to fix this as soon as possible. " +
+//  					"If this wouldn't be a demo." );
+//  			}
+//  		}ß
+//  	});
+//  });
 
 //$('#example').tabs({
 //    select: function(event, ui) {
