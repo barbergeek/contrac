@@ -1,8 +1,17 @@
 Contrac::Application.routes.draw do
   
+  match "/about" => "pages#about"
+  match "/help" => 'pages#help'
+  match "/contact" => 'pages#contact'
+  
+#  get "pages/home"
+#  get "pages/about"
+#  get "pages/help"
+#  get "pages/contact"
+
   resources :opportunities
   
-  root :to => "opportunities#index"
+  root :to => "pages#home"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
