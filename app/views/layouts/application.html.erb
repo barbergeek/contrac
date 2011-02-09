@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Contrac</title>
-	<%= render 'layouts/stylesheets' %>
-  <%= javascript_include_tag :defaults %>
-  <%= csrf_meta_tag %>
+	<title>Contrac</title>
+		<%= render 'layouts/stylesheets' %>
+		<%= javascript_include_tag :defaults %>
+		<%= csrf_meta_tag %>
 </head>
 <body>
-
-<%= yield %>
-
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabs-1">Home</a></li>
+	      <li><a href="/opportunities">Opportunities</a></li>
+	      <li><a href="tabs-2">Programs</a></li>
+	      <li><a href="tabs-3">Other Stuff</a></li>
+	   </ul>
+	<div id="tabs-1">Home Page</div>
+	<div id="tab-content"></div>
+</div>
 </body>
 </html>

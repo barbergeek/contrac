@@ -7,6 +7,7 @@ class OpportunitiesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @opportunities }
+      format.js
     end
   end
 
@@ -18,6 +19,7 @@ class OpportunitiesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @opportunity }
+      format.js
     end
   end
 
