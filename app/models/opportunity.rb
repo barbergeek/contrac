@@ -32,8 +32,9 @@ class Opportunity < ActiveRecord::Base
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
                   :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase
                   
-  validates :acronym, :presence => true
+#  validates :acronym, :presence => true
+  validates :program, :presence => true
   validates :department, :presence => true
-  validates :agency, :presence => true
+#  validates :agency, :presence => true
   
 end

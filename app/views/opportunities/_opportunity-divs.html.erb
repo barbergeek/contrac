@@ -1,0 +1,12 @@
+<div class="span-24 even">
+		<div class="span-2"><%= opportunity.acronym %></div>
+		<div class="span-12">
+			<%= opportunity.program %><br/>
+			<%= opportunity.department %><br/>
+			<%= opportunity.agency %>
+		</div>			
+		<div class="span-9"><%= opportunity.description %></div>
+		<div class="span-1 last"><%= link_to 'Show', opportunity, :remote => true, :class => "ui-icon ui-icon-info", :title => "Show" %> 
+	  <%= link_to 'Edit', edit_opportunity_path(opportunity), :class => "ui-icon ui-icon-pencil", :title => "Edit" %> 
+	  <%= link_to 'Destroy', opportunity, :confirm => 'Are you sure?', :method => :delete, :class => "ui-icon ui-icon-trash", :title => "Destroy" %></div>
+</div>

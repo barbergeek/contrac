@@ -1,5 +1,5 @@
 .container {
-	width: 710px;
+	width: 950px;
 }
 
 body {
@@ -24,6 +24,12 @@ section {
 
 section h1 {
 	font-size: 200%;
+}
+
+/* icons */
+.ui-icon
+{
+	display: inline-block !important;
 }
 
 /* Links */

@@ -1,0 +1,7 @@
+<h1>Import INPUT Records into Contac</h1>
+<%= form_tag(upload_input_records_path, :multipart => true) do |f| %>
+	INPUT Export File (.xls): <%= file_field_tag "datafile" %><br/>
+	<%= submit_tag "Upload" %>
+	<%= link_to "Back", input_records_path %>
+<% end -%>
+

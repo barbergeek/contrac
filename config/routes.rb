@@ -3,13 +3,20 @@ Contrac::Application.routes.draw do
   match "/about" => "pages#about"
   match "/help" => 'pages#help'
   match "/contact" => 'pages#contact'
-  
+
 #  get "pages/home"
 #  get "pages/about"
 #  get "pages/help"
 #  get "pages/contact"
 
   resources :opportunities
+  resources :input_records, :only => [:index, :show, :edit, :update, :destroy] do
+    collection do
+      get 'import'
+      post 'upload'
+      put 'merge'
+    end
+  end
   
   root :to => "pages#home"
   

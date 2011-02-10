@@ -1,0 +1,58 @@
+<%= link_to "Import", import_input_records_path %> | <%= link_to "Merge", merge_input_records_path, :confirm => 'Are you sure?', :method => :put %>
+
+<table>
+  <tr>
+	<th>Acronym</th>
+	<th>Title</th>
+    <th></th>
+  </tr>
+
+<% @input_records.each do |input_record| %>
+  <tr>
+	<td><%= input_record.acronym %></td>
+	<td><%= link_to input_record.title, input_record.input_url, :target => "_blank" %><br/>
+	<%= input_record.organization %></td>
+  <td><%= link_to 'Show', input_record, :class => "ui-icon ui-icon-info", :title => "Show" %> 
+  <%= link_to 'Edit', edit_input_record_path(input_record), :class => "ui-icon ui-icon-pencil", :title => "Edit" %> 
+  <%= link_to 'Destroy', input_record, :confirm => 'Are you sure?', :method => :delete, :class => "ui-icon ui-icon-trash", :title => "Destroy" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<pre>
+#  acronym                      :string(255)
+#  title                        :string(255)
+#  organization                 :string(255)
+#  rfp_number                   :string(255)
+#  program_value                :string(255)
+#  rfp_date                     :string(255)
+#  status                       :string(255)
+#  user_list                    :string(255)
+#  project_award_date           :string(255)
+#  opportunity_id               :string(255)
+#  contract_type                :string(255)
+#  contract_type_combined       :string(255)
+#  primary_service              :string(255)
+#  contract_duration            :string(255)
+#  last_updated                 :string(255)
+#  competition_type             :string(255)
+#  naics                        :string(255)
+#  primary_state_of_performance :string(255)
+#  summary                      :string(255)
+#  comments                     :string(255)
+#  dod_civil                    :string(255)
+#  incumbent                    :string(255)
+#  contractor_combined          :string(255)
+#  incumbent_value              :string(255)
+#  incumbent_contract_number    :string(255)
+#  incumbent_award_date         :string(255)
+#  incumbent_expire_date        :string(255)
+#  priority                     :string(255)
+#  vertical                     :string(255)
+#  vertical_combined            :string(255)
+#  segment                      :string(255)
+#  segment_combined             :string(255)
+#  key_contacts                 :string(255)
+</pre>

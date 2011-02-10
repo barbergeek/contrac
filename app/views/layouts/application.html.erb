@@ -7,14 +7,28 @@
 		<%= csrf_meta_tag %>
 </head>
 <body>
-	<ul class="tabs">
-		<li><%= link_to "Home", root_path %></li>
-		<li><%= link_to "Opportunities", opportunities_path %></li>
-		<li><a href="#tabs-2">Programs</a></li>
-		<li><%= link_to "About", about_path %></li>
-		<li><%= link_to "Help", help_path %></li>
-	</ul>
-	<%= yield %>
-
+	<div class="container round">
+		<%= render 'layouts/header' %>
+		<section class="round">
+			<ul class="tabs">
+				<li><%= link_to "Home", root_path %></li>
+				<li><%= link_to "Opportunities", opportunities_path %></li>
+				<li><a href="#">Programs</a></li>
+				<li><%= link_to "Input", input_records_path %></li>
+				<li><%= link_to "About", about_path %></li>
+				<li><%= link_to "Help", help_path %></li>
+			</ul>
+		     <% unless flash[:error].nil? %>  
+		       <div class="error"><%= flash[:error] %></div>  
+		     <% end %>  
+		     <% unless flash[:notice].nil? %>  
+		       <div class="notice"><%= flash[:notice] %></div>  
+		     <% end %>  
+		     <% unless flash[:success].nil? %>  
+		       <div class="success"><%= flash[:success] %></div>  
+		     <% end %>  
+			<%= yield %>
+		</section>
+	</div>
 </body>
 </html>
