@@ -1,13 +1,15 @@
 Contrac::Application.routes.draw do
   
+  devise_for :user do
+    get "login", :to => "devise/sessions#new"
+    get "logout", :to => "devise/sessions#destroy"
+  end
+  resources :users, :controller => "users"
+  
   match "/about" => "pages#about"
   match "/help" => 'pages#help'
   match "/contact" => 'pages#contact'
-
-#  get "pages/home"
-#  get "pages/about"
-#  get "pages/help"
-#  get "pages/contact"
+#  match "/users" => 'user#index'
 
   resources :opportunities
   resources :input_records, :only => [:index, :show, :edit, :update, :destroy] do

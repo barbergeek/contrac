@@ -1,4 +1,7 @@
 class OpportunitiesController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
   # GET /opportunities
   # GET /opportunities.xml
   def index

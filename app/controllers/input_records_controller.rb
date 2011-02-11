@@ -1,5 +1,7 @@
 class InputRecordsController < ApplicationController
 
+  before_filter :authenticate_user!
+
   # GET /input_records/import
   # just render the template
   def import

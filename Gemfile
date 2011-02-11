@@ -5,6 +5,8 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem "will_paginate"
 gem "formtastic"
 gem "jquery-rails"
+gem "devise"
+gem "cancan"
 
 group :development do
 	gem 'rspec-rails'

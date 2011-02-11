@@ -1,0 +1,21 @@
+<p><%= f.label :email %><br />
+<%= f.text_field :email %></p>
+
+<p><%= f.label :password %><br />
+<%= f.password_field :password %></p>
+
+<p><%= f.label :password_confirmation %><br />
+<%= f.password_field :password_confirmation %></p>
+
+<% if can? :manage, @users %>
+	<%= field_set_tag 'Roles' do %>
+		<% for role in User::ROLES %>
+		<%= check_box_tag "user[roles][]", role, @user.roles.include?(role) %>
+		<%=h role.humanize %><br />
+		<% end %>
+		<%= hidden_field_tag "user[roles][]", "" %>
+	<% end %>
+<% end %>
+
+<p><%= f.submit "Submit" %></p>
+
