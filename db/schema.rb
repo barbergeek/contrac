@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110210232121) do
+ActiveRecord::Schema.define(:version => 20110211042218) do
 
   create_table "input_records", :force => true do |t|
     t.string   "acronym"
@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(:version => 20110210232121) do
     t.string   "naics"
     t.string   "primary_state_of_performance"
     t.string   "summary"
-    t.string   "comments"
     t.string   "dod_civil"
     t.string   "incumbent"
     t.string   "contractor_combined"
@@ -49,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20110210232121) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "input_url"
+    t.text     "comments"
   end
 
   create_table "opportunities", :force => true do |t|
