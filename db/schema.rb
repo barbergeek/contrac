@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110211042633) do
+ActiveRecord::Schema.define(:version => 20110211043028) do
 
   create_table "input_records", :force => true do |t|
     t.string   "acronym"
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(:version => 20110211042633) do
     t.string   "project_award_date"
     t.string   "opportunity_id"
     t.string   "contract_type"
-    t.string   "contract_type_combined"
     t.string   "primary_service"
     t.string   "contract_duration"
     t.string   "last_updated"
@@ -33,22 +32,23 @@ ActiveRecord::Schema.define(:version => 20110211042633) do
     t.string   "primary_state_of_performance"
     t.string   "dod_civil"
     t.string   "incumbent"
-    t.string   "contractor_combined"
     t.string   "incumbent_value"
     t.string   "incumbent_contract_number"
     t.string   "incumbent_award_date"
     t.string   "incumbent_expire_date"
     t.string   "priority"
     t.string   "vertical"
-    t.string   "vertical_combined"
     t.string   "segment"
-    t.string   "segment_combined"
     t.string   "key_contacts"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "input_url"
     t.text     "comments"
     t.text     "summary"
+    t.text     "contract_type_combined"
+    t.text     "contractor_combined"
+    t.text     "vertical_combined"
+    t.text     "segment_combined"
   end
 
   create_table "opportunities", :force => true do |t|
