@@ -1,0 +1,16 @@
+<table class="profile" summary="Profile information">
+	<tr>
+		<td class="main">
+			<h1>
+				<%= gravatar_for @user %>
+				<%= @user.name %> <%= "(#{@user.initials})" unless @user.initials.blank? %>
+			</h1>
+			<%= link_to "Edit Profile / Change Password", edit_user_path(@user)%>
+		</td>
+		<td class="sidebar round">
+			<strong>Name</strong>	<%= @user.name %><br />
+			<strong>URL</strong> 	<%= link_to user_path(@user), @user %><br />
+		</td>
+	</tr>
+</table>
+			

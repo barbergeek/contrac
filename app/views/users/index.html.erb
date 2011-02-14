@@ -1,15 +1,22 @@
 <table>
 	<tr>
+		<th>Name</th>
 		<th>Email</th>
 		<th>Roles</th>
 		<th></th>
+		<td class="sidebar round">
+			Manage your picture at <%= link_to 'gravatar.com' %>
+		</td>
 	</tr>
 	<% @users.each do |user| %>
 	<tr>
+		<td><%= user.name %></td>
 		<td><%= user.email %></td>
-		<td><%= user.roles %></td>
-		<td><%= link_to 'Edit', edit_user_path(user), :class => "ui-icon ui-icon-pencil", :title => "Edit" %> 
-		  <%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete, :class => "ui-icon ui-icon-trash", :title => "Destroy" %></td>
+		<td><%= user.roles.collect {|x| x.titleize}.to_sentence %></td>
+		<td>
+			<%= link_to 'Show', user, :class => "ui-icon ui-icon-info", :title => "Show" %>
+			<%= link_to 'Edit', edit_user_path(user), :class => "ui-icon ui-icon-pencil", :title => "Edit" %> 
+		  	<%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete, :class => "ui-icon ui-icon-trash", :title => "Destroy" %></td>
 	</tr>
 	<% end %>
 </table>

@@ -7,6 +7,7 @@ gem "formtastic"
 gem "jquery-rails"
 gem "devise"
 gem "cancan"
+gem "gravatar_image_tag"
 
 group :development do
 	gem 'rspec-rails'

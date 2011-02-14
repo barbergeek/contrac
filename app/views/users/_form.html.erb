@@ -1,3 +1,12 @@
+<%= gravatar_for @user %>
+Manage your picture at <%= link_to 'gravatar.com', "http://gravatar.com" %>
+
+<p><%= f.label :name %><br />
+<%= f.text_field :name %></p>
+
+<p><%= f.label :initials %><br />
+<%= f.text_field :initials %></p>
+
 <p><%= f.label :email %><br />
 <%= f.text_field :email %></p>
 
@@ -11,7 +20,7 @@
 	<%= field_set_tag 'Roles' do %>
 		<% for role in User::ROLES %>
 		<%= check_box_tag "user[roles][]", role, @user.roles.include?(role) %>
-		<%=h role.humanize %><br />
+		<%=h role.titleize %><br />
 		<% end %>
 		<%= hidden_field_tag "user[roles][]", "" %>
 	<% end %>
