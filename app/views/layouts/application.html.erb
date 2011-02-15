@@ -6,10 +6,9 @@
 	<%= javascript_include_tag :defaults %>
 	<%= csrf_meta_tag %>
 </head>
-<body>
-	<div class="container round">
+<body class="container">
 		<%= render 'layouts/header' %>
-		<section class="round">
+		<section class="container round">
 			<ul class="tabs">
 				<li><%= link_to "Home", root_path %></li>
 				<% if user_signed_in? %>
@@ -29,6 +28,5 @@
 		     <% end %>  
 			<%= yield %>
 		</section>
-	</div>
 </body>
 </html>

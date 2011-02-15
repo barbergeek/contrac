@@ -1,6 +1,10 @@
-<h1>Editing opportunity</h1>
+Record #: <%= @opportunity.id %> | Created: <%= @opportunity.created_at %> | Modified: <%= @opportunity.updated_at %>
+<h1><%= @opportunity.program %><%= ' (' + @opportunity.acronym + ')' unless @opportunity.acronym.blank? %></h1>
+<p>
+	<%= link_to 'Show', @opportunity, :remote => true %> |
+	<%= link_to 'Back', opportunities_path %>
+</p>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @opportunity, :remote => true %> |
-<%= link_to 'Back', opportunities_path %>
+

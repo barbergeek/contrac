@@ -1,8 +1,11 @@
 <p id="notice"><%= notice %></p>
 <p>
-<h1><%= @opportunity.acronym %></h1>
-<h2><%= @opportunity.program %></h2>
+<h1><%= @opportunity.program %><%= ' (' + @opportunity.acronym + ')' unless @opportunity.acronym.blank? %></h1>
 <p>
+<%= link_to 'Edit', edit_opportunity_path(@opportunity) %> |
+<%= link_to 'Back', opportunities_path %>
+</p>
+<div>
 Department: <%= @opportunity.department %><br />
 Agency: <%= @opportunity.agency %><br />
 Description: <%= @opportunity.description %><br />
@@ -24,8 +27,4 @@ Business Developer (ID): <%= @opportunity.business_developer_id %><br />
 Comments: <%= @opportunity.comments %><br />
 Created At: <%= @opportunity.created_at %><br />
 Updated At: <%= @opportunity.updated_at %>
-</p>
-<p>
-<%= link_to 'Edit', edit_opportunity_path(@opportunity) %> |
-<%= link_to 'Back', opportunities_path %>
-</p>
+</div>

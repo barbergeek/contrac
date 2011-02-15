@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110202191731
+# Schema version: 20110214144639
 #
 # Table name: opportunities
 #
@@ -25,12 +25,16 @@
 #  comments              :text
 #  created_at            :datetime
 #  updated_at            :datetime
+#  input_status          :string(255)
 #
 
 class Opportunity < ActiveRecord::Base
+  belongs_to :business_developer, :class_name => "User"
+  
   attr_accessible :acronym, :program, :department, :agency, :description, :location,
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
-                  :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase
+                  :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase, :input_status, :business_developer_id
+
                   
 #  validates :acronym, :presence => true
   validates :program, :presence => true

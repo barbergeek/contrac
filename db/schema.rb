@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110211181908) do
+ActiveRecord::Schema.define(:version => 20110215142543) do
 
   create_table "input_records", :force => true do |t|
     t.string   "acronym"
@@ -73,6 +73,8 @@ ActiveRecord::Schema.define(:version => 20110211181908) do
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "input_status"
+    t.string   "acquisition_url"
   end
 
   create_table "users", :force => true do |t|

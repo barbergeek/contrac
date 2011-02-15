@@ -187,6 +187,7 @@ class InputRecordsController < ApplicationController
         current_record.rfp_release_date = source.rfp_date if current_record.rfp_release_date.blank? && !source.rfp_date.blank?
         #  rfp_due_date          :date
         current_record.award_date = source.project_award_date if current_record.award_date.blank? && !source.project_award_date.blank?
+        current_record.input_status = source.status # always take current input status
         
         current_record.save!
       end

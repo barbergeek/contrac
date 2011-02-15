@@ -1,10 +1,16 @@
 <tr>
+	<td><%= link_to 'Info', opportunity, :remote => true, :class => "ui-icon ui-icon-info", :title => "Info" %> 
+		<%= link_to 'Edit', edit_opportunity_path(opportunity), :class => "ui-icon ui-icon-pencil", :title => "Edit" %> 
+		<%= link_to 'Destroy', opportunity, :confirm => 'Are you sure?', 
+			:method => :delete, :class => "ui-icon ui-icon-trash", :title => "Destroy" %></td>
 	<td><%= opportunity.acronym %></td>
-	<td><%= opportunity.program %><br/>
-	<%= opportunity.department %><br/>
-	<%= opportunity.agency %></td>
+	<td><%= link_to opportunity.program, opportunity %><br/>
+	<i><%= opportunity.department %><%= '/'+opportunity.agency unless opportunity.agency.blank?%></i></td>
 	<td><%= opportunity.description %></td>
-  <td><%= link_to 'Show', opportunity, :remote => true, :class => "ui-icon ui-icon-info", :title => "Show" %> 
-  <%= link_to 'Edit', edit_opportunity_path(opportunity), :class => "ui-icon ui-icon-pencil", :title => "Edit" %> 
-  <%= link_to 'Destroy', opportunity, :confirm => 'Are you sure?', :method => :delete, :class => "ui-icon ui-icon-trash", :title => "Destroy" %></td>
+	<td><%= link_to_input opportunity.input_number, :target => "_blank" %></td>
+	<td><%= opportunity.input_status %></td>
+	<td><%= opportunity.total_value %></td>
+	<td><%= opportunity.rfp_release_date %></td>
+	<td><%= opportunity.capture_phase %></td>
+	<td><%= opportunity.business_developer.initials unless opportunity.business_developer.nil? %></td>
 </tr>

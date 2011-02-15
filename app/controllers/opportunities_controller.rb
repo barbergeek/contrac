@@ -18,9 +18,10 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities/1.xml
   def show
     @opportunity = Opportunity.find(params[:id])
-
+    @readonly = {:readonly => true}
+    
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render 'edit' } # render the edit page in readonly mode
       format.xml  { render :xml => @opportunity }
       format.js
     end
@@ -40,6 +41,7 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities/1/edit
   def edit
     @opportunity = Opportunity.find(params[:id])
+    @readonly = {}
   end
 
   # POST /opportunities
