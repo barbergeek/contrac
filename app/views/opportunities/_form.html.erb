@@ -12,7 +12,7 @@
 		</div>
 	<% end %>
 	
-	<% f.inputs :class => "span-8" do %>
+	<%= f.inputs :class => "span-8" do %>
 		<%= f.input :acronym, :input_html => @readonly %>
 		<%= f.input :program, :as => :text, :input_html => {:rows => 3}.merge(@readonly) %>
 		<%= f.input :department, :input_html => @readonly %>
@@ -24,17 +24,18 @@
 		<%= f.input :contract_length, :input_html => @readonly %>
 	<% end %>
 	<div class="span-16">
-		<% f.inputs :class => "span-8" do%>
+		<%= f.inputs :class => "span-8" do%>
 			<%= f.input :rfp_release_date, :as => :string, :input_html => @readonly %>
 			<%= f.input :rfp_due_date, :as => :string, :input_html => @readonly %>
 			<%= f.input :award_date, :as => :string, :input_html => @readonly %>
+			<%= f.input :acquisition_url, :input_html => @readonly %>
 			<br/>
 			<%= f.input :location, :input_html => @readonly %>
 			<br/>
 			<%= f.input :input_number, :label => "INPUT Opp. id", :input_html => @readonly%>
 			<%= f.input :input_status, :label => "INPUT status", :input_html => {:readonly => true}%>
 		<% end %>
-		<% f.inputs :class => "span-8" do %>
+		<%= f.inputs :class => "span-8" do %>
 			<%= f.input :business_developer, :input_html => @readonly %>
 			<%= f.input :capture_phase, :input_html => @readonly %>
 			<br/>
@@ -42,8 +43,10 @@
 		<% end %>
 		<%= f.inputs :class => "span-16 clear" do %>
 			<%= f.input :description, :input_html => {:rows => 5}.merge(@readonly), :class => "span-16" %>
-			<%= f.input :comments, :input_html => {:rows => 5}.merge(@readonly), :class => "span-16" %>
 			<%= f.buttons %>
 		<% end %>
+	</div>
+	<div class="clear">
+		<%= render 'comments/comments', :f => f %>
 	</div>
 <% end %>

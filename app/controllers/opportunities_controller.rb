@@ -18,8 +18,10 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities/1.xml
   def show
     @opportunity = Opportunity.find(params[:id])
+    @comments = @opportunity.comments
+    @commentable = @opportunity
     @readonly = {:readonly => true}
-    
+        
     respond_to do |format|
       format.html { render 'edit' } # render the edit page in readonly mode
       format.xml  { render :xml => @opportunity }
@@ -31,7 +33,9 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities/new.xml
   def new
     @opportunity = Opportunity.new
-
+    @comments = @opportunity.comments
+    @commentable = @opportunity
+        
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @opportunity }
@@ -41,14 +45,17 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities/1/edit
   def edit
     @opportunity = Opportunity.find(params[:id])
+    @comments = @opportunity.comments
+    @commentable = @opportunity
     @readonly = {}
+        
   end
 
   # POST /opportunities
   # POST /opportunities.xml
   def create
     @opportunity = Opportunity.new(params[:opportunity])
-
+    
     respond_to do |format|
       if @opportunity.save
         format.html { redirect_to(@opportunity, :notice => 'Opportunity was successfully created.') }
@@ -64,9 +71,14 @@ class OpportunitiesController < ApplicationController
   # PUT /opportunities/1.xml
   def update
     @opportunity = Opportunity.find(params[:id])
-
+    
     respond_to do |format|
       if @opportunity.update_attributes(params[:opportunity])
+#        unless params[:opportunity][:comment][:content].blank?
+#          @opportunity.comments << Comment.new(:content => "#{params[:opportunity][:comment][:content]}",
+#              :source => current_user.initials)
+#          @opportunity.save!
+#        end
         format.html { redirect_to(@opportunity, :notice => 'Opportunity was successfully updated.') }
         format.xml  { head :ok }
       else

@@ -5,13 +5,17 @@ Contrac::Application.routes.draw do
     get "logout", :to => "devise/sessions#destroy"
   end
   resources :users
+  resources :comments
   
   match "/about" => "pages#about"
   match "/help" => 'pages#help'
   match "/contact" => 'pages#contact'
 #  match "/users" => 'user#index'
 
-  resources :opportunities
+  resources :opportunities do
+    resources :comments
+  end
+  
   resources :input_records, :only => [:index, :show, :edit, :update, :destroy] do
     collection do
       get 'import'

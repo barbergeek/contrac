@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110214144639
+# Schema version: 20110217181137
 #
 # Table name: opportunities
 #
@@ -22,18 +22,23 @@
 #  prime                 :string(255)
 #  capture_phase         :string(255)
 #  business_developer_id :integer
-#  comments              :text
 #  created_at            :datetime
 #  updated_at            :datetime
 #  input_status          :string(255)
+#  acquisition_url       :string(255)
 #
 
 class Opportunity < ActiveRecord::Base
   belongs_to :business_developer, :class_name => "User"
+  has_many :comments, :as => :commentable
   
   attr_accessible :acronym, :program, :department, :agency, :description, :location,
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
-                  :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase, :input_status, :business_developer_id
+                  :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase, 
+                  :input_status, :business_developer_id, :acquisition_url, :comments, :comments_attributes
+                  
+  accepts_nested_attributes_for :comments, :reject_if => proc { |attributes| attributes['content'].blank? }
+  
 
                   
 #  validates :acronym, :presence => true

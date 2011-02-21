@@ -2,6 +2,7 @@ Record #: <%= @opportunity.id %> | Created: <%= @opportunity.created_at %> | Mod
 <h1><%= @opportunity.program %><%= ' (' + @opportunity.acronym + ')' unless @opportunity.acronym.blank? %></h1>
 <p>
 	<%= link_to 'Show', @opportunity, :remote => true %> |
+	<%= link_to 'Edit', edit_opportunity_path(@opportunity) %> |
 	<%= link_to 'Back', opportunities_path %>
 </p>
 

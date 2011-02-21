@@ -10,7 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110215142543) do
+ActiveRecord::Schema.define(:version => 20110217181137) do
+
+  create_table "comments", :force => true do |t|
+    t.text     "content"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.string   "source"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "input_records", :force => true do |t|
     t.string   "acronym"
@@ -70,7 +79,6 @@ ActiveRecord::Schema.define(:version => 20110215142543) do
     t.string   "prime"
     t.string   "capture_phase"
     t.integer  "business_developer_id"
-    t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "input_status"
