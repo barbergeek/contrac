@@ -25,9 +25,9 @@
 	<% end %>
 	<div class="span-16">
 		<%= f.inputs :class => "span-8" do%>
-			<%= f.input :rfp_release_date, :as => :string, :input_html => @readonly %>
-			<%= f.input :rfp_due_date, :as => :string, :input_html => @readonly %>
-			<%= f.input :award_date, :as => :string, :input_html => @readonly %>
+			<%= f.input :rfp_release_date, :as => :string, :input_html => {:class => "datepicker"}.merge(@readonly) %>
+			<%= f.input :rfp_due_date, :as => :string, :input_html => {:class => "datepicker"}.merge(@readonly) %>
+			<%= f.input :award_date, :as => :string, :input_html => {:class => "datepicker"}.merge(@readonly) %>
 			<%= f.input :acquisition_url, :input_html => @readonly %>
 			<br/>
 			<%= f.input :location, :input_html => @readonly %>
