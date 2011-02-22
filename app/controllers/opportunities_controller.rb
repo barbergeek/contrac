@@ -10,7 +10,7 @@ class OpportunitiesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @opportunities }
-      format.js
+      format.js { render :layout => false, :content_type => 'text/html' }
     end
   end
 
@@ -39,6 +39,7 @@ class OpportunitiesController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @opportunity }
+      format.js { render :layout => false, :content_type => 'text/html' }
     end
   end
 
@@ -48,6 +49,11 @@ class OpportunitiesController < ApplicationController
     @comments = @opportunity.comments
     @commentable = @opportunity
     @readonly = {}
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @opportunity }
+      format.js { render :layout => false, :content_type => 'text/html' }
+    end
         
   end
 

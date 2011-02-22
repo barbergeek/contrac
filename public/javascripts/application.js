@@ -5,10 +5,31 @@ jQuery.ajaxSetup({
     'beforeSend': function (xhr) {xhr.setRequestHeader("Accept", "text/javascript")}  
 });
 
+//$(function() {
+//	$("ul.css-tabs").tabs();
+//});
+
 // jQuery-UI style buttons
 $(function() {
 	$( "button, input:submit" ).button();
+	$('#tabs').tabs();
+	$('.menu').wijmenu();
+	$(".menu").wijmenu("option", "crumbDefaultText", "Choose an option")
 });
+
+//$(function() {
+//	$( "button, input:submit" ).button();
+//	$('#tabs').tabs({
+//	    select: function(event, ui) {
+//	        var url = $.data(ui.tab, 'load.tabs');
+//	        if( url ) {
+//	            location.href = url;
+//	            return false;
+//	        }
+//	        return true;
+//	    }
+//	});
+//});
 
 $(document).ready(function() {
 	var $dialog = $('<div id="dialog-modal"></div>')
@@ -24,27 +45,3 @@ $(document).ready(function() {
 			}
 		});
 });
-
-// Enable tabs
-//  $(function() {
-//  	$( "#tabs" ).tabs({
-//  		ajaxOptions: {
-//  			error: function( xhr, status, index, anchor ) {
-//  				$( anchor.hash ).html(
-//  					"Couldn't load this tab. We'll try to fix this as soon as possible. " +
-//  					"If this wouldn't be a demo." );
-//  			}
-//  		}ß
-//  	});
-//  });
-
-//$('#example').tabs({
-//    select: function(event, ui) {
-//        var url = $.data(ui.tab, 'load.tabs');
-//        if( url ) {
-//            location.href = url;
-//            return false;
-//        }
-//        return true;
-//    }
-//});
