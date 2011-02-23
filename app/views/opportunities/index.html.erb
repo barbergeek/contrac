@@ -1,22 +1,23 @@
+<%= will_paginate @opportunities %>
 <table class="opportunities">
   <tr>
 	<th class='icons'></th>
-    <th>Acronym</th>
-    <th>Program Name<br/>
-    	Department/Agency</th>
+    <th><%= sortable "acronym" %></th>
+    <th><%= sortable "program", "Program Name" %><br/>
+    	<%= sortable "department" %>/<%= sortable "agency" %></th>
     <th>Description</th>
-	<th>INPUT</th>
-	<th>INPUT Status</th>
-	<th>Value</th>
-	<th>RFP Release</th>
-	<th>Phase</th>
-	<th>BD</th>
+	<th><%= sortable "input_number", "INPUT" %></th>
+	<th><%= sortable "input_status", "INPUT Status" %></th>
+	<th><%= sortable "total_value", "Value" %></th>
+	<th><%= sortable "rfp_release_date", "RFP Release" %></th>
+	<th><%= sortable "capture_phase", "Phase" %></th>
+	<th><%= sortable "users.initials", "BD" %></th>
   </tr>
 
   <%= render @opportunities %>
 
 </table>
-
+<%= will_paginate @opportunities %>
 <br />
 
 <%= link_to 'New Opportunity', new_opportunity_path %>

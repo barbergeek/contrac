@@ -38,12 +38,14 @@ class Opportunity < ActiveRecord::Base
                   :input_status, :business_developer_id, :acquisition_url, :comments, :comments_attributes
                   
   accepts_nested_attributes_for :comments, :reject_if => proc { |attributes| attributes['content'].blank? }
-  
-
-                  
+              
 #  validates :acronym, :presence => true
   validates :program, :presence => true
   validates :department, :presence => true
 #  validates :agency, :presence => true
+
+  def bd_initials
+    business_developer.initials
+  end
   
 end
