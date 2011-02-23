@@ -5,7 +5,7 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities
   # GET /opportunities.xml
   def index
-    @opportunities = Opportunity.paginate :include => :business_developer, :page => params[:page], :per_page => 20, :order => params[:sort] + ' ' + params[:direction]
+    @opportunities = Opportunity.paginate :include => :business_developer, :page => params[:page], :per_page => 20, :order => "#{sort_column} #{sort_direction}"
 
     respond_to do |format|
       format.html # index.html.erb
