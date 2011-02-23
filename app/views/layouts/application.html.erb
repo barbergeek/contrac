@@ -6,35 +6,19 @@
 	<%= javascript_include_tag 'jquery.min','jquery-ui.min','jquery.wijmo-open.1.1.2.min','rails','application' %>
 	<%= csrf_meta_tag %>
 </head>
-<body class="container">
+<body>
 		<%= render 'layouts/header' %>
-		<section class="container round">
-				<ul class="menu">
-					<li><%= link_to "Home", root_path %></li>
-					<% if user_signed_in? %>
-						<li><%= link_to "Opportunities", opportunities_path %>
-							<ul>
-								<li><%= link_to "All Opportunities", opportunities_path %></li>
-								<li><a href="#">My Opportunities</li>
-							</ul>
-						</li>
-						<li><a href="#">Programs</a></li>
-						<li><%= link_to "Input", input_records_path %></li>
-					<% end %>
-				</ul>
+		<section>
+				<%= render 'layouts/menu' %>
 
-		     <% unless flash[:error].nil? %>  
-		       <div class="error"><%= flash[:error] %></div>  
-		     <% end %>  
-		     <% unless flash[:notice].nil? %>  
-		       <div class="notice"><%= flash[:notice] %></div>  
-		     <% end %>  
-		     <% unless flash[:success].nil? %>  
-		       <div class="success"><%= flash[:success] %></div>  
-		     <% end %>  
-				<div id="content">
-					<%= yield %>
-				</div>
+				<% flash.each do |key, msg| %>
+				    <%= content_tag :div, msg, :class => [key, " message"], :id => "notice_#{key}" %>
+				    <%= content_tag :script, :type => "text/javascript" do -%>
+				        setTimeout("$('#notice_<%= key %>').slideUp('slow');", 5000);
+				    <% end %>
+				<% end %>
+ 
+				<%= yield %>
 		</section>
 </body>
 </html>

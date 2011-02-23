@@ -1,11 +1,11 @@
+<div class="prepend-1">
 Record #: <%= @opportunity.id %> | Created: <%= @opportunity.created_at %> | Modified: <%= @opportunity.updated_at %>
 <h1><%= @opportunity.program %><%= ' (' + @opportunity.acronym + ')' unless @opportunity.acronym.blank? %></h1>
-<p>
-	<%= link_to 'Show', @opportunity, :remote => true %> |
-	<%= link_to 'Edit', edit_opportunity_path(@opportunity) %> |
+<p><%= link_to 'Destroy', @opportunity, :confirm => 'Are you sure?', 
+		:method => :delete, :title => "Destroy" %> | 
 	<%= link_to 'Back', opportunities_path %>
 </p>
 
 <%= render 'form' %>
-
+</div>
 

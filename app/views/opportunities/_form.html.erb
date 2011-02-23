@@ -1,4 +1,4 @@
-<%= semantic_form_for(@opportunity) do |f| %>
+<%= simple_form_for(@opportunity) do |f| %>
 	<% if @opportunity.errors.any? %>
 		<div id="error_explanation">
 			<h2>
@@ -11,42 +11,58 @@
 			</ul>
 		</div>
 	<% end %>
-	
-	<%= f.inputs :class => "span-8" do %>
-		<%= f.input :acronym, :input_html => @readonly %>
-		<%= f.input :program, :as => :text, :input_html => {:rows => 3}.merge(@readonly) %>
-		<%= f.input :department, :input_html => @readonly %>
-		<%= f.input :agency, :input_html => @readonly %>
-		<%= f.input :prime, :input_html => @readonly %>
-		<%= f.input :total_value, :input_html => @readonly %>
-		<%= f.input :solicitation_type, :input_html => @readonly %>
-		<%= f.input :contract_type, :input_html => @readonly %>
-		<%= f.input :contract_length, :input_html => @readonly %>
-	<% end %>
-	<div class="span-16">
-		<%= f.inputs :class => "span-8" do%>
-			<%= f.input :rfp_release_date, :as => :string, :input_html => {:class => "datepicker"}.merge(@readonly) %>
-			<%= f.input :rfp_due_date, :as => :string, :input_html => {:class => "datepicker"}.merge(@readonly) %>
-			<%= f.input :award_date, :as => :string, :input_html => {:class => "datepicker"}.merge(@readonly) %>
-			<%= f.input :acquisition_url, :input_html => @readonly %>
-			<br/>
-			<%= f.input :location, :input_html => @readonly %>
-			<br/>
-			<%= f.input :input_number, :label => "INPUT Opp. id", :input_html => @readonly%>
+
+	<div class="column span-8 border white">
+		<%= f.input :acronym %>
+		<%= f.input :program, :as => :text, :input_html => {:rows => 3, :cols => 24} %>
+		<%= f.input :department %>
+		<%= f.input :agency %>
+		<%= f.input :prime %>
+		<%= f.input :location %>
+		<%= f.input :contract_type, :label => "Contract Type" %>
+		<%= f.input :contract_length, :label => "Contract Len." %>
+		<%= f.input :total_value, :as => :string %>
+	</div>
+	<div class="column span-16 last append-bottom">
+		<div class="column span-8 border white">
+			<%= f.input :solicitation_type, :label => "Solic. Type" %>
+			<%= f.input :rfp_release_date, :as => :string, :label => "RFP Release", :input_html => {:class => "datepicker"} %>
+			<%= f.input :rfp_due_date, :as => :string, :label => "RFP Due", :input_html => {:class => "datepicker"} %>
+			<%= f.input :award_date, :as => :string, :label => "Award Date", :input_html => {:class => "datepicker"} %>
+			<%= f.input :acquisition_url, :as => :string, :label => "URL" %>
+			<%= f.input :input_number, :as => :string, :label => "INPUT Opp. id" %>
 			<%= f.input :input_status, :label => "INPUT status", :input_html => {:readonly => true}%>
-		<% end %>
-		<%= f.inputs :class => "span-8" do %>
-			<%= f.input :business_developer, :input_html => @readonly %>
-			<%= f.input :capture_phase, :input_html => @readonly %>
-			<br/>
-			<%= f.input :win_probability, :input_html => @readonly %>
-		<% end %>
-		<%= f.inputs :class => "span-16 clear" do %>
-			<%= f.input :description, :input_html => {:rows => 5}.merge(@readonly), :class => "span-16" %>
-			<%= f.buttons %>
-		<% end %>
+		</div>
+		<div class="column span-8 last white">
+			<%= f.association :business_developer, :label => "Primary BD" %>
+			<%= f.input :capture_phase, :label => "Phase" %>
+			<%= f.input :win_probability, :as => :string, :label => "Win Prob." %>
+		</div>
+		<div class="column span-16 clear last white">
+			<%= f.input :description, :input_html => {:rows => 5, :cols => 65} %>
+		</div>
 	</div>
-	<div class="clear">
-		<%= render 'comments/comments', :f => f %>
+	<div class="clear span-24 append-bottom">
+		<%= f.submit "Save" %>
 	</div>
+
+	<div class="span-24" id="tabs">
+		<ul>
+			<li><a href="#comments-tab">Comments</a></li>
+			<li><a href="#teaming-tab">Teaming</a></li>
+			<li><a href="#history-tab">History</a></li>
+			<li><a href="#capture-tab">Capture</a></li>
+			<li><a href="#proposal-tab">Proposal</a></li>
+		</ul>
+		<div id="comments-tab">
+			<%= render 'comments/comments', :f => f %>
+		</div>
+		<div id="teaming-tab">
+			Teaming
+		</div>
+		<div id="history-tab">
+			History
+		</div>
+	</div>
+	
 <% end %>
