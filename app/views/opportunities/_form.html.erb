@@ -35,7 +35,7 @@
 		</div>
 		<div class="column span-8 last white">
 			<%= f.association :business_developer, :label => "Primary BD" %>
-			<%= f.input :capture_phase, :label => "Phase" %>
+			<%= f.input :capture_phase, :label => "Phase", :collection => Opportunity::PHASES, :label_method => :humanize %>
 			<%= f.input :win_probability, :as => :string, :label => "Win Prob." %>
 		</div>
 		<div class="column span-16 clear last white">
