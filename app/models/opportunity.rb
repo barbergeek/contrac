@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110217181137
+# Schema version: 20110224150812
 #
 # Table name: opportunities
 #
@@ -10,7 +10,7 @@
 #  agency                :string(255)
 #  description           :text
 #  location              :string(255)
-#  input_number          :integer
+#  input_record_id       :integer
 #  total_value           :integer
 #  win_probability       :integer
 #  contract_length       :string(255)
@@ -31,6 +31,7 @@
 class Opportunity < ActiveRecord::Base
   belongs_to :business_developer, :class_name => "User"
   has_many :comments, :as => :commentable
+  belongs_to :input_record, :primary_key => "opportunity_id", :readonly => :true
   
   attr_accessible :acronym, :program, :department, :agency, :description, :location,
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,

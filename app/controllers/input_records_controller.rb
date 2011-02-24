@@ -166,7 +166,7 @@ class InputRecordsController < ApplicationController
         current_record = Opportunity.find_by_input_number(source.opportunity_id) || Opportunity.new
 
         # set INPUT Opportunity ID
-        current_record.update_attribute(:input_number, source.opportunity_id) if current_record.input_number.blank?
+        current_record.update_attribute(:input_record_id, source.opportunity_id) if current_record.input_number.blank?
         
         # merge missing data
         current_record.update_attribute(:acronym, source.acronym) if current_record.acronym.blank? && !source.acronym.blank?

@@ -4,8 +4,8 @@ Department: <%= @opportunity.department %><br />
 Agency: <%= @opportunity.agency %><br />
 Description: <%= @opportunity.description %><br />
 Location: <%= @opportunity.location %><br />
-Input Opportunity ID: <%= link_to_unless @opportunity.input_number.nil?,
-				@opportunity.input_number, input_opportunity_url(@opportunity.input_number),
+Input Opportunity ID: <%= link_to_unless @opportunity.input_record_d.nil?,
+				@opportunity.input_record_id, input_opportunity_url(@opportunity.input_record_id),
 				:target => "_blank" %><br />
 Total Value: <%= @opportunity.total_value %><br />
 Win Probability: <%= @opportunity.win_probability %><br />

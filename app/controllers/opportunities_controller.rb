@@ -49,6 +49,7 @@ class OpportunitiesController < ApplicationController
     @comments = @opportunity.comments
     @commentable = @opportunity
     @readonly = {}
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @opportunity }

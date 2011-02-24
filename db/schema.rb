@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110217181137) do
+ActiveRecord::Schema.define(:version => 20110224150812) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(:version => 20110217181137) do
     t.string   "agency"
     t.text     "description"
     t.string   "location"
-    t.integer  "input_number"
+    t.integer  "input_record_id"
     t.integer  "total_value"
     t.integer  "win_probability"
     t.string   "contract_length"

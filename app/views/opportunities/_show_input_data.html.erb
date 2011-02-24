@@ -1,0 +1,53 @@
+<div class="column span-24 last">
+	<div class="span-8">
+		Opportunity id: <%= o.opportunity_id %><br />
+		Acronym: <%= o.acronym %><br />
+		Title: <%= o.title %><br />
+		Organization: <%= o.organization %><br />
+		<br />
+		Status: <%= o.status %>
+		<br />
+		RFP Number: <%= o.rfp_number %><br />
+		RFP Date: <%= o.rfp_date %><br />
+		Project Award Date: <%= o.project_award_date %><br />
+		Competition Type: <%= o.competition_type %><br />
+		<br />
+		Program Value: <%= o.program_value %><br />
+		Contract Type: <%= o.contract_type %><br />
+		Contract Duration: <%= o.contract_duration %><br />
+	</div>
+	<div class="span-8">
+		Primary Service: <%= o.primary_service %><br />
+		NAICS: <%= o.naics %><br />
+		Primary State of Performance: <%= o.primary_state_of_performance %><br />
+		DoD/Civil: <%= o.dod_civil %><br />
+		<br />
+		Incumbent: <%= o.incumbent %><br />
+		Incumbent Value: <%= o.incumbent_value %><br />
+		Incumbent Contract Number: <%= o.incumbent_contract_number %><br />
+		Incumbent Award Date: <%= o.incumbent_award_date %><br />
+		Incumbent Expire Date: <%= o.incumbent_expire_date %><br />
+		<br />
+		Priority: <%= o.priority %><br />
+	</div>
+	<div class="span-8 last">
+		Vertical: <%= o.vertical %><br />
+		Segment: <%= o.segment %><br />
+		<br />
+		Contract Type Combined: <%= o.contract_type_combined %><br />
+		Contractor Combined: <%= o.contractor_combined %><br />
+		Vertical Combined: <%= o.vertical_combined %><br />
+		Segment Combined: <%= o.segment_combined %><br />
+		Key Contacts: <%= o.key_contacts %><br />
+		User List: <%= o.user_list %><br />
+	</div>
+	<div class="span-24 clearfix last">
+		<br />
+		Summary <%= o.summary %><br />
+		<br />
+		Comments: <%= o.comments %><br />
+		<br />
+		Input URL: <%= link_to o.input_url, o.input_url, :target => "_blank" %><br />
+		Last Updated: <%= o.last_updated %><br />
+	</div>
+</div>
