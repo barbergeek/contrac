@@ -5,8 +5,12 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities
   # GET /opportunities.xml
   def index
-    @opportunities = Opportunity.paginate :include => :business_developer, :page => params[:page], :per_page => 20, :order => "#{sort_column} #{sort_direction}"
-
+    if params[:my]
+      @opportunities = Opportunity.where("business_developer_id = ?", current_user.id).paginate :include => :business_developer, :page => params[:page], :per_page => 20, :order => "#{sort_column} #{sort_direction}"
+    else 
+      @opportunities = Opportunity.paginate :include => :business_developer, :page => params[:page], :per_page => 20, :order => "#{sort_column} #{sort_direction}"
+    end
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @opportunities }
