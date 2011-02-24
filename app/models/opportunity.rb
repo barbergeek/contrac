@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110224150812
+# Schema version: 20110224191514
 #
 # Table name: opportunities
 #
@@ -26,6 +26,7 @@
 #  updated_at            :datetime
 #  input_status          :string(255)
 #  acquisition_url       :string(255)
+#  outcome               :string(255)
 #
 
 class Opportunity < ActiveRecord::Base

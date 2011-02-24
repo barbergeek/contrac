@@ -1,4 +1,8 @@
-<%= will_paginate @opportunities %>
+<div id="opportunity-filter" class="accordion-collapsible span-24 last">
+	<h3><a href="#">Filters</a></h3>
+	<div>Department | Agency | INPUT Status | RFP Date | Capture Phase | Business Developer</div>
+</div>
+<%= will_paginate @opportunities, :class =>"span-24 last" %>
 <table class="opportunities">
   <tr>
 	<th class='icons'></th>

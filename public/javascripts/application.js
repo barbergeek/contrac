@@ -16,6 +16,7 @@ $(function() {
 	$('.menu').wijmenu();
 	$(".menu").wijmenu("option", "crumbDefaultText", "Choose an option");
 	$(".datepicker").datepicker({ dateFormat: 'yy-mm-dd', showOn: 'focus' });
+	$(".accordion-collapsible").accordion({ collapsible: true, alwaysOpen: false, active: false });
 });
 
 //$(function() {
