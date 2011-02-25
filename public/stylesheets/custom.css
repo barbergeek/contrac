@@ -222,3 +222,11 @@ textarea {
 .white {
 	background: #fff;
 }
+
+.checkboxes label {
+    display: block;
+	float: left;
+	padding-right: 10px;
+    padding-left: 24px;
+    text-indent: -24px;
+}

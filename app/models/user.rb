@@ -49,4 +49,8 @@ class User < ActiveRecord::Base
     roles.include?("admin")
   end
   
+  def bd?
+    roles.include?("business_developer")
+  end
+  
 end

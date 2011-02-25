@@ -34,7 +34,7 @@
 			<%= f.input :input_status, :label => "INPUT status", :input_html => {:readonly => true}%>
 		</div>
 		<div class="column span-8 last white">
-			<%= f.association :business_developer, :label => "Primary BD" %>
+			<%= f.association :business_developer, :collection => @bders, :label => "Primary BD" %>
 			<%= f.input :capture_phase, :label => "Phase", :collection => Opportunity::PHASES, :label_method => :humanize %>
 			<%= f.input :win_probability, :as => :string, :label => "Win Prob." %>
 			<%= f.input :outcome, :collection => Opportunity::OUTCOMES, :label_method => :humanize %>

@@ -12,21 +12,15 @@ class OpportunitiesController < ApplicationController
     @capture_phase_filters = @filters[:capture_phase] || {}
     @bd_filters = @filters[:business_developer_id] || {}
     
-    if params[:my]
-      @opportunities = Opportunity.where(@filters).where("business_developer_id = ?", current_user.id).paginate :include => :business_developer, 
-        :page => params[:page], :per_page => 20, 
-        :order => "#{sort_column} #{sort_direction}"
-    else 
-      @opportunities = Opportunity.where(@filters).paginate :include => :business_developer, 
-        :page => params[:page], :per_page => 20, 
-        :order => "#{sort_column} #{sort_direction}"
-    end
+   @opportunities = Opportunity.where(@filters).paginate :include => :business_developer, 
+      :page => params[:page], :per_page => 20, 
+      :order => "#{sort_column} #{sort_direction}"
     
     @departments = Opportunity.find(:all, :select => "distinct department")
-    @agencies = Opportunity.find(:all, :select => "distinct agency")
+    @agencies = Opportunity.find(:all, :select => "distinct agency", :conditions => "agency is not null and agency <> ''")
     @input_statuses = Opportunity.find(:all, :select => "distinct input_status")
     @capture_phases = Opportunity::PHASES
-    @bders = User.find(:all)
+    @bders = User.find(:all).keep_if {|user| user.bd? }
     
     respond_to do |format|
       format.html # index.html.erb
@@ -37,8 +31,7 @@ class OpportunitiesController < ApplicationController
   
   def my
     session[:filters] ||= {}
-    session[:filters] = session[:filters].merge({:business_developer_id => current_user.id.to_s})
-    
+    session[:filters] = session[:filters].merge({:business_developer_id => current_user.id.to_s}) if current_user.bd?
     redirect_to opportunities_path
   end
   
@@ -68,6 +61,7 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.new
     @comments = @opportunity.comments
     @commentable = @opportunity
+    @bders = User.find(:all).keep_if {|user| user.bd? }
         
     respond_to do |format|
       format.html # new.html.erb
@@ -82,6 +76,7 @@ class OpportunitiesController < ApplicationController
     @comments = @opportunity.comments
     @commentable = @opportunity
     @readonly = {}
+    @bders = User.find(:all).keep_if {|user| user.bd? }
     
     respond_to do |format|
       format.html # new.html.erb

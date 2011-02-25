@@ -2,29 +2,46 @@
 <div><%= form_tag filter_opportunities_path do %>
 	<%= hidden_field_tag "my", "true" if params[:my]%>
 	<%= submit_tag "Apply Filters" %>
-	<div class="span-6 border">Department<br />
-		<% @departments.each do |dept| %>
-			<%= check_box_tag "filters[department][]", dept.department, @dept_filters.include?(dept.department) %><%= dept.department %><br />
+	<div class="column span-8 border">
+		<div class="span-8"><b><i>Department</b></i></div>
+		<% group_count = 2 %>
+		<% @departments.in_groups(group_count,false).each do |group| %>
+			<% group_count -= 1 %>
+			<div class="span-4 <%= "last" if group_count == 0 %>">
+			<% group.each do |dept| %>
+				<label><%= check_box_tag "filters[department][]", dept.department, @dept_filters.include?(dept.department) %> <%= dept.department %></label><br />
+			<% end %>
+			</div>
 		<% end %>
 	</div> 
-	<div class="span-6 border">Agency<br />
-		<% @agencies.each do |agency| %>
-			<%= check_box_tag "filters[agency][]", agency.agency, @agency_filters.include?(agency.agency) %><%= agency.agency %><br />
-		<% end %>
-	</div>
-	<div class="span-4 border">INPUT Status<br />
+	<div class="span-4 border">
+		<b><i>INPUT Status</b></i><br />
 		<% @input_statuses.each do |stat| %>
-			<%= check_box_tag "filters[input_status][]", stat.input_status, @input_status_filters.include?(stat.input_status) %><%= stat.input_status %><br />
+			<label><%= check_box_tag "filters[input_status][]", stat.input_status, @input_status_filters.include?(stat.input_status) %> <%= stat.input_status %></label><br />
 		<% end %>
 	</div>
-	<div class="span-4 border">Capture Phase<br />
+	<div class="span-4 border">
+		<b><i>Capture Phase</b></i><br />
 		<% @capture_phases.each do |phase| %>
-			<%= check_box_tag "filters[capture_phase][]", phase, @capture_phase_filters.include?(phase) %><%= phase.humanize %><br />
+			<label><%= check_box_tag "filters[capture_phase][]", phase, @capture_phase_filters.include?(phase) %> <%= phase.humanize %></label><br />
 		<% end %>
 	</div>	
-	<div class="span-4 last">Business Developer<br />
+	<div class="span-6 last">
+		<b><i>Business Developer</b></i><br />
 		<% @bders.each do |bder| %>
-			<%= check_box_tag "filters[business_developer_id][]", bder.id.to_s, @bd_filters.include?(bder.id.to_s) %><%= "#{bder.name} (#{bder.initials})" %><br />
+			<label><%= check_box_tag "filters[business_developer_id][]", bder.id.to_s, @bd_filters.include?(bder.id.to_s) %> <%= "#{bder.name} (#{bder.initials})" %></label><br />
+		<% end %>
+	</div>
+	<div class="clear">
+		<div class="span-24 last prepend-top border"><b><i>Agency</b></i></div>
+			<% group_count = 3 %>
+			<% @agencies.in_groups(group_count,false).each do |group| %>
+				<% group_count -= 1 %>
+				<div class="span-7 <%= "last" if group_count = 0 %>">
+				<% group.each do |agency| %>
+					<label class="checkbox-label"><%= check_box_tag "filters[agency][]", agency.agency, @agency_filters.include?(agency.agency) %> <%= agency.agency %></label><br />
+				<% end %>
+			</div>
 		<% end %>
 	</div>
 	<% end %>

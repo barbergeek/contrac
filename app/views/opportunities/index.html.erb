@@ -1,7 +1,7 @@
-<div id="opportunity-filter" class="accordion-collapsible span-24 last">
+<div id="opportunity-filter" class="accordion-collapsible span-24 last checkboxes">
 	<%= render :partial => 'filters' %>
 </div>
-<%= session[:filters] unless session[:filters].nil? %>
+<%= "<h3>Filtered!</h3>".html_safe unless session[:filters].nil? %>
 <%= will_paginate @opportunities, :class =>"span-24 last" %>
 <table class="opportunities">
   <tr>
@@ -24,4 +24,4 @@
 <%= will_paginate @opportunities %>
 <br />
 
-<%= link_to 'New Opportunity', new_opportunity_path %>
+<%= button_to 'New Opportunity', new_opportunity_path, :method => :get %>
