@@ -13,6 +13,10 @@ Contrac::Application.routes.draw do
 #  match "/users" => 'user#index'
 
   resources :opportunities do
+    collection do
+      post 'filter'
+      get 'my'
+    end
     resources :comments
   end
   

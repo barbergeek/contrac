@@ -1,0 +1,31 @@
+<h3><a href="#">Filters</a></h3>
+<div><%= form_tag filter_opportunities_path do %>
+	<%= hidden_field_tag "my", "true" if params[:my]%>
+	<%= submit_tag "Apply Filters" %>
+	<div class="span-6 border">Department<br />
+		<% @departments.each do |dept| %>
+			<%= check_box_tag "filters[department][]", dept.department, @dept_filters.include?(dept.department) %><%= dept.department %><br />
+		<% end %>
+	</div> 
+	<div class="span-6 border">Agency<br />
+		<% @agencies.each do |agency| %>
+			<%= check_box_tag "filters[agency][]", agency.agency, @agency_filters.include?(agency.agency) %><%= agency.agency %><br />
+		<% end %>
+	</div>
+	<div class="span-4 border">INPUT Status<br />
+		<% @input_statuses.each do |stat| %>
+			<%= check_box_tag "filters[input_status][]", stat.input_status, @input_status_filters.include?(stat.input_status) %><%= stat.input_status %><br />
+		<% end %>
+	</div>
+	<div class="span-4 border">Capture Phase<br />
+		<% @capture_phases.each do |phase| %>
+			<%= check_box_tag "filters[capture_phase][]", phase, @capture_phase_filters.include?(phase) %><%= phase.humanize %><br />
+		<% end %>
+	</div>	
+	<div class="span-4 last">Business Developer<br />
+		<% @bders.each do |bder| %>
+			<%= check_box_tag "filters[business_developer_id][]", bder.id.to_s, @bd_filters.include?(bder.id.to_s) %><%= "#{bder.name} (#{bder.initials})" %><br />
+		<% end %>
+	</div>
+	<% end %>
+</div>

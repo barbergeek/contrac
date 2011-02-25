@@ -5,17 +5,46 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities
   # GET /opportunities.xml
   def index
+    @filters = session[:filters] || {}
+    @dept_filters = @filters[:department] || {}
+    @agency_filters = @filters[:agency] || {}
+    @input_status_filters = @filters[:input_status] || {}
+    @capture_phase_filters = @filters[:capture_phase] || {}
+    @bd_filters = @filters[:business_developer_id] || {}
+    
     if params[:my]
-      @opportunities = Opportunity.where("business_developer_id = ?", current_user.id).paginate :include => :business_developer, :page => params[:page], :per_page => 20, :order => "#{sort_column} #{sort_direction}"
+      @opportunities = Opportunity.where(@filters).where("business_developer_id = ?", current_user.id).paginate :include => :business_developer, 
+        :page => params[:page], :per_page => 20, 
+        :order => "#{sort_column} #{sort_direction}"
     else 
-      @opportunities = Opportunity.paginate :include => :business_developer, :page => params[:page], :per_page => 20, :order => "#{sort_column} #{sort_direction}"
+      @opportunities = Opportunity.where(@filters).paginate :include => :business_developer, 
+        :page => params[:page], :per_page => 20, 
+        :order => "#{sort_column} #{sort_direction}"
     end
+    
+    @departments = Opportunity.find(:all, :select => "distinct department")
+    @agencies = Opportunity.find(:all, :select => "distinct agency")
+    @input_statuses = Opportunity.find(:all, :select => "distinct input_status")
+    @capture_phases = Opportunity::PHASES
+    @bders = User.find(:all)
     
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @opportunities }
       format.js { render :layout => false, :content_type => 'text/html' }
     end
+  end
+  
+  def my
+    session[:filters] ||= {}
+    session[:filters] = session[:filters].merge({:business_developer_id => current_user.id.to_s})
+    
+    redirect_to opportunities_path
+  end
+  
+  def filter
+    session[:filters] = params[:filters]
+    redirect_to opportunities_path
   end
 
   # GET /opportunities/1

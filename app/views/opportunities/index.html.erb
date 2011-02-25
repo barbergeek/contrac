@@ -1,7 +1,7 @@
 <div id="opportunity-filter" class="accordion-collapsible span-24 last">
-	<h3><a href="#">Filters</a></h3>
-	<div>Department | Agency | INPUT Status | RFP Date | Capture Phase | Business Developer</div>
+	<%= render :partial => 'filters' %>
 </div>
+<%= session[:filters] unless session[:filters].nil? %>
 <%= will_paginate @opportunities, :class =>"span-24 last" %>
 <table class="opportunities">
   <tr>
