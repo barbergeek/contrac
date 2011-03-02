@@ -3,10 +3,14 @@
 <head>
 	<title><%= @title %></title>
 	<%= render 'layouts/stylesheets' %>
-	<%= javascript_include_tag 'jquery.min','jquery-ui.min','jquery.wijmo-open.1.1.2.min','rails','application' %>
+	<%= javascript_include_tag 'jquery-1.4.4.min',
+			'jquery-ui-1.8.10.custom.min',
+			'jquery.wijmo-open.1.1.2.min',
+			'rails',
+			'application' %>
 	<%= csrf_meta_tag %>
 </head>
-<body>
+<body class="container">
 		<%= render 'layouts/header' %>
 		<section>
 				<%= render 'layouts/menu' %>

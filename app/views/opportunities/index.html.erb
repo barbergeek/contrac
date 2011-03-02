@@ -4,22 +4,24 @@
 <%= "<h3>Filtered!</h3>".html_safe unless session[:filters].nil? %>
 <%= will_paginate @opportunities, :class =>"span-24 last" %>
 <table class="opportunities">
-  <tr>
-	<th class='icons'></th>
-    <th><%= sortable "acronym" %></th>
-    <th><%= sortable "program", "Program Name" %><br/>
-    	<%= sortable "department" %>/<%= sortable "agency" %></th>
-    <th>Description</th>
-	<th><%= sortable "input_record_id", "INPUT" %></th>
-	<th><%= sortable "input_status", "INPUT Status" %></th>
-	<th><%= sortable "total_value", "Value" %></th>
-	<th><%= sortable "rfp_release_date", "RFP Release" %></th>
-	<th><%= sortable "capture_phase", "Phase" %></th>
-	<th><%= sortable "users.initials", "BD" %></th>
-  </tr>
-
-  <%= render @opportunities %>
-
+	<thead>
+	  <tr>
+		<th class='icons'></th>
+	    <th><%= sortable "acronym" %></th>
+	    <th><%= sortable "program", "Program Name" %><br/>
+	    	<%= sortable "department" %>/<%= sortable "agency" %></th>
+	    <th>Description</th>
+		<th><%= sortable "input_record_id", "INPUT" %></th>
+		<th><%= sortable "input_status", "INPUT Status" %></th>
+		<th><%= sortable "total_value", "Value" %></th>
+		<th><%= sortable "rfp_release_date", "RFP Release" %></th>
+		<th><%= sortable "capture_phase", "Phase" %></th>
+		<th><%= sortable "users.initials", "BD" %></th>
+	  </tr>
+	</thead>
+	<tbody>
+  	<%= render @opportunities %>
+	</tbody>
 </table>
 <%= will_paginate @opportunities %>
 <br />

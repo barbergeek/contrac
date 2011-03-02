@@ -230,3 +230,5 @@ textarea {
     padding-left: 24px;
     text-indent: -24px;
 }
+
+tr.even td {background:#e5ecf9;}

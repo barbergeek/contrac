@@ -1,4 +1,4 @@
-<tr>
+<tr class="<%= cycle("odd","even") %>">
 	<td><%= link_to 'Destroy', opportunity, :confirm => 'Are you sure?', 
 			:method => :delete, :class => "ui-icon ui-icon-trash", :title => "Destroy" %></td>
 	<td><%= opportunity.acronym %></td>
