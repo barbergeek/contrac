@@ -39,7 +39,7 @@
 		<% group_count = 3 %>
 		<% @agencies.in_groups(group_count,false).each do |group| %>
 			<% group_count -= 1 %>
-			<div class="span-7 <%= "last" if group_count = 0 %>">
+			<div class="span-7 <%= "last" if group_count == 0 %>">
 			<% group.each do |agency| %>
 				<label class="checkbox-label"><%= check_box_tag "filters[agency][]", agency.agency, @agency_filters.include?(agency.agency) %> <%= agency.agency %></label><br />
 			<% end %>
