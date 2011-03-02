@@ -15,7 +15,7 @@ Contrac::Application.routes.draw do
   resources :opportunities do
     collection do
       post 'filter'
-      get 'my'
+      get 'my', 'calendar'
     end
     resources :comments
   end

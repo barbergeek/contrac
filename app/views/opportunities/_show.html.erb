@@ -4,7 +4,7 @@ Department: <%= @opportunity.department %><br />
 Agency: <%= @opportunity.agency %><br />
 Description: <%= @opportunity.description %><br />
 Location: <%= @opportunity.location %><br />
-Input Opportunity ID: <%= link_to_unless @opportunity.input_record_d.nil?,
+Input Opportunity ID: <%= link_to_unless @opportunity.input_record_id.nil?,
 				@opportunity.input_record_id, input_opportunity_url(@opportunity.input_record_id),
 				:target => "_blank" %><br />
 Total Value: <%= @opportunity.total_value %><br />

@@ -49,6 +49,10 @@ class Opportunity < ActiveRecord::Base
   PHASES = %w[identification qualification win_strategy pre-proposal proposal post_submittal post_award]
   OUTCOMES = %w[won lost no_bid]
   
+  scope :calendar,
+     where("(outcome <> ? or outcome is null) and (capture_phase not in (?) or capture_phase is null) and rfp_release_date is not null and (input_status is null or input_status not in (?))", "no_bid", %w[post_submittal post_award], %w[Post-RFP])
+     # where (outcome <> 'no_bid' or outcome is null) and (capture_phase not in ('post_submittal','post_award') or capture_phase is null) and rfp_release_date is not null;
+
   def bd_initials
     business_developer.initials
   end

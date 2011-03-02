@@ -1,0 +1,32 @@
+<%= render :partial => 'filters' %>
+
+<%= content_tag("h3","Filtered!") unless session[:filters].empty? %>
+<%= "Start: #{@start}, End: #{@end}, Found: #{@opportunities.length}"%>
+<table class="opportunities">
+	<% span = 24 / @columns %>
+	<% (0..@rows-1).each do |row| %>
+	<thead>
+	  <tr>
+			<% m = row*@columns %>
+			<% (m..m+@columns-1).each do |col| %>
+				<th class="span-<%= span %> <%= "last" if col == m+@columns-1 %>"><%= @start.advance(:months => col).to_s(:month_and_year) %></th>
+			<% end %>
+	  </tr>
+	</thead>
+	<tbody>
+		<tr>
+			<% (m..m+@columns-1).each do |col| %>
+				<% first = true %>
+				<td>
+				<%(@opportunities.select {|o| 
+						o.rfp_release_date.to_s(:month_and_year) == @start.advance(:months => col).to_s(:month_and_year)}).each do |o| %>
+						<%= tag("hr") unless first %>
+						<% first = false %>
+						<%= link_to (o.acronym || o.program), o, :remote => true %><br/><%= o.rfp_release_date.to_s(:short) %><%= " / #{o.input_status}" unless o.input_status.blank? %><%= " / #{o.capture_phase}" unless o.capture_phase.blank? %><%= " [#{o.business_developer.initials}]" unless o.business_developer.nil? %>
+					<% end %>
+				</td>
+			<% end %>
+		</tr>
+	</tbody>
+	<% end %>
+</table>

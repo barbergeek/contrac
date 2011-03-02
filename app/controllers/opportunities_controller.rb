@@ -5,22 +5,12 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities
   # GET /opportunities.xml
   def index
-    @filters = session[:filters] || {}
-    @dept_filters = @filters[:department] || {}
-    @agency_filters = @filters[:agency] || {}
-    @input_status_filters = @filters[:input_status] || {}
-    @capture_phase_filters = @filters[:capture_phase] || {}
-    @bd_filters = @filters[:business_developer_id] || {}
+    
+    setup_filters
     
    @opportunities = Opportunity.where(@filters).paginate :include => :business_developer, 
       :page => params[:page], :per_page => 20, 
       :order => "#{sort_column} #{sort_direction}"
-    
-    @departments = Opportunity.find(:all, :select => "distinct department")
-    @agencies = Opportunity.find(:all, :select => "distinct agency", :conditions => "agency is not null and agency <> ''")
-    @input_statuses = Opportunity.find(:all, :select => "distinct input_status")
-    @capture_phases = Opportunity::PHASES
-    @bders = User.find(:all).keep_if {|user| user.bd? }
     
     respond_to do |format|
       format.html # index.html.erb
@@ -36,7 +26,7 @@ class OpportunitiesController < ApplicationController
   end
   
   def filter
-    session[:filters] = params[:filters]
+    session[:filters] = params[:filters] || {}
     redirect_to opportunities_path
   end
 
@@ -135,6 +125,25 @@ class OpportunitiesController < ApplicationController
     end
   end
   
+  def calendar
+    
+    setup_filters
+
+  	@rows = 5
+  	@columns = 3 # must divide into 24
+
+    @start = Date.today.beginning_of_quarter
+    @end = @start.advance(:months => (@rows*@columns)).advance(:days => -1)
+    
+    @opportunities = Opportunity.calendar.where(@filters).where("rfp_release_date between ? and ?",@start,@end).order("rfp_release_date")
+
+     respond_to do |format|
+       format.html # index.html.erb
+       format.xml  { render :xml => @opportunities }
+       format.js { render :layout => false, :content_type => 'text/html' }
+     end
+  end
+  
   private
     def sort_column
       (%w[users.initials]+Opportunity.column_names).include?(params[:sort]) ? params[:sort] : "program"
@@ -144,4 +153,19 @@ class OpportunitiesController < ApplicationController
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
     
+    def setup_filters
+      @filters = session[:filters] || {}
+      @dept_filters = @filters[:department] || {}
+      @agency_filters = @filters[:agency] || {}
+      @input_status_filters = @filters[:input_status] || {}
+      @capture_phase_filters = @filters[:capture_phase] || {}
+      @bd_filters = @filters[:business_developer_id] || {}
+
+      @departments = Opportunity.find(:all, :select => "distinct department")
+      @agencies = Opportunity.find(:all, :select => "distinct agency", :conditions => "agency is not null and agency <> ''")
+      @input_statuses = Opportunity.find(:all, :select => "distinct input_status")
+      @capture_phases = Opportunity::PHASES
+      @bders = User.find(:all).keep_if {|user| user.bd? }
+      
+    end
 end

@@ -1,8 +1,11 @@
+<div id="opportunity-filter" class="accordion-collapsible span-24 last checkboxes">
 <h3><a href="#">Filters</a></h3>
 <div><%= form_tag filter_opportunities_path do %>
 	<%= hidden_field_tag "my", "true" if params[:my]%>
+	<div class="span-10 last">
 	<%= submit_tag "Apply Filters" %>
-	<div class="column span-8 border">
+	</div>
+	<div class="column span-8 border clear">
 		<div class="span-8"><b><i>Department</b></i></div>
 		<% group_count = 2 %>
 		<% @departments.in_groups(group_count,false).each do |group| %>
@@ -32,17 +35,16 @@
 			<label><%= check_box_tag "filters[business_developer_id][]", bder.id.to_s, @bd_filters.include?(bder.id.to_s) %> <%= "#{bder.name} (#{bder.initials})" %></label><br />
 		<% end %>
 	</div>
-	<div class="clear">
-		<div class="span-24 last prepend-top border"><b><i>Agency</b></i></div>
-			<% group_count = 3 %>
-			<% @agencies.in_groups(group_count,false).each do |group| %>
-				<% group_count -= 1 %>
-				<div class="span-7 <%= "last" if group_count = 0 %>">
-				<% group.each do |agency| %>
-					<label class="checkbox-label"><%= check_box_tag "filters[agency][]", agency.agency, @agency_filters.include?(agency.agency) %> <%= agency.agency %></label><br />
-				<% end %>
-			</div>
-		<% end %>
-	</div>
+	<div class="span-22 last prepend-top border clear"><b><i>Agency</b></i></div>
+		<% group_count = 3 %>
+		<% @agencies.in_groups(group_count,false).each do |group| %>
+			<% group_count -= 1 %>
+			<div class="span-7 <%= "last" if group_count = 0 %>">
+			<% group.each do |agency| %>
+				<label class="checkbox-label"><%= check_box_tag "filters[agency][]", agency.agency, @agency_filters.include?(agency.agency) %> <%= agency.agency %></label><br />
+			<% end %>
+		</div>
 	<% end %>
+	<% end %>
+</div>
 </div>
