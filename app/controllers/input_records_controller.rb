@@ -163,31 +163,31 @@ class InputRecordsController < ApplicationController
       
       input_records = InputRecord.all
       input_records.each do |source|
-        current_record = Opportunity.find_by_input_number(source.opportunity_id) || Opportunity.new
-
-        # set INPUT Opportunity ID
-        current_record.update_attribute(:input_record_id, source.opportunity_id) if current_record.input_number.blank?
-        
+        current_record = Opportunity.find_or_create_by_input_record_id(source.opportunity_id)
+      
         # merge missing data
-        current_record.update_attribute(:acronym, source.acronym) if current_record.acronym.blank? && !source.acronym.blank?
-        current_record.update_attribute(:program, source.title) if current_record.program.blank? && !source.title.blank?
+        current_record.acronym = source.acronym if current_record.acronym.blank? && !source.acronym.blank?
+        current_record.program = source.title if current_record.program.blank? && !source.title.blank?
         
         if current_record.department.blank? || current_record.agency.blank?
           dept,agency = source.organization.split("/")
-          current_record.update_attribute(:department, dept) if current_record.department.blank? && !dept.blank?
-          current_record.update_attribute(:agency, agency) if current_record.agency.blank? && !agency.blank?
+          current_record.department = dept if current_record.department.blank? && !dept.blank?
+          current_record.agency = agency if current_record.agency.blank? && !agency.blank?
         end
         
-        current_record.update_attribute(:description, source.summary) if current_record.description.blank? && !source.summary.blank?
-        current_record.update_attribute(:location, source.primary_state_of_performance) if current_record.location.blank? && !source.primary_state_of_performance.blank?
+        current_record.description = source.summary if current_record.description.blank? && !source.summary.blank?
+        current_record.location = source.primary_state_of_performance if current_record.location.blank? && !source.primary_state_of_performance.blank?
         current_record.total_value = source.program_value if current_record.total_value.blank? && !source.program_value.blank?
         current_record.contract_length = source.contract_duration if current_record.contract_length.blank? && !source.contract_duration.blank?
         current_record.solicitation_type = source.competition_type if current_record.solicitation_type.blank? && !source.competition_type.blank?
         current_record.contract_type = source.contract_type if current_record.contract_type.blank? && !source.contract_type.blank?
-        current_record.rfp_release_date = source.rfp_date if current_record.rfp_release_date.blank? && !source.rfp_date.blank?
+
+        # for now, always take these fields from input
+        current_record.rfp_release_date = source.rfp_date 
+        current_record.award_date = source.project_award_date
+        current_record.input_status = source.status
+        # current_record.rfp_release_date = source.rfp_date if current_record.rfp_release_date.blank? && !source.rfp_date.blank?
         #  rfp_due_date          :date
-        current_record.award_date = source.project_award_date if current_record.award_date.blank? && !source.project_award_date.blank?
-        current_record.input_status = source.status # always take current input status
         
         current_record.save!
       end
