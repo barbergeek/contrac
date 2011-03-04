@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110224191514) do
+ActiveRecord::Schema.define(:version => 20110304200119) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(:version => 20110224191514) do
     t.string   "status"
     t.string   "user_list"
     t.string   "project_award_date"
-    t.string   "opportunity_id"
     t.string   "contract_type"
     t.string   "primary_service"
     t.string   "contract_duration"
@@ -58,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20110224191514) do
     t.text     "vertical_combined"
     t.text     "segment_combined"
     t.text     "key_contacts"
+    t.integer  "opportunity_id"
   end
 
   create_table "opportunities", :force => true do |t|

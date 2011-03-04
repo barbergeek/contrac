@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110211181908
+# Schema version: 20110304200119
 #
 # Table name: input_records
 #
@@ -13,7 +13,6 @@
 #  status                       :string(255)
 #  user_list                    :string(255)
 #  project_award_date           :string(255)
-#  opportunity_id               :string(255)
 #  contract_type                :string(255)
 #  primary_service              :string(255)
 #  contract_duration            :string(255)
@@ -40,6 +39,7 @@
 #  vertical_combined            :text
 #  segment_combined             :text
 #  key_contacts                 :text
+#  opportunity_id               :integer
 #
 
 class InputRecord < ActiveRecord::Base
