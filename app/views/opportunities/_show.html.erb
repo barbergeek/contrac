@@ -17,8 +17,8 @@ RFP Due Date: <%= @opportunity.rfp_due_date %><br />
 Award Date: <%= @opportunity.award_date %><br />
 Prime: <%= @opportunity.prime %><br />
 Capture Phase: <%= @opportunity.capture_phase %><br />
-Business Developer (ID): <%= @opportunity.business_developer_id %><br />
-Comments: <%= @opportunity.comments %><br />
+Business Developer (ID): <%= @opportunity.business_developer.initials unless @opportunity.business_developer.nil? %><br />
+Latest Comments: <%= @opportunity.comments.last.content unless @opportunity.comments.last.nil? %><br />
 Created At: <%= @opportunity.created_at %><br />
 Updated At: <%= @opportunity.updated_at %>
 </p>

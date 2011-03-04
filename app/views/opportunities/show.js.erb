@@ -2,6 +2,16 @@ $("#dialog-modal")
 	.html("<%= escape_javascript(render(:partial => 'show')) %>")
 	.dialog({
 		width: 600,
-		title: "<%= @opportunity.acronym %>"
+		title: "<%= @opportunity.acronym %>",
+		buttons: [
+			{
+				text: "Goto",
+				click: function() { window.location="<%= escape_javascript(url_for(@opportunity))%>"; }
+			},
+			{ 
+				text: "Ok",
+			 	click: function() { $(this).dialog("close"); }
+			}
+		]
 	})
 	.dialog('open');
