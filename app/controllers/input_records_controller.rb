@@ -189,6 +189,10 @@ class InputRecordsController < ApplicationController
         # current_record.rfp_release_date = source.rfp_date if current_record.rfp_release_date.blank? && !source.rfp_date.blank?
         #  rfp_due_date          :date
         
+        # add comment to opportunity.comments unless it's already there
+        current_record.comments << Comment.new(:content => source.comments, :source => "INPUT") unless current_record.comments.find_by_content_and_source(source.comments, "INPUT")
+        
+        # save it
         current_record.save!
       end
     end

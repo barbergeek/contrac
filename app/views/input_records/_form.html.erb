@@ -1,4 +1,4 @@
-<%= semantic_form_for(@input_record) do |f| %>
+<%= simple_form_for(@input_record) do |f| %>
   <% if @input_record.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@input_record.errors.count, "error") %> prohibited this input_record from being saved:</h2>
@@ -10,7 +10,44 @@
       </ul>
     </div>
   <% end %>
-	<%= f.inputs %>
+
+	<%= f.input :acronym                     	%>
+	<%= f.input :title                       	%>
+	<%= f.input :organization                	%>
+	<%= f.input :rfp_number                  	%>
+	<%= f.input :program_value               	%>
+	<%= f.input :rfp_date                    	%>
+	<%= f.input :status                      	%>
+	<%= f.input :user_list                   	%>
+	<%= f.input :project_award_date          	%>
+	<%= f.input :opportunity_id              	%>
+	<%= f.input :contract_type               	%>
+	<%= f.input :primary_service             	%>
+	<%= f.input :contract_duration           	%>
+	<%= f.input :last_updated                	%>
+	<%= f.input :competition_type            	%>
+	<%= f.input :naics                       	%>
+	<%= f.input :primary_state_of_performance	%>
+	<%= f.input :dod_civil                   	%>
+	<%= f.input :incumbent                   	%>
+	<%= f.input :incumbent_value             	%>
+	<%= f.input :incumbent_contract_number   	%>
+	<%= f.input :incumbent_award_date        	%>
+	<%= f.input :incumbent_expire_date       	%>
+	<%= f.input :priority                    	%>
+	<%= f.input :vertical                    	%>
+	<%= f.input :segment                     	%>
+	<%= f.input :created_at                  	%>
+	<%= f.input :updated_at                  	%>
+	<%= f.input :input_url                   	%>
+	<%= f.input :comments                    	%>
+	<%= f.input :summary                     	%>
+	<%= f.input :contract_type_combined      	%>
+	<%= f.input :contractor_combined         	%>
+	<%= f.input :vertical_combined           	%>
+	<%= f.input :segment_combined            	%>
+	<%= f.input :key_contacts                	%>
+
   <div class="actions">
     <%= f.submit %>
   </div>
