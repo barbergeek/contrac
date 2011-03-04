@@ -84,6 +84,10 @@ class InputRecordsController < ApplicationController
   
     # parse the input export file and insert the data into the InputRecords table
     def import_input_data(data)
+      
+      # clear all the old data
+      InputRecord.delete_all
+  
       # grab the table out of the data file
       table = /<table[\w\s="'%]*?>(.*)<\/table>/ims.match(data.squish)
       # split into array rows based on <tr></tr> and do some cleanup
@@ -132,9 +136,6 @@ class InputRecordsController < ApplicationController
       tabledata[0].each_index do |column|
         keys[column] = data_columns[tabledata[0][column]]
       end
-      
-      # clear all the old data
-      InputRecord.delete_all
       
       record_count = 0
       
