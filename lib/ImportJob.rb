@@ -121,7 +121,7 @@ class ImportJob < Struct.new(:jobid)
       # for now, always take these fields from input
       current_record.rfp_release_date = source.rfp_date if current_record.rfp_release_date != source.rfp_date
       current_record.award_date = source.project_award_date if current_record.award_date != source.project_award_date
-      current_record.input_status = source.status of current_record.input_status != source.status
+      current_record.input_status = source.status if current_record.input_status != source.status
       # current_record.rfp_release_date = source.rfp_date if current_record.rfp_release_date.blank? && !source.rfp_date.blank?
       #  rfp_due_date          :date
     
