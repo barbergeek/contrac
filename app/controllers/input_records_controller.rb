@@ -2,6 +2,7 @@ class InputRecordsController < ApplicationController
 
   before_filter :authenticate_user!
 
+  
   # GET /input_records/import
   # just render the template
   def import
@@ -10,9 +11,16 @@ class InputRecordsController < ApplicationController
   # POST /input_records/upload
   def upload
     if params[:datafile]
-      records = import_input_data(params[:datafile].read)
-      flash[:success] = pluralize(records,"records") + " processed"
-      redirect_to input_records_path
+      if params[:import_job]
+        job = Job.create!(:jobtype => :input, :data => params[:datafile].read)
+        Delayed::Job.enqueue ImportJob.new(job.id)
+        flash[:success] = "Import and Merge job queued"
+        redirect_to input_records_path
+      else
+        records = import_input_data(params[:datafile].read)
+        flash[:success] = pluralize(records,"records") + " processed"
+        redirect_to input_records_path
+      end
     else
       flash[:error] = "Data file not uploaded"
       redirect_to import_input_records_path
@@ -81,6 +89,16 @@ class InputRecordsController < ApplicationController
   end
 
   private
+
+    def import_and_merge(data) #for Delayed_Job
+      if data
+        records = import_input_data(data)
+        if records > 0
+          merge_input_data
+        end
+      end
+    end
+    handle_asynchronously :import_and_merge
   
     # parse the input export file and insert the data into the InputRecords table
     def import_input_data(data)

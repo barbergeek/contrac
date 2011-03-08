@@ -1,6 +1,7 @@
 <tr class="<%= cycle("odd","even") %>">
 	<td><%= link_to 'Destroy', opportunity, :confirm => 'Are you sure?', 
-			:method => :delete, :class => "ui-icon ui-icon-trash", :title => "Destroy" %></td>
+			:method => :delete, :class => "ui-icon ui-icon-trash", :title => "Destroy" %><br/>
+			<%= content_tag("span", "", :class => "ui-icon ui-icon-alert ui-state-highlight") if opportunity.updated_at > 7.days.ago %></td>
 	<td><%= opportunity.acronym %></td>
 	<td><%= link_to opportunity.program, edit_opportunity_path(opportunity) %><br/>
 	<i><%= opportunity.department %><%= '/'+opportunity.agency unless opportunity.agency.blank?%></i></td>

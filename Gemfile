@@ -9,6 +9,8 @@ gem "devise"
 gem "cancan"
 gem "gravatar_image_tag"
 
+gem "delayed_job"
+
 group :development do
 	gem 'rspec-rails'
 	gem	'annotate-models'
