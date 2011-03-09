@@ -1,2 +1,14 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<% if user_signed_in? %>
+<h1>IntePros Federal Opportunity Dashboard</h1>
+
+<% high_chart("opp_dep_count_pie", @hc) do |c| %>
+	<%= "options.tooltip.formatter = function() { return this.point.name + ': ' + this.y; }"%>
+<% end %>
+
+<%= high_chart("opp_input_status", @hc2) do |c| %>
+	<%= "options.xAxis.labels.rotation = -45; "%>
+	<%= "options.xAxis.labels.align = 'right'; "%>
+<% end %>
+<% else %>
+ <h1>Sign in</h1>
+<% end %>

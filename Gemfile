@@ -10,6 +10,7 @@ gem "cancan"
 gem "gravatar_image_tag"
 
 gem "delayed_job"
+gem "lazy_high_charts"
 
 group :development do
 	gem 'rspec-rails'
