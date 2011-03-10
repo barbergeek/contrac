@@ -17,21 +17,24 @@ $(function() {
 	$(".menu").wijmenu("option", "crumbDefaultText", "Choose an option");
 	$(".datepicker").datepicker({ dateFormat: 'yy-mm-dd', showOn: 'focus' });
 	$(".accordion-collapsible").accordion({ collapsible: true, alwaysOpen: false, active: false });
-});
+	$(".column").sortable({
+		connectWith: ".column"
+	});
+	$( ".portlet" ).addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+		.find( ".portlet-header" )
+			.addClass( "ui-widget-header ui-corner-all" )
+			.prepend( "<span class='ui-icon ui-icon-minusthick'></span>")
+			.end()
+		.find( ".portlet-content" );
 
-//$(function() {
-//	$( "button, input:submit" ).button();
-//	$('#tabs').tabs({
-//	    select: function(event, ui) {
-//	        var url = $.data(ui.tab, 'load.tabs');
-//	        if( url ) {
-//	            location.href = url;
-//	            return false;
-//	        }
-//	        return true;
-//	    }
-//	});
-//});
+	$( ".portlet-header .ui-icon" ).click(function() {
+		$( this ).toggleClass( "ui-icon-minusthick" ).toggleClass( "ui-icon-plusthick" );
+		$( this ).parents( ".portlet:first" ).find( ".portlet-content" ).toggle();
+	});
+
+	$( ".column" ).disableSelection();
+	
+});
 
 $(document).ready(function() {
 	var $dialog = $('<div id="dialog-modal"></div>')
@@ -47,3 +50,4 @@ $(document).ready(function() {
 			}
 		});
 });
+

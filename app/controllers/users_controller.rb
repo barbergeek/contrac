@@ -46,6 +46,9 @@ class UsersController < ApplicationController
     end
   end
   
+  def check_user
+  end
+  
   private
   
     def redirect_back_or_to(default)

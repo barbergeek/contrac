@@ -1,0 +1,35 @@
+<% title ||= "Table Portlet" %>
+<div class="portlet">
+	<div class="portlet-header"><%= title %></div>
+	<div class="portlet-content">
+		<% unless table[0].nil? %>
+		<table>
+			<thead>
+				<tr>
+					<% table[0].attributes.each do |col,val| %>
+						<% unless col == "id" %>
+							<th><%= col.titleize %></th>
+						<% end %>
+					<% end %>
+				</tr>
+			</thead>
+			<tbody>
+				<% table.each do |row| %>
+					<tr>
+						<% row.attributes.each do |col,val| %>
+							<% if col == "id" %>
+								<% @id = val %>
+							<% else %>
+								<td><%= @id.nil? ? val : link_to(val,"opportunities/#{@id}") %></td>
+								<% @id = nil %>
+							<% end %>
+						<% end %>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<% else %>
+			No data
+		<% end %>
+	</div>
+</div>

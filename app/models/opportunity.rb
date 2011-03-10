@@ -48,11 +48,11 @@ class Opportunity < ActiveRecord::Base
   OUTCOMES = %w[won lost no_bid]
   
   scope :calendar,
-     where("(outcome <> ? or outcome is null) and (capture_phase not in (?) or capture_phase is null) and rfp_release_date is not null and (input_status is null or input_status not in (?))", "no_bid", %w[post_submittal post_award], %w[Post-RFP])
+     where("(outcome <> ? or outcome is null) and (capture_phase not in (?) or capture_phase is null) and rfp_release_date is not null and (input_status is null or input_status not in (?))", "no_bid", %w[post_submittal post_award], %w[Post-RFP Awarded])
      # where (outcome <> 'no_bid' or outcome is null) and (capture_phase not in ('post_submittal','post_award') or capture_phase is null) and rfp_release_date is not null;
 
   scope :unawarded,
-    where("(outcome not in (?) or outcome is null) and (capture_phase not in (?) or capture_phase is null) and rfp_release_date is not null and (input_status is null or input_status not in (?))", %w[no_bid lost], %w[post_submittal post_award], %w[Post-RFP])
+    where("(outcome not in (?) or outcome is null) and (capture_phase not in (?) or capture_phase is null) and rfp_release_date is not null and (input_status is null or input_status not in (?))", %w[no_bid lost], %w[post_submittal post_award], ["Post-RFP","Awarded","Deleted/Canceled","Umbrella Program","Source Selection"])
     
   scope :lost,
     where("outcome = 'lost'")
@@ -66,6 +66,10 @@ class Opportunity < ActiveRecord::Base
     
   def self.input_status_count
     count(:all, :group => "input_status")
+  end
+  
+  def self.for_who(who)
+    where("business_developer_id = ?",who)
   end
   
   def bd_initials
