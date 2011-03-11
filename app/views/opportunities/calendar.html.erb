@@ -1,6 +1,6 @@
 <%= render :partial => 'filters' %>
 
-<%= content_tag("h3","Filtered!") unless session[:filters].empty? %>
+<%= content_tag("h3","Filtered!") unless @filters.empty? %>
 <%= "Start: #{@start}, End: #{@end}, Found: #{@opportunities.length}"%>
 <table class="opportunities">
 	<% span = 24 / @columns %>
