@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  helper PortletsHelper
   
   def home
   end

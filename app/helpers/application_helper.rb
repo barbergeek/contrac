@@ -1,7 +1,5 @@
 module ApplicationHelper
-  
-  include PortletHelper
-  
+    
   def title(title)
     @title = title || "CONtrack"
   end
