@@ -11,6 +11,7 @@ gem "gravatar_image_tag"
 
 gem "delayed_job"
 gem "lazy_high_charts"
+gem "RedCloth"
 
 group :development do
 	gem 'rspec-rails'

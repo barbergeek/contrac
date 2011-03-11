@@ -70,6 +70,11 @@ class PortletsController < ApplicationController
     render_to_body :template => 'portlets/column_chart'
   end
 
+  def portlet__announcements(*)
+    announcements = Announcement.for_front_page
+    render_to_body :template => 'portlets/announcements', :locals => {:title => "Announcements", :announcements => announcements}
+  end
+  
   def portlet__upcoming_opportunities(*)
     data = Opportunity.pre_rfp.program_and_rfp_date.limit(5).by_rfp_date
     render_to_body :template => 'portlets/table', :locals => {:title => "Upcoming Opportunities", :table => data }

@@ -1,5 +1,7 @@
 Contrac::Application.routes.draw do
   
+  resources :announcements
+
   devise_for :user do
     get "login", :to => "devise/sessions#new"
     get "logout", :to => "devise/sessions#destroy"

@@ -78,6 +78,11 @@ nav ul li a:hover {
 	text-decoration: underline;
 }
 
+/* Menu */
+.wijmo-wijmenu-text {
+	font-weight: bold;
+}
+
 /* Round corners */
 
 .round {
@@ -232,3 +237,23 @@ textarea {
 }
 
 tr.even td {background:#e5ecf9;}
+
+/* Announcement */
+
+div.announcement {
+	
+}
+
+div.announcement span.message p, div.announcement hr {
+	margin-bottom: 0;
+	margin-left: 2em;
+	margin-right: 2em;
+
+}
+div.announcement div.footer {
+	margin-left: 2em;
+}
+
+div.announcement div.footer span {
+	font-size: 75%;
+}

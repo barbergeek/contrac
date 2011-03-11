@@ -1,0 +1,19 @@
+<% title ||= "Text Portlet" %>
+<div class="portlet">
+	<div class="portlet-header"><%= title %></div>
+	<div class="portlet-content">
+		<% first = true %>
+	  <% announcements.each do |ann| %>
+			<div class="announcement">
+				<%= tag("hr") if announcements.size > 1 and !first %>
+		    <h1><%= ann.title %></h1>
+		    <%= content_tag("span",ann.formatted_text.html_safe, :class => "message") %>
+				<div class="footer">
+					<%= content_tag("span",ann.author, :class => "author") %>
+					<%= content_tag("span",ann.updated_at, :class => "updated_at" )%>
+				</div>
+			</div>
+			<% first = false %>
+	  <% end %>
+	</div>
+</div>

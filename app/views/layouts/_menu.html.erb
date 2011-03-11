@@ -12,5 +12,8 @@
 		</li>
 		<li><a href="#">Programs</a></li>
 		<li><%= link_to "Input", input_records_path %></li>
+		<% if current_user.admin? %>
+			<li><%= link_to "Announcements", announcements_path %></li>
+		<% end %>
 	<% end %>
 </ul>

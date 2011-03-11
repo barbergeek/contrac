@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
-<% session[:current_user] = current_user %>
-<h1>IntePros Federal Opportunity Dashboard</h1>
-
+<div class="dashboard column span-24 last">
+	<%= portlet :announcements %>
+</div>
 <div class="dashboard column span-8">
 	<%= portlet :upcoming_opportunities %>
 	<% if current_user.bd? %>
