@@ -86,7 +86,7 @@ class Opportunity < ActiveRecord::Base
   end
 
   def self.program_and_update_date
-    select("id,program,updated_at update_date")
+    select("id,program,updated_at AS update_date")
   end
   
   def self.by_rfp_date
