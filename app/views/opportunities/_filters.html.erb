@@ -30,7 +30,7 @@
 		<% end %>
 	</div>	
 	<div class="span-6 last">
-		<b><i>Business Developer</b></i><br />
+		<b><i>Capture/Business Development</b></i><br />
 		<% @bders.each do |bder| %>
 			<label><%= check_box_tag "filters[business_developer_id][]", bder.id.to_s, @bd_filters.include?(bder.id.to_s) %> <%= "#{bder.name} (#{bder.initials})" %></label><br />
 		<% end %>

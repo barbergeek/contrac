@@ -19,6 +19,9 @@ Contrac::Application.routes.draw do
       post 'filter'
       get 'my', 'calendar'
     end
+    member do
+      post 'watch'
+    end
     resources :comments
   end
   

@@ -34,6 +34,7 @@ class Opportunity < ActiveRecord::Base
   belongs_to :business_developer, :class_name => "User"
   has_many :comments, :as => :commentable
   belongs_to :input_record, :primary_key => "opportunity_id", :readonly => :true
+  has_and_belongs_to_many :watchers, :class_name => "User"
   
   attr_accessible :acronym, :program, :department, :agency, :description, :location,
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
@@ -64,7 +65,11 @@ class Opportunity < ActiveRecord::Base
   
   scope :won,
     where("outcome = 'won'")
-    
+  
+  def watched_by?(who)
+    watchers.include?(who)
+  end
+  
   def self.department_count
     count(:all, :group => "department")
   end

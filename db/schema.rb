@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110311170657) do
+ActiveRecord::Schema.define(:version => 20110311185827) do
 
   create_table "announcements", :force => true do |t|
     t.string   "author"
@@ -116,6 +116,13 @@ ActiveRecord::Schema.define(:version => 20110311170657) do
     t.string   "acquisition_url"
     t.string   "outcome"
     t.integer  "our_value"
+  end
+
+  create_table "opportunities_users", :id => false, :force => true do |t|
+    t.integer  "opportunity_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

@@ -2,6 +2,9 @@ Record #: <%= @opportunity.id %> | Created: <%= @opportunity.created_at %> | Mod
 <h1><%= @opportunity.program %><%= ' (' + @opportunity.acronym + ')' unless @opportunity.acronym.blank? %></h1>
 <p><%= link_to 'Destroy', @opportunity, :confirm => 'Are you sure?', 
 		:method => :delete, :title => "Destroy" %> | 
+	<% c = @opportunity.watched_by?(current_user) ? "Unwatch" : "Watch" %>
+	<%= link_to c, watch_opportunity_path(@opportunity), 
+		:method => :post %> | 	
 	<%= link_to 'Back', opportunities_path %>
 </p>
 

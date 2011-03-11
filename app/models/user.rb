@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable, :lockable, :timeoutable, :registerable,
   devise :database_authenticatable, 
          :recoverable, :rememberable, :trackable, :validatable
+         
+  has_and_belongs_to_many :opportunities
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :roles, :name, :initials
@@ -35,6 +37,10 @@ class User < ActiveRecord::Base
   # Roles
   ROLES = %w[admin business_developer bd_manager capture_manager senior_manager]
   
+  def self.by_initials
+    order("initials")
+  end
+    
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum
   end
@@ -51,6 +57,14 @@ class User < ActiveRecord::Base
   
   def bd?
     roles.include?("business_developer")
+  end
+  
+  def capture?
+    roles.include?("business_developer") or roles.include?("capture_manager")
+  end
+  
+  def capture_manager?
+    roles.include?("capture_manager")
   end
   
 end

@@ -8,7 +8,7 @@ class OpportunitiesController < ApplicationController
     
     setup_filters
     
-   @opportunities = Opportunity.where(@filters).paginate :include => :business_developer, 
+   @opportunities = Opportunity.where(@filters).paginate :include => [:business_developer, :watchers], 
       :page => params[:page], :per_page => 20, 
       :order => "#{sort_column} #{sort_direction}"
     
@@ -36,7 +36,6 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.find(params[:id])
     @comments = @opportunity.comments
     @commentable = @opportunity
-    @readonly = {:readonly => true}
         
     respond_to do |format|
       format.html { render 'edit' } # render the edit page in readonly mode
@@ -51,7 +50,7 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.new
     @comments = @opportunity.comments
     @commentable = @opportunity
-    @bders = User.find(:all).keep_if {|user| user.bd? }
+    @bders = User.by_initials.keep_if {|user| user.capture? }
         
     respond_to do |format|
       format.html # new.html.erb
@@ -65,8 +64,7 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.find(params[:id])
     @comments = @opportunity.comments
     @commentable = @opportunity
-    @readonly = {}
-    @bders = User.find(:all).keep_if {|user| user.bd? }
+    @bders = User.by_initials.keep_if {|user| user.capture? }
     
     respond_to do |format|
       format.html # new.html.erb
@@ -144,6 +142,21 @@ class OpportunitiesController < ApplicationController
      end
   end
   
+  def watch
+    @opportunity = Opportunity.find(params[:id])
+    if @opportunity.watched_by?(current_user)
+      @opportunity.watchers -= [current_user]
+    else
+      @opportunity.watchers << current_user
+    end
+    @opportunity.save!
+    
+    respond_to do |format|
+      format.html { redirect_to(opportunities_path)}
+      format.xml { head :ok }
+    end
+  end
+  
   private
     def sort_column
       (%w[users.initials]+Opportunity.column_names).include?(params[:sort]) ? params[:sort] : "program"
@@ -165,7 +178,7 @@ class OpportunitiesController < ApplicationController
       @agencies = Opportunity.find(:all, :select => "distinct agency", :conditions => "agency is not null and agency <> ''")
       @input_statuses = Opportunity.find(:all, :select => "distinct input_status")
       @capture_phases = Opportunity::PHASES
-      @bders = User.find(:all).keep_if {|user| user.bd? }
+      @bders = User.find(:all).keep_if {|user| user.capture? }
       
     end
 end
