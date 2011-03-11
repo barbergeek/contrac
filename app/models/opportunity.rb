@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110224191514
+# Schema version: 20110311031948
 #
 # Table name: opportunities
 #
@@ -27,6 +27,7 @@
 #  input_status          :string(255)
 #  acquisition_url       :string(255)
 #  outcome               :string(255)
+#  our_value             :integer
 #
 
 class Opportunity < ActiveRecord::Base
@@ -37,7 +38,8 @@ class Opportunity < ActiveRecord::Base
   attr_accessible :acronym, :program, :department, :agency, :description, :location,
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
                   :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase, 
-                  :input_status, :business_developer_id, :acquisition_url, :comments, :comments_attributes
+                  :input_status, :business_developer_id, :acquisition_url, :comments, :comments_attributes, :outcome,
+                  :our_value
                   
   accepts_nested_attributes_for :comments, :reject_if => proc { |attributes| attributes['content'].blank? }
   
@@ -52,14 +54,17 @@ class Opportunity < ActiveRecord::Base
      # where (outcome <> 'no_bid' or outcome is null) and (capture_phase not in ('post_submittal','post_award') or capture_phase is null) and rfp_release_date is not null;
 
   scope :unawarded,
-    where("(outcome not in (?) or outcome is null) and rfp_release_date is not null and (input_status is null or input_status not in (?))", %w[no_bid lost], ["Awarded","Deleted/Canceled"])
-    
+    where("outcome is null and rfp_release_date is not null and (input_status is null or input_status not in (?))", ["Awarded","Deleted/Canceled"])
+ 
+  scope :pre_rfp,
+    where("outcome is null and rfp_release_date is not null and (input_status is null or input_status in (?)) and (capture_phase is null or capture_phase not in (?))", ["Pre-RFP","Forecast Pre-RFP"], %w[post_submittal post_award])
+
   scope :lost,
     where("outcome = 'lost'")
   
   scope :won,
     where("outcome = 'won'")
-  
+    
   def self.department_count
     count(:all, :group => "department")
   end
@@ -70,6 +75,26 @@ class Opportunity < ActiveRecord::Base
   
   def self.for(who)
     where("business_developer_id = ?",who.id)
+  end
+  
+  def self.recently_updated(since = 7.days.ago)
+    where("updated_at > ?",since)
+  end
+  
+  def self.program_and_rfp_date
+    select("id,program,rfp_release_date")
+  end
+
+  def self.program_and_update_date
+    select("id,program,updated_at update_date")
+  end
+  
+  def self.by_rfp_date
+    order("rfp_release_date asc")
+  end
+  
+  def self.by_updated_desc
+    order("updated_at desc")
   end
   
   def bd_initials

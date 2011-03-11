@@ -15,7 +15,7 @@ class PortletsController < ApplicationController
       })
     end
   
-    render_to_body :template => 'portlet/opportunities_by_department'
+    render_to_body :template => 'portlets/pie_chart'
   end
 
   def portlet__unawarded_opportunities_by_input_status(*)
@@ -32,7 +32,7 @@ class PortletsController < ApplicationController
       f.options[:legend][:enabled] = false
     end
 
-    render_to_body :template => 'portlet/opportunities_by_input_status'
+    render_to_body :template => 'portlets/column_chart'
   end
 
   def portlet__my_unawarded_opportunities_by_input_status(current_user)
@@ -49,7 +49,7 @@ class PortletsController < ApplicationController
       f.options[:legend][:enabled] = false
     end
 
-    render_to_body :template => 'portlet/opportunities_by_input_status'
+    render_to_body :template => 'portlets/column_chart'
   end
 
 
@@ -67,27 +67,30 @@ class PortletsController < ApplicationController
       f.options[:legend][:enabled] = false
     end
 
-    render_to_body :template => 'portlet/opportunities_by_input_status'
+    render_to_body :template => 'portlets/column_chart'
   end
 
   def portlet__upcoming_opportunities(*)
-    @data = Opportunity.unawarded.select("id,program,rfp_release_date").limit(5).order("rfp_release_date asc")
-  
-    render_to_body :template => 'portlet/table', :locals => {:title => "Upcoming Opportunities", :table => @data }
+    data = Opportunity.pre_rfp.program_and_rfp_date.limit(5).by_rfp_date
+    render_to_body :template => 'portlets/table', :locals => {:title => "Upcoming Opportunities", :table => data }
   end
 
   def portlet__my_upcoming_opportunities(current_user)
-
-    @data = Opportunity.unawarded.select("id,program,rfp_release_date").for(current_user).limit(5).order("rfp_release_date asc")
-  
-    render_to_body :template => 'portlet/table', :locals => {:title => "My Upcoming Opportunities", :table => @data }
+    data = Opportunity.pre_rfp.program_and_rfp_date.for(current_user).limit(5).by_rfp_date
+    render_to_body :template => 'portlets/table', :locals => {:title => "My Upcoming Opportunities", :table => data }
   end
+
+  def portlet__recently_updated_opportunities(*)
+    data = Opportunity.pre_rfp.program_and_update_date.recently_updated.limit(8).by_updated_desc
+    render_to_body :template => 'portlets/table', :locals => {:title => "Recently Updated Opportunities", :table => data }
+  end
+
 
   def portlet__table(*)
   end
 
   def portlet__text(*)
-    render_to_body :template => 'portlet/text', :locals => {:title => "Text Test" }
+    render_to_body :template => 'portlets/text', :locals => {:title => "Text Test" }
   end
 
 end

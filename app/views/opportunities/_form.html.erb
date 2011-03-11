@@ -21,7 +21,8 @@
 		<%= f.input :location %>
 		<%= f.input :contract_type, :label => "Contract Type" %>
 		<%= f.input :contract_length, :label => "Contract Len." %>
-		<%= f.input :total_value, :as => :string %>
+		<%= f.input :total_value, :as => :string, :label => "Total Value" %>
+		<%= f.input :our_value, :label => "IntePros Value", :input_html => {:size => 10}%>
 	</div>
 	<div class="column span-16 last append-bottom">
 		<div class="column span-10 border">

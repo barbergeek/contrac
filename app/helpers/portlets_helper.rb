@@ -6,7 +6,7 @@ module PortletsHelper
   end
 
   def highchart_portlet(hc, options = {}, &block)
-    block_to_partial('portlet/highchart', options.merge(:hc => hc), &block)
+    block_to_partial('portlets/highchart', options.merge(:hc => hc), &block)
   end
 
 end

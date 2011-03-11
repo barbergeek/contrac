@@ -2,12 +2,16 @@
 <% session[:current_user] = current_user %>
 <h1>IntePros Federal Opportunity Dashboard</h1>
 
-<div class="column span-8">
+<div class="dashboard column span-8">
 	<%= portlet :upcoming_opportunities %>
-	<%= portlet :my_upcoming_opportunities %>
-	<%= portlet :my_unawarded_opportunities_by_input_status %>
+	<% if current_user.bd? %>
+		<%= portlet :my_upcoming_opportunities %>
+		<%= portlet :my_unawarded_opportunities_by_input_status %>
+	<% else %>
+		<%= portlet :recently_updated_opportunities %>
+	<% end %>
 </div>
-<div class="column span-16 last">
+<div class="dashboard column span-16 last">
 	<%= portlet :opportunities_by_department %>
 	
 	<%= portlet :all_opportunities_by_input_status %>
