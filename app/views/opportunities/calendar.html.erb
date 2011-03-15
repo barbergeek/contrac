@@ -22,7 +22,7 @@
 						o.rfp_release_date.to_s(:month_and_year) == @start.advance(:months => col).to_s(:month_and_year)}).each do |o| %>
 						<%= tag("hr") unless first %>
 						<% first = false %>
-						<%= link_to (o.acronym || o.program), o, :remote => true %><br/><%= o.rfp_release_date.to_s(:short) %><%= " / #{o.input_status}" unless o.input_status.blank? %><%= " / #{o.capture_phase}" unless o.capture_phase.blank? %><%= " [#{o.business_developer.initials}]" unless o.business_developer.nil? %>
+						<%= link_to (o.acronym || o.program), o, :remote => true %><br/><%= o.rfp_release_date.to_s(:short) %><%= " / #{o.input_status}" unless o.input_status.blank? %><%= " / #{o.capture_phase}" unless o.capture_phase.blank? %><%= " [#{o.owner_initials}]" unless o.owner.nil? %>
 					<% end %>
 				</td>
 			<% end %>

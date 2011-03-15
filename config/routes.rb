@@ -6,7 +6,13 @@ Contrac::Application.routes.draw do
     get "login", :to => "devise/sessions#new"
     get "logout", :to => "devise/sessions#destroy"
   end
-  resources :users
+  
+  resources :users do
+    collection do
+      post 'become'
+    end
+  end
+  
   resources :comments
   
   match "/about" => "pages#about"
@@ -17,10 +23,10 @@ Contrac::Application.routes.draw do
   resources :opportunities do
     collection do
       post 'filter'
-      get 'my', 'calendar'
+      get 'my', 'calendar', 'all'
     end
     member do
-      post 'watch'
+      post 'watch', 'own'
     end
     resources :comments
   end

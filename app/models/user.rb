@@ -28,7 +28,8 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable, :lockable, :timeoutable, :registerable,
   devise :database_authenticatable, 
          :recoverable, :rememberable, :trackable, :validatable
-         
+  
+  has_many :opportunities, :foreign_key => :owner_id
   has_many :watched_opportunities
   has_many :watched, :through => :watched_opportunities, :source => :opportunity
 

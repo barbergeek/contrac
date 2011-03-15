@@ -1,14 +1,13 @@
 class OpportunitiesController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_filter :authenticate_user!, :except=> :watch
+  before_filter :authenticate_user!
   
   # GET /opportunities
   # GET /opportunities.xml
   def index
-    session[:current_user] = current_user
     setup_filters
     
-   @opportunities = Opportunity.where(@filters).paginate :include => [:business_developer, :watchers], 
+   @opportunities = Opportunity.where(@filters).paginate :include => [:owner, :watchers], 
       :page => params[:page], :per_page => 20, 
       :order => "#{sort_column} #{sort_direction}"
     
@@ -21,7 +20,13 @@ class OpportunitiesController < ApplicationController
   
   def my
     session[:filters] ||= {}
-    session[:filters] = session[:filters].merge({:business_developer_id => current_user.id.to_s}) if current_user.bd?
+    session[:filters] = session[:filters].merge({:owner_id => current_user.id.to_s}) if current_user.capture?
+    redirect_to opportunities_path
+  end
+  
+  def all
+    session[:filters] ||= {}
+    session[:filters][:owner_id] = nil
     redirect_to opportunities_path
   end
   
@@ -50,7 +55,7 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.new
     @comments = @opportunity.comments
     @commentable = @opportunity
-    @bders = User.by_initials.keep_if {|user| user.capture? }
+    @owners = User.by_initials.keep_if {|user| user.capture? }
         
     respond_to do |format|
       format.html # new.html.erb
@@ -64,7 +69,7 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.find(params[:id])
     @comments = @opportunity.comments
     @commentable = @opportunity
-    @bders = User.by_initials.keep_if {|user| user.capture? }
+    @owners = User.by_initials.keep_if {|user| user.capture? }
     
     respond_to do |format|
       format.html # new.html.erb
@@ -143,14 +148,24 @@ class OpportunitiesController < ApplicationController
   end
   
   def watch
-    current_user = session[:current_user]
-    u = User.find(current_user)
     @opportunity = Opportunity.find(params[:id])
-    if @opportunity.watched_by?(u)
-      @opportunity.watchers -= [u]
+    if @opportunity.watched_by?(current_user)
+      @opportunity.watchers -= [current_user]
     else
-      @opportunity.watchers << u
+      @opportunity.watchers << current_user
     end
+    @opportunity.save!
+    
+    respond_to do |format|
+      format.html { redirect_to(opportunities_path)}
+      format.xml { head :ok }
+      format.js
+    end
+  end
+  
+  def own
+    @opportunity = Opportunity.find(params[:id])
+    @opportunity.owner = current_user
     @opportunity.save!
     
     respond_to do |format|
@@ -175,13 +190,13 @@ class OpportunitiesController < ApplicationController
       @agency_filters = @filters[:agency] || {}
       @input_status_filters = @filters[:input_status] || {}
       @capture_phase_filters = @filters[:capture_phase] || {}
-      @bd_filters = @filters[:business_developer_id] || {}
+      @owner_filters = @filters[:owner_id] || {}
 
       @departments = Opportunity.find(:all, :select => "distinct department")
       @agencies = Opportunity.find(:all, :select => "distinct agency", :conditions => "agency is not null and agency <> ''")
       @input_statuses = Opportunity.find(:all, :select => "distinct input_status")
       @capture_phases = Opportunity::PHASES
-      @bders = User.find(:all).keep_if {|user| user.capture? }
+      @owners = User.find(:all).keep_if {|user| user.capture? }
       
     end
 end

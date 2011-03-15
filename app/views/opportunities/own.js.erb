@@ -1,0 +1,4 @@
+$("#own-opportunity-<%= @opportunity.id %>")
+	.addClass("owned");
+$("#opportunity-<%= @opportunity.id %>-owner")
+	.html("<%= @opportunity.owner_initials %>");

@@ -1,42 +1,47 @@
 # == Schema Information
-# Schema version: 20110311031948
+# Schema version: 20110315145530
 #
 # Table name: opportunities
 #
-#  id                    :integer         not null, primary key
-#  acronym               :string(255)
-#  program               :string(255)
-#  department            :string(255)
-#  agency                :string(255)
-#  description           :text
-#  location              :string(255)
-#  input_record_id       :integer
-#  total_value           :integer
-#  win_probability       :integer
-#  contract_length       :string(255)
-#  solicitation_type     :string(255)
-#  contract_type         :string(255)
-#  rfp_release_date      :date
-#  rfp_due_date          :date
-#  award_date            :date
-#  prime                 :string(255)
-#  capture_phase         :string(255)
-#  business_developer_id :integer
-#  created_at            :datetime
-#  updated_at            :datetime
-#  input_status          :string(255)
-#  acquisition_url       :string(255)
-#  outcome               :string(255)
-#  our_value             :integer
+#  id                :integer         not null, primary key
+#  acronym           :string(255)
+#  program           :string(255)
+#  department        :string(255)
+#  agency            :string(255)
+#  description       :text
+#  location          :string(255)
+#  input_record_id   :integer
+#  total_value       :integer
+#  win_probability   :integer
+#  contract_length   :string(255)
+#  solicitation_type :string(255)
+#  contract_type     :string(255)
+#  rfp_release_date  :date
+#  rfp_due_date      :date
+#  award_date        :date
+#  prime             :string(255)
+#  capture_phase     :string(255)
+#  owner_id          :integer
+#  created_at        :datetime
+#  updated_at        :datetime
+#  input_status      :string(255)
+#  acquisition_url   :string(255)
+#  outcome           :string(255)
+#  our_value         :integer
 #
 
 class Opportunity < ActiveRecord::Base
-  belongs_to :business_developer, :class_name => "User"
+  belongs_to :owner, :class_name => "User"
   has_many :comments, :as => :commentable
   belongs_to :input_record, :primary_key => "opportunity_id", :readonly => :true
   has_many :watched_opportunities
   has_many :watchers, :through => :watched_opportunities, :source => :user
   
+  delegate  :name,
+            :initials,
+            :to => :owner,
+            :prefix => true
+            
   attr_accessible :acronym, :program, :department, :agency, :description, :location,
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
                   :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase, 
@@ -71,6 +76,10 @@ class Opportunity < ActiveRecord::Base
     watchers.include?(who)
   end
   
+  def owned_by?(who)
+    owner == who
+  end
+  
   def self.department_count
     count(:all, :group => "department")
   end
@@ -80,7 +89,7 @@ class Opportunity < ActiveRecord::Base
   end
   
   def self.for(who)
-    where("business_developer_id = ?",who.id)
+    where("owner_id = ?",who.id)
   end
   
   def self.recently_updated(since = 7.days.ago)
@@ -103,8 +112,8 @@ class Opportunity < ActiveRecord::Base
     order("updated_at desc")
   end
   
-  def bd_initials
-    business_developer.initials
+  def self.by_program
+    order("program")
   end
   
 end

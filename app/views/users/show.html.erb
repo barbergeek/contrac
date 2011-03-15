@@ -14,6 +14,25 @@
 	</tr>
 	<tr>
 		<td class="main">
+			Owned Opportunities
+			<table>
+				<thead>
+					<tr>
+						<th>Opportunity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @user.opportunities.by_program.each do |opp| %>
+						<tr>
+							<td><%= link_to opp.program, opportunity_path(opp) %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td class="main">
 			Watched Opportunities
 			<table>
 				<thead>
@@ -22,7 +41,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<% @user.opportunities.each do |opp| %>
+					<% @user.watched.by_program.each do |opp| %>
 						<tr>
 							<td><%= link_to opp.program, opportunity_path(opp) %></td>
 						</tr>

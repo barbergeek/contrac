@@ -194,9 +194,12 @@ table.opportunities th.icons {
 }
 
 /* icons */
-.ui-icon-red {
-	width: 16px; height: 16px;
-	background-image: url(images/ui-icons_cd0a0a_256x240.png);
+.ui-icon.watched {
+	background-image: url(redmond/images/ui-icons_cd0a0a_256x240.png);
+}
+
+.ui-icon.owned {
+	background-image: url(redmond/images/ui-icons_f9bd01_256x240.png);
 }
 
 /* overrides */

@@ -1,11 +1,17 @@
 <tr class="<%= cycle("odd","even") %>" id="opportunity-<%= opportunity.id %>">
 	<td><%= link_to 'Destroy', opportunity, :confirm => 'Are you sure?', 
 			:method => :delete, :class => "ui-icon ui-icon-trash", :title => "Destroy" %><br/>
-			<% c = opportunity.watched_by?(current_user) ? "ui-state-error" : "" %>
-			<div id="watch-opportunity-div-<%= opportunity.id %>" class="ui-corner-all <%= c %>">
 			<%= link_to 'Watch', watch_opportunity_path(opportunity), 
-			:method => :post, :remote => true, :class => "ui-icon ui-icon-heart", :id => "watch-opportunity-#{opportunity.id}"%>
-			</div>
+					:method => :post, 
+					:remote => true, 
+					:class => "ui-icon ui-icon-heart #{opportunity.watched_by?(current_user) ? "watched" : ""}", 
+					:id => "watch-opportunity-#{opportunity.id}"%>
+			<%= link_to 'Own', own_opportunity_path(opportunity), 
+					:method => :post,
+					:confirm => 'Are you sure you want to take ownership of this opportunity?',
+					:remote => true, 
+					:class => "ui-icon ui-icon-star #{opportunity.owned_by?(current_user) ? "owned" : ""}", 
+					:id => "own-opportunity-#{opportunity.id}"%>
 			<%= content_tag("span", "", :class => "ui-state-highlight ui-corner-all ui-icon ui-icon-alert") if opportunity.updated_at > 7.days.ago %></td>
 	<td><%= opportunity.acronym %></td>
 	<td><%= link_to opportunity.program, edit_opportunity_path(opportunity) %><br/>
@@ -16,5 +22,7 @@
 	<td><%= opportunity.total_value %></td>
 	<td><%= opportunity.rfp_release_date %></td>
 	<td><%= opportunity.capture_phase %></td>
-	<td><%= opportunity.business_developer.initials unless opportunity.business_developer.nil? %></td>
+	<td><%= content_tag("span",
+	 				"#{opportunity.owner.nil? ? '' : opportunity.owner_initials}",
+	 				:id => "opportunity-#{opportunity.id}-owner") %></td>
 </tr>
