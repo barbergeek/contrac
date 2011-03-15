@@ -29,10 +29,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, 
          :recoverable, :rememberable, :trackable, :validatable
          
-  has_and_belongs_to_many :opportunities
+  has_many :watched_opportunities
+  has_many :watched, :through => :watched_opportunities, :source => :opportunity
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :roles, :name, :initials
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :roles, :name, :initials, :opportunities
   
   # Roles
   ROLES = %w[admin business_developer bd_manager capture_manager senior_manager]

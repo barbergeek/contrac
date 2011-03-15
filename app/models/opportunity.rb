@@ -34,13 +34,14 @@ class Opportunity < ActiveRecord::Base
   belongs_to :business_developer, :class_name => "User"
   has_many :comments, :as => :commentable
   belongs_to :input_record, :primary_key => "opportunity_id", :readonly => :true
-  has_and_belongs_to_many :watchers, :class_name => "User"
+  has_many :watched_opportunities
+  has_many :watchers, :through => :watched_opportunities, :source => :user
   
   attr_accessible :acronym, :program, :department, :agency, :description, :location,
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
                   :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase, 
                   :input_status, :business_developer_id, :acquisition_url, :comments, :comments_attributes, :outcome,
-                  :our_value
+                  :our_value, :users
                   
   accepts_nested_attributes_for :comments, :reject_if => proc { |attributes| attributes['content'].blank? }
   
@@ -65,7 +66,7 @@ class Opportunity < ActiveRecord::Base
   
   scope :won,
     where("outcome = 'won'")
-  
+    
   def watched_by?(who)
     watchers.include?(who)
   end

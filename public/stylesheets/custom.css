@@ -193,6 +193,12 @@ table.opportunities th.icons {
 	width: 16px;
 }
 
+/* icons */
+.ui-icon-red {
+	width: 16px; height: 16px;
+	background-image: url(images/ui-icons_cd0a0a_256x240.png);
+}
+
 /* overrides */
 
 textarea {

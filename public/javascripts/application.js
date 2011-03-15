@@ -5,10 +5,6 @@ jQuery.ajaxSetup({
     'beforeSend': function (xhr) {xhr.setRequestHeader("Accept", "text/javascript")}  
 });
 
-//$(function() {
-//	$("ul.css-tabs").tabs();
-//});
-
 // jQuery-UI style buttons
 $(function() {
 	$( "button, input:submit" ).button();
@@ -33,6 +29,15 @@ $(function() {
 	});
 
 	$( ".dashboard" ).disableSelection();
+	
+//	$(".ui-icon").hover(
+//		function(){ 
+//			$(this).addClass("ui-state-hover"); 
+//		},
+//		function(){ 
+//			$(this).removeClass("ui-state-hover"); 
+//		}
+//	);
 	
 });
 

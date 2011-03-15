@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110311185827) do
+ActiveRecord::Schema.define(:version => 20110314232618) do
 
   create_table "announcements", :force => true do |t|
     t.string   "author"
@@ -118,13 +118,6 @@ ActiveRecord::Schema.define(:version => 20110311185827) do
     t.integer  "our_value"
   end
 
-  create_table "opportunities_users", :id => false, :force => true do |t|
-    t.integer  "opportunity_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
     t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
@@ -147,5 +140,12 @@ ActiveRecord::Schema.define(:version => 20110311185827) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "watched_opportunities", :force => true do |t|
+    t.integer  "opportunity_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

@@ -1,11 +1,11 @@
 class OpportunitiesController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except=> :watch
   
   # GET /opportunities
   # GET /opportunities.xml
   def index
-    
+    session[:current_user] = current_user
     setup_filters
     
    @opportunities = Opportunity.where(@filters).paginate :include => [:business_developer, :watchers], 
@@ -143,17 +143,20 @@ class OpportunitiesController < ApplicationController
   end
   
   def watch
+    current_user = session[:current_user]
+    u = User.find(current_user)
     @opportunity = Opportunity.find(params[:id])
-    if @opportunity.watched_by?(current_user)
-      @opportunity.watchers -= [current_user]
+    if @opportunity.watched_by?(u)
+      @opportunity.watchers -= [u]
     else
-      @opportunity.watchers << current_user
+      @opportunity.watchers << u
     end
     @opportunity.save!
     
     respond_to do |format|
       format.html { redirect_to(opportunities_path)}
       format.xml { head :ok }
+      format.js
     end
   end
   

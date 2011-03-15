@@ -1,0 +1,7 @@
+<% if @opportunity.watched_by?(current_user) %>
+$("#watch-opportunity-div-<%= @opportunity.id %>")
+	.addClass("ui-state-error")
+<% else %>
+$("#watch-opportunity-div-<%= @opportunity.id %>")
+	.removeClass("ui-state-error")
+<% end %>
