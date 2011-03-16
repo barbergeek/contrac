@@ -26,7 +26,7 @@ class OpportunitiesController < ApplicationController
   
   def all
     session[:filters] ||= {}
-    session[:filters][:owner_id] = nil
+    session[:filters].delete(:owner_id)
     redirect_to opportunities_path
   end
   
