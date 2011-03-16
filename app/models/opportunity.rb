@@ -45,8 +45,8 @@ class Opportunity < ActiveRecord::Base
   attr_accessible :acronym, :program, :department, :agency, :description, :location,
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
                   :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase, 
-                  :input_status, :business_developer_id, :acquisition_url, :comments, :comments_attributes, :outcome,
-                  :our_value, :users
+                  :input_status, :owner_id, :acquisition_url, :comments, :comments_attributes, :outcome,
+                  :our_value, :watchers, :owner, :watched_opportunities
                   
   accepts_nested_attributes_for :comments, :reject_if => proc { |attributes| attributes['content'].blank? }
   
