@@ -164,8 +164,12 @@ class InputRecordsController < ApplicationController
           keys.each_index do |column|    # for each column in the input file, update the attribute
             if keys[column] == :title   #need special processing for title to split URL from actual title
               data = /<a href="(.*?)">(.*?)<\/a>/i.match(tabledata[row][column])
-              record.update_attribute(:input_url, data[1]) unless data[1].nil?
-              record.update_attribute(:title, data[2]) unless data[2].nil?
+              if data
+                record.update_attribute(:input_url, data[1]) unless data[1].nil?
+                record.update_attribute(:title, data[2]) unless data[2].nil?
+              else
+                record.title = tabledata[row][column]
+              end
             else
               record.update_attribute(keys[column], tabledata[row][column]) unless keys[column].nil? 
             end
