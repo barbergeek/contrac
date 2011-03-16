@@ -30,6 +30,8 @@ class Ability
       can :manage, :all
     else
       can :read, :all
+      can :manage, [Opportunity, Comment, WatchedOpportunity]
+      can :manage, User, :id => user.id
     end
     
   end
