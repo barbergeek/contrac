@@ -61,10 +61,10 @@ class Opportunity < ActiveRecord::Base
      # where (outcome <> 'no_bid' or outcome is null) and (capture_phase not in ('post_submittal','post_award') or capture_phase is null) and rfp_release_date is not null;
 
   scope :unawarded,
-    where("outcome is null and rfp_release_date is not null and (input_status is null or input_status not in (?))", ["Awarded","Deleted/Canceled"])
+    where("(outcome is null or outcome = '') and rfp_release_date is not null and (input_status is null or input_status not in (?))", ["Awarded","Deleted/Canceled"])
  
   scope :pre_rfp,
-    where("outcome is null and rfp_release_date is not null and (input_status is null or input_status in (?)) and (capture_phase is null or capture_phase not in (?))", ["Pre-RFP","Forecast Pre-RFP"], %w[post_submittal post_award])
+    where("(outcome is null or outcome = '') and rfp_release_date is not null and (input_status is null or input_status in (?)) and (capture_phase is null or capture_phase not in (?))", ["Pre-RFP","Forecast Pre-RFP"], %w[post_submittal post_award])
 
   scope :lost,
     where("outcome = 'lost'")
