@@ -13,6 +13,7 @@ gem "delayed_job"
 gem "lazy_high_charts"
 gem "RedCloth"
 gem "switch_user"
+gem "hoptoad_notifier"
 
 group :development do
 	gem 'rspec-rails'
