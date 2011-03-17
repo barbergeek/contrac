@@ -14,6 +14,7 @@ gem "lazy_high_charts"
 gem "RedCloth"
 gem "switch_user"
 gem "hoptoad_notifier"
+gem "heroku"
 
 group :development do
 	gem 'rspec-rails'
