@@ -17,8 +17,11 @@ class InputRecordsController < ApplicationController
         flash[:success] = "Import and Merge job queued"
         redirect_to input_records_path
       else
-        records = import_input_data(params[:datafile].read)
-        flash[:success] = pluralize(records,"records") + " processed"
+        job = ImportJob.new
+        job.import_and_merge(params[:datafile].read)
+#        records = import_input_data(params[:datafile].read)
+#        flash[:success] = pluralize(records,"records") + " processed"
+        flash[:success] = "job processed"
         redirect_to input_records_path
       end
     else

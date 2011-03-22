@@ -34,13 +34,20 @@ class ImportJob < Struct.new(:jobid)
       "Acronym" => :acronym,
       "Title" => :title,
       "Organization" => :organization,
+      "Department" => :department,
+      "Agency" => :agency,
       "RFP #" => :rfp_number,
+      "Solicitation #" => :rfp_number,
       "Program Value" => :program_value,
+      "Value($k)" => :program_value,
       "RFP Date" => :rfp_date,
+      "Solicitation Date" => :rfp_date,
       "Status" => :status,
       "User List" => :user_list,
       "Project Award Date" => :project_award_date,
+      "Projected Award Date" => :project_award_date,
       "Opportunity Id" => :opportunity_id,
+      "Opp Id" => :opportunity_id,
       "Contract Type" => :contract_type,
       "Contract Type (Combined List)" => :contract_type_combined,
       "Primary Service" => :primary_service,
@@ -51,13 +58,19 @@ class ImportJob < Struct.new(:jobid)
       "Primary State of Perf." => :primary_state_of_performance,
       "Summary" => :summary,
       "Comments" => :comments,
+      "Latest News" => :comments,
       "DOD/Civil" => :dod_civil,
       "Incumbent" => :incumbent,
+      "Contractor" => :incumbent,
       "Contractor (Combined List)" => :contractor_combined,
       "Incumbent Value" => :incumbent_value,
+      "Contract Value($k)" => :incumbent_value,
       "Incumbent Contract #" => :incumbent_contract_number,
+      "Contract Number" => :incumbent_contract_number,
       "Incumbent Award Date" => :incumbent_award_date,
+      "Contract Award Date" => :incumbent_award_date,
       "Incumbent Expire Date" => :incumbent_expire_date,
+      "Contract Expire Date" => :incumbent_expire_date,
       "Priority" => :priority,
       "Vertical" => :vertical,
       "Vertical (Combined List)" => :vertical_combined,
@@ -79,12 +92,25 @@ class ImportJob < Struct.new(:jobid)
       unless row == 0 then            # skip the header row
         record = InputRecord.new      # get a new record
         keys.each_index do |column|    # for each column in the input file, update the attribute
-          if keys[column] == :title   #need special processing for title to split URL from actual title
-            data = /<a href="(.*?)">(.*?)<\/a>/i.match(tabledata[row][column])
-            record.update_attribute(:input_url, data[1]) unless data[1].nil?
-            record.update_attribute(:title, data[2]) unless data[2].nil?
-          else
-            record.update_attribute(keys[column], tabledata[row][column]) unless keys[column].nil? 
+          case keys[column] 
+            when :title   #need special processing for title to split URL from actual title
+              if tabledata[row][column] =~ /<a/
+                data = /<a href="(.*?)">(.*?)<\/a>/i.match(tabledata[row][column])
+                record.input_url = data[1] unless data[1].nil?
+                record.title = data[2] unless data[2].nil?
+              else
+                record.title = tabledata[row][column]
+              end
+            when :department
+              @dept = tabledata[row][column]
+            when :agency
+              if tabledata[row][column].nil?
+                record.send("organization=", "#{@dept}")
+              else
+                record.send("organization=", "#{@dept}/#{tabledata[row][column]}")
+              end
+            else
+              record.send("#{keys[column]}=", tabledata[row][column]) unless keys[column].nil? 
           end
         end
         record.save!
@@ -106,7 +132,12 @@ class ImportJob < Struct.new(:jobid)
       current_record.program = source.title if current_record.program.blank? && !source.title.blank?
     
       if current_record.department.blank? || current_record.agency.blank?
-        dept,agency = source.organization.split("/")
+        if source.organization =~ /\//
+          dept,agency = source.organization.split("/")
+        else
+          dept = source.organization
+          agency = nil
+        end
         current_record.department = dept if current_record.department.blank? && !dept.blank?
         current_record.agency = agency if current_record.agency.blank? && !agency.blank?
       end
