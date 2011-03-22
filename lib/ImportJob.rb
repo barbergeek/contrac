@@ -109,6 +109,8 @@ class ImportJob < Struct.new(:jobid)
               else
                 record.send("organization=", "#{@dept}/#{tabledata[row][column]}")
               end
+            when :rfp_date, :project_award_date, :last_updated, :incumbent_award_date, :incumbent_expire_date
+              record.send("#{keys[column]}=",fix_date(tabledata[row][column]))
             else
               record.send("#{keys[column]}=", tabledata[row][column]) unless keys[column].nil? 
           end
@@ -167,4 +169,14 @@ class ImportJob < Struct.new(:jobid)
     end
   end
 
+  private
+    def fix_date(datevalue)
+      if datevalue =~ /\//
+         m,d,y = datevalue.split("/")
+         "#{y}-#{m}-#{d}"
+       else
+         datevalue
+       end
+    end
+    
 end
