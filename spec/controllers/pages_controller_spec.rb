@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe PagesController do
+  include Devise::TestHelpers
+
+  before (:each) do
+    @user = Factory.create(:user)
+    sign_in @user
+  end
 
   describe "GET 'home'" do
     it "should be successful" do

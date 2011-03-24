@@ -35,12 +35,12 @@ Spork.prefork do
     
     ActiveSupport::Dependencies.clear
     
-    def test_sign_in(user)
+    def test_login(user)
       controller.sign_in(user)
     end
     
-    def integration_sign_in(user)
-      visit signin_path
+    def integration_login(user)
+      visit login_path
       fill_in :email,     :with => user.email
       fill_in :password,  :with => user.password
       click_button
