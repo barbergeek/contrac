@@ -15,6 +15,8 @@ gem "RedCloth"
 gem "switch_user"
 gem "hoptoad_notifier"
 gem "heroku"
+gem 'nokogiri'
+gem 'mechanize'
 
 group :development do
 	gem 'rspec-rails'
