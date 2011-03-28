@@ -46,7 +46,7 @@ class Opportunity < ActiveRecord::Base
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
                   :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase, 
                   :input_status, :owner_id, :acquisition_url, :comments, :comments_attributes, :outcome,
-                  :our_value, :watchers, :owner, :watched_opportunities
+                  :our_value, :watchers, :owner, :watched_opportunities, :input_record_id
                   
   accepts_nested_attributes_for :comments, :reject_if => proc { |attributes| attributes['content'].blank? }
   
