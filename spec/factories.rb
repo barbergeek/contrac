@@ -16,6 +16,11 @@ Factory.define :announcement do |ann|
   ann.title   "this is the title"
 end
 
+Factory.define :opportunity do |opp|
+  opp.program           'test'
+  opp.department        'test'
+end
+  
 #Factory.sequence :email do |n|
 #  "person-#{n}@example.com"
 #end
