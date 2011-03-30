@@ -1,0 +1,6 @@
+Latest News  
+<ul id="latest_news">  
+  <% f.news_items.each do |news| %>  
+    <li><%= news.content %><br/><%= "by #{news.source} on #{news.comment_dt.to_date}" %></li>  
+  <% end %>  
+</ul>

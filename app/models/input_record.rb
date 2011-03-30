@@ -44,6 +44,19 @@
 
 class InputRecord < ActiveRecord::Base
   has_one :opportunity, :foreign_key => "input_opportunity_number", :primary_key => "input_opportunity_number"
+  has_many :news_items, :class_name => "Comment", :as => :commentable
+
+  def find_news_item(comment)
+    news_items.find_by_content_and_source(comment, "INPUT")
+  end
+  
+  def new_news=(comment)
+    news_items << Comment.new(:content => comment, :source => "INPUT") unless find_news_item(comment)
+  end
+  
+  def new_news_with_date(comment,date)
+    news_items << Comment.new(:content => comment, :source => "INPUT", :commented_at => date) unless find_news_item(comment)
+  end
   
   def merge_to_opportunity
 
@@ -73,7 +86,8 @@ class InputRecord < ActiveRecord::Base
     # opportunity.rfp_release_date = rfp_date if opportunity.rfp_release_date.blank? && !rfp_date.blank?
     #  rfp_due_date          :date
   
-    opportunity.new_input_comment = comments
+    #opportunity.new_input_comment = comments
+    #store the "news" in input_record now, not attached to the opportunity
     
     # save it
     opportunity.save!

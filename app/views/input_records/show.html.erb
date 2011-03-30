@@ -2,5 +2,7 @@
 
 <%= debug @input_record %>
 
+<%= render "comments/news_items", :f => @input_record %>
+
 <%= link_to 'Edit', edit_input_record_path(@input_record) %> |
 <%= link_to 'Back', input_records_path %>
