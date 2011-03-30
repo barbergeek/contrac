@@ -1,39 +1,40 @@
 # == Schema Information
-# Schema version: 20110315145530
+# Schema version: 20110329184645
 #
 # Table name: opportunities
 #
-#  id                :integer         not null, primary key
-#  acronym           :string(255)
-#  program           :string(255)
-#  department        :string(255)
-#  agency            :string(255)
-#  description       :text
-#  location          :string(255)
-#  input_record_id   :integer
-#  total_value       :integer
-#  win_probability   :integer
-#  contract_length   :string(255)
-#  solicitation_type :string(255)
-#  contract_type     :string(255)
-#  rfp_release_date  :date
-#  rfp_due_date      :date
-#  award_date        :date
-#  prime             :string(255)
-#  capture_phase     :string(255)
-#  owner_id          :integer
-#  created_at        :datetime
-#  updated_at        :datetime
-#  input_status      :string(255)
-#  acquisition_url   :string(255)
-#  outcome           :string(255)
-#  our_value         :integer
+#  id                       :integer         not null, primary key
+#  acronym                  :string(255)
+#  program                  :string(255)
+#  department               :string(255)
+#  agency                   :string(255)
+#  description              :text
+#  location                 :string(255)
+#  input_opportunity_number :integer
+#  total_value              :integer
+#  win_probability          :integer
+#  contract_length          :string(255)
+#  solicitation_type        :string(255)
+#  contract_type            :string(255)
+#  rfp_release_date         :date
+#  rfp_due_date             :date
+#  award_date               :date
+#  prime                    :string(255)
+#  capture_phase            :string(255)
+#  owner_id                 :integer
+#  created_at               :datetime
+#  updated_at               :datetime
+#  input_status             :string(255)
+#  acquisition_url          :string(255)
+#  outcome                  :string(255)
+#  our_value                :integer
 #
 
 class Opportunity < ActiveRecord::Base
   belongs_to :owner, :class_name => "User"
   has_many :comments, :as => :commentable
-  belongs_to :input_record, :primary_key => "opportunity_id", :readonly => :true
+  belongs_to :input_record, :foreign_key => "input_opportunity_number",
+              :primary_key => "input_opportunity_number", :readonly => :true
   has_many :watched_opportunities
   has_many :watchers, :through => :watched_opportunities, :source => :user
   
@@ -46,7 +47,7 @@ class Opportunity < ActiveRecord::Base
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
                   :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase, 
                   :input_status, :owner_id, :acquisition_url, :comments, :comments_attributes, :outcome,
-                  :our_value, :watchers, :owner, :watched_opportunities, :input_record_id
+                  :our_value, :watchers, :owner, :watched_opportunities, :input_opportunity_number
                   
   accepts_nested_attributes_for :comments, :reject_if => proc { |attributes| attributes['content'].blank? }
   
@@ -71,6 +72,9 @@ class Opportunity < ActiveRecord::Base
   
   scope :won,
     where("outcome = 'won'")
+    
+  scope :with_input_records
+    where("input_opportunity_number is not null")
     
   def watched_by?(who)
     watchers.include?(who)
@@ -114,6 +118,18 @@ class Opportunity < ActiveRecord::Base
   
   def self.by_program
     order("program")
+  end
+  
+  def find_input_comment(comment)
+    comments.find_by_content_and_source(comment, "INPUT")
+  end
+  
+  def new_input_comment=(comment)
+    comments << Comment.new(:content => comment, :source => "INPUT") unless find_input_comment(comment)
+  end
+  
+  def new_input_comment_with_date(comment,date)
+    comments << Comment.new(:content => comment, :source => "INPUT", :commented_at => date) unless find_input_comment(comment)
   end
   
 end

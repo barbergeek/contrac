@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110304200119
+# Schema version: 20110329184645
 #
 # Table name: input_records
 #
@@ -39,8 +39,44 @@
 #  vertical_combined            :text
 #  segment_combined             :text
 #  key_contacts                 :text
-#  opportunity_id               :integer
+#  input_opportunity_number     :integer
 #
 
 class InputRecord < ActiveRecord::Base
+  has_one :opportunity, :foreign_key => "input_opportunity_number", :primary_key => "input_opportunity_number"
+  
+  def merge_to_opportunity
+
+    if organization =~ /\//
+      dept,agency = organization.split("/")
+    else
+      dept = organization
+      agency = nil
+    end
+    
+    create_opportunity(:program => title, :department => dept) if opportunity.nil?
+
+    # merge missing data
+    opportunity.acronym = acronym if opportunity.acronym.blank?
+    opportunity.agency = agency if opportunity.agency.blank?
+    opportunity.description = summary if opportunity.description.blank?
+    opportunity.location = primary_state_of_performance if opportunity.location.blank?
+    opportunity.total_value = program_value if opportunity.total_value.blank?
+    opportunity.contract_length = contract_duration if opportunity.contract_length.blank?
+    opportunity.solicitation_type = competition_type if opportunity.solicitation_type.blank?
+    opportunity.contract_type = contract_type if opportunity.contract_type.blank?
+
+    # for now, always take these fields from input
+    opportunity.rfp_release_date = rfp_date if opportunity.rfp_release_date != rfp_date
+    opportunity.award_date = project_award_date if opportunity.award_date != project_award_date
+    opportunity.input_status = status if opportunity.input_status != status
+    # opportunity.rfp_release_date = rfp_date if opportunity.rfp_release_date.blank? && !rfp_date.blank?
+    #  rfp_due_date          :date
+  
+    opportunity.new_input_comment = comments
+    
+    # save it
+    opportunity.save!
+  end
+  
 end

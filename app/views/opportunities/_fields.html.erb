@@ -3,6 +3,6 @@
 <p>Department: <%= f.department %></p>
 <p>Agency: <%= f.agency %></p>
 <p>Location: <%= f.location %></p>
-<p>Input ID: <%= link_to(f.input_record_id,
-	"http://www.input.com/index.cfm?fractal=opportunities.dsp.search.detail&PrdctCd=PFOIT&OppID=#{f.input_record_id}") 
-	if f.input_record_id %></p>
+<p>Input ID: <%= link_to(f.input_opportunity_number,
+	"http://www.input.com/index.cfm?fractal=opportunities.dsp.search.detail&PrdctCd=PFOIT&OppID=#{f.input_opportunity_number}") 
+	if f.input_opportunity_number %></p>

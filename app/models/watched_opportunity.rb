@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110315145530
+# Schema version: 20110330043215
 #
 # Table name: watched_opportunities
 #

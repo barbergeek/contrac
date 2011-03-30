@@ -2,7 +2,7 @@
   
 <ul id="comments">  
   <% f.object.comments.each do |comment| %>  
-    <li><%= comment.content %><br/><%= "by #{comment.source} on #{comment.created_at}" %></li>  
+    <li><%= comment.content %><br/><%= "by #{comment.source} on #{comment.comment_dt.to_date}" %></li>  
   <% end %>  
 </ul>  
  

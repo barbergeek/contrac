@@ -11,8 +11,7 @@ class ImportJob < Struct.new(:jobid)
   end
   
   def import_and_merge(data) #for Delayed_Job
-    records = import_input_data(data)
-    if records > 0
+    if import_input_data(data) > 0
       merge_input_data
     end
   end
@@ -46,8 +45,8 @@ class ImportJob < Struct.new(:jobid)
       "User List" => :user_list,
       "Project Award Date" => :project_award_date,
       "Projected Award Date" => :project_award_date,
-      "Opportunity Id" => :opportunity_id,
-      "Opp Id" => :opportunity_id,
+      "Opportunity Id" => :input_opportunity_number,
+      "Opp Id" => :input_opportunity_number,
       "Contract Type" => :contract_type,
       "Contract Type (Combined List)" => :contract_type_combined,
       "Primary Service" => :primary_service,
@@ -124,52 +123,11 @@ class ImportJob < Struct.new(:jobid)
   end
 
   def merge_input_data
-  
-    input_records = InputRecord.all
-    input_records.each do |source|
-      current_record = Opportunity.find_or_create_by_input_record_id(source.opportunity_id)
-  
-      # merge missing data
-      current_record.acronym = source.acronym if current_record.acronym.blank? && !source.acronym.blank?
-      current_record.program = source.title if current_record.program.blank? && !source.title.blank?
-    
-      if current_record.department.blank? || current_record.agency.blank?
-        if source.organization =~ /\//
-          dept,agency = source.organization.split("/")
-        else
-          dept = source.organization
-          agency = nil
-        end
-        current_record.department = dept if current_record.department.blank? && !dept.blank?
-        current_record.agency = agency if current_record.agency.blank? && !agency.blank?
-      end
-    
-      current_record.description = source.summary if current_record.description.blank? && !source.summary.blank?
-      current_record.location = source.primary_state_of_performance if current_record.location.blank? && !source.primary_state_of_performance.blank?
-      current_record.total_value = source.program_value if current_record.total_value.blank? && !source.program_value.blank?
-      current_record.contract_length = source.contract_duration if current_record.contract_length.blank? && !source.contract_duration.blank?
-      current_record.solicitation_type = source.competition_type if current_record.solicitation_type.blank? && !source.competition_type.blank?
-      current_record.contract_type = source.contract_type if current_record.contract_type.blank? && !source.contract_type.blank?
-
-      # for now, always take these fields from input
-      current_record.rfp_release_date = source.rfp_date if current_record.rfp_release_date != source.rfp_date
-      current_record.award_date = source.project_award_date if current_record.award_date != source.project_award_date
-      current_record.input_status = source.status if current_record.input_status != source.status
-      # current_record.rfp_release_date = source.rfp_date if current_record.rfp_release_date.blank? && !source.rfp_date.blank?
-      #  rfp_due_date          :date
-    
-      # add comment to opportunity.comments unless it's already there
-      unless current_record.comments.find_by_content_and_source(source.comments, "INPUT")
-        current_record.comments << Comment.new(:content => source.comments, :source => "INPUT")
-        current_record.touch
-      end
-      
-      # save it
-      current_record.save!
+    InputRecord.all.each do |source|
+      source.merge_to_opportunity
     end
   end
 
-  private
     def fix_date(datevalue)
       if datevalue =~ /\//
          m,d,y = datevalue.split("/")

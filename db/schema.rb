@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110315145530) do
+ActiveRecord::Schema.define(:version => 20110330043215) do
 
   create_table "announcements", :force => true do |t|
     t.string   "author"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20110315145530) do
     t.string   "source"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "commented_at"
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -81,7 +82,7 @@ ActiveRecord::Schema.define(:version => 20110315145530) do
     t.text     "vertical_combined"
     t.text     "segment_combined"
     t.text     "key_contacts"
-    t.integer  "opportunity_id"
+    t.integer  "input_opportunity_number"
   end
 
   create_table "jobs", :force => true do |t|
@@ -98,7 +99,7 @@ ActiveRecord::Schema.define(:version => 20110315145530) do
     t.string   "agency"
     t.text     "description"
     t.string   "location"
-    t.integer  "input_record_id"
+    t.integer  "input_opportunity_number"
     t.integer  "total_value"
     t.integer  "win_probability"
     t.string   "contract_length"

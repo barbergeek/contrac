@@ -13,7 +13,7 @@
 	<% @input_records.each do |input_record| %>
 	  <tr class="<%= cycle("odd","even") %>">
 		<td><%= input_record.acronym %></td>
-		<td><%= link_to input_record.title, input_record.input_url || input_opportunity_url(input_record.opportunity_id), :target => "_blank"%><%= link_to content_tag("span","", :class => "ui-icon ui-icon-extlink"), input_record.input_url || input_opportunity_url(input_record.opportunity_id), :target => "_blank"%><br/>
+		<td><%= link_to input_record.title, input_record.input_url || input_opportunity_url(input_record.input_opportunity_number), :target => "_blank"%><%= link_to content_tag("span","", :class => "ui-icon ui-icon-extlink"), input_record.input_url || input_opportunity_url(input_record.input_opportunity_number), :target => "_blank"%><br/>
 		<%= input_record.organization %></td>
 	  <td><%= link_to 'Show', input_record, :class => "ui-icon ui-icon-info", :title => "Show" %> 
 	  <%= link_to 'Edit', edit_input_record_path(input_record), :class => "ui-icon ui-icon-pencil", :title => "Edit" %> 
