@@ -20,7 +20,7 @@ class ImportJob < Struct.new(:jobid)
   def import_input_data(data)
   
     # clear all the old data
-    InputRecord.delete_all
+    #InputRecord.delete_all
 
     # grab the table out of the data file
     table = /<table[\w\s="'%]*?>(.*)<\/table>/ims.match(data.squish)
@@ -80,8 +80,10 @@ class ImportJob < Struct.new(:jobid)
   
     # figure out which input columns map to which data columns                                        
     keys = []
+    cols = {}
     tabledata[0].each_index do |column|
       keys[column] = data_columns[tabledata[0][column]]
+      cols[data_columns[tabledata[0][column]]] = column
     end
   
     record_count = 0
@@ -89,7 +91,9 @@ class ImportJob < Struct.new(:jobid)
     # load the data
     tabledata.each_index do |row|   # for each row
       unless row == 0 then            # skip the header row
-        record = InputRecord.new      # get a new record
+        opportunity_number_column = cols[:input_opportunity_number]
+        opportunity_number = tabledata[row][opportunity_number_column]
+        record = InputRecord.find_or_create_by_input_opportunity_number(opportunity_number) # get the record or make a new one
         keys.each_index do |column|    # for each column in the input file, update the attribute
           case keys[column] 
             when :title   #need special processing for title to split URL from actual title
