@@ -1,11 +1,11 @@
 require 'spec_helper'
+include Warden::Test::Helpers
 
 describe "Opportunities" do
-  include Devise::TestHelpers
 
   before (:each) do
     @user = Factory.create(:user)
-    sign_in @user
+    login_as @user
   end
 
   describe "GET /opportunities" do
