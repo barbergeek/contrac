@@ -138,8 +138,14 @@ class OpportunitiesController < ApplicationController
     @start = Date.today.beginning_of_quarter
     @end = @start.advance(:months => (@rows*@columns)).advance(:days => -1)
     
-    @opportunities = Opportunity.calendar.where(@filters).where("rfp_release_date between ? and ?",@start,@end).order("rfp_release_date")
-
+    if params[:order_by] == "due_date"
+      @opportunities = Opportunity.calendar.where(@filters).where("rfp_due_date between ? and ?",@start,@end).order("rfp_due_date")
+      @order_by = :due_date
+    else
+      @opportunities = Opportunity.calendar.where(@filters).where("rfp_release_date between ? and ?",@start,@end).order("rfp_release_date")
+      @order_by = :release_date
+    end
+    
      respond_to do |format|
        format.html # index.html.erb
        format.xml  { render :xml => @opportunities }

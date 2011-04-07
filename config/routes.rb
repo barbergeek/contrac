@@ -22,7 +22,7 @@ Contrac::Application.routes.draw do
 
   resources :opportunities do
     collection do
-      post 'filter'
+      post 'filter','calendar_order_by'
       get 'my', 'calendar', 'all'
     end
     member do

@@ -2,6 +2,14 @@
 
 <%= content_tag("h3","Filtered!") unless @filters.empty? %>
 <%= "Start: #{@start}, End: #{@end}, Found: #{@opportunities.length}"%>
+<%= form_tag calendar_opportunities_path, :method => :get, :id => :calendar_order_by do %>
+	<%= content_tag :span, :id => "radio" do %>
+		<%= label :order_by, :release_date%>
+		<%= radio_button_tag :order_by, :release_date, @order_by == :release_date %>
+		<%= label :order_by, :due_date%>
+		<%= radio_button_tag :order_by, :due_date, @order_by == :due_date %>
+	<% end %>
+<% end %>
 <table class="opportunities">
 	<% span = 24 / @columns %>
 	<% (0..@rows-1).each do |row| %>
@@ -19,10 +27,10 @@
 				<% first = true %>
 				<td>
 				<%(@opportunities.select {|o| 
-						o.rfp_release_date.to_s(:month_and_year) == @start.advance(:months => col).to_s(:month_and_year)}).each do |o| %>
+						o.rfp_date(@order_by).month == @start.advance(:months => col).month}).each do |o| %>
 						<%= tag("hr") unless first %>
 						<% first = false %>
-						<%= link_to (o.acronym || o.program), o, :remote => true %><br/><%= o.rfp_release_date.to_s(:short) %><%= " / #{o.input_status}" unless o.input_status.blank? %><%= " / #{o.capture_phase}" unless o.capture_phase.blank? %><%= " [#{o.owner_initials}]" unless o.owner.nil? %>
+						<%= link_to o.title, o, :remote => true %><br/><%= o.rfp_date(@order_by).to_s(:short) %><%= " / #{o.input_status}" unless o.input_status.blank? %><%= " / #{o.capture_phase}" unless o.capture_phase.blank? %><%= " [#{o.owner_initials}]" unless o.owner.nil? %>
 					<% end %>
 				</td>
 			<% end %>

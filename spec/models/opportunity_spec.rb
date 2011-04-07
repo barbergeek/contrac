@@ -17,6 +17,7 @@ describe Opportunity do
     opp.should respond_to(:contract_type     )
     opp.should respond_to(:rfp_release_date  )
     opp.should respond_to(:rfp_due_date      )
+    opp.should respond_to(:rfp_expected_due_date)
     opp.should respond_to(:award_date        )
     opp.should respond_to(:prime             )
     opp.should respond_to(:capture_phase     )

@@ -47,13 +47,15 @@ class Opportunity < ActiveRecord::Base
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
                   :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase, 
                   :input_status, :owner_id, :acquisition_url, :comments, :comments_attributes, :outcome,
-                  :our_value, :watchers, :owner, :watched_opportunities, :input_opportunity_number
+                  :our_value, :watchers, :owner, :watched_opportunities, :input_opportunity_number, :rfp_expected_due_date
                   
   accepts_nested_attributes_for :comments, :reject_if => proc { |attributes| attributes['content'].blank? }
   
+  before_save :set_expected_due_date
+
   validates :program, :presence => true
   validates :department, :presence => true
-
+  
   PHASES = %w[identification qualification win_strategy pre-proposal proposal post_submittal post_award]
   OUTCOMES = %w[won lost no_bid]
   
@@ -82,6 +84,26 @@ class Opportunity < ActiveRecord::Base
   
   def owned_by?(who)
     owner == who
+  end
+  
+  def title
+    acronym.blank? ? program : acronym
+  end
+  
+  def rfp_expected_due_date
+    rfp_due_date || (rfp_release_date + 1.month unless rfp_release_date.nil?)
+  end
+  
+  def rfp_expected_due_date=(duedate)
+    self.rfp_due_date = duedate
+  end
+  
+  def rfp_date(which)
+    if which == :due_date
+      rfp_due_date
+    else
+      rfp_release_date
+    end
   end
   
   def self.department_count
@@ -132,4 +154,10 @@ class Opportunity < ActiveRecord::Base
     comments << Comment.new(:content => comment, :source => "INPUT", :commented_at => date) unless find_input_comment(comment)
   end
   
+  protected
+  
+    def set_expected_due_date
+      self.rfp_due_date = rfp_due_date || (rfp_release_date + 1.month unless rfp_release_date.nil?)
+    end
+    
 end

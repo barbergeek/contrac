@@ -30,6 +30,12 @@ $(function() {
 
 	$( ".dashboard" ).disableSelection();
 	
+	
+	$( "#radio" ).buttonset();
+	$("#calendar_order_by input:radio").click(function() {
+	      $("#calendar_order_by").submit();      
+	});
+
 //	$(".ui-icon").hover(
 //		function(){ 
 //			$(this).addClass("ui-state-hover"); 
