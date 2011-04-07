@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110329184645
+# Schema version: 20110407192904
 #
 # Table name: opportunities
 #
@@ -28,6 +28,7 @@
 #  acquisition_url          :string(255)
 #  outcome                  :string(255)
 #  our_value                :integer
+#  search_sink              :text
 #
 
 class Opportunity < ActiveRecord::Base
@@ -52,6 +53,7 @@ class Opportunity < ActiveRecord::Base
   accepts_nested_attributes_for :comments, :reject_if => proc { |attributes| attributes['content'].blank? }
   
   before_save :set_expected_due_date
+  before_save :fill_search_sink
 
   validates :program, :presence => true
   validates :department, :presence => true
@@ -154,10 +156,56 @@ class Opportunity < ActiveRecord::Base
     comments << Comment.new(:content => comment, :source => "INPUT", :commented_at => date) unless find_input_comment(comment)
   end
   
+  def self.search(string)
+    if string.blank?
+      all
+    elsif is_a_number?(string)
+      where("input_opportunity_number = ?",string)
+    else
+      where("search_sink like ?","%#{string.downcase}%")
+    end
+  end
+
+  def fill_search_sink
+    self.search_sink = [acronym, program, description, input_opportunity_number, solicitation_type, contract_type, prime].collect {|item| item.to_s.strip.downcase}.join('||')
+  end
+  
   protected
   
     def set_expected_due_date
       self.rfp_due_date = rfp_due_date || (rfp_release_date + 1.month unless rfp_release_date.nil?)
     end
     
+
+    #  id                       :integer         not null, primary key
+    #  acronym                  :string(255)
+    #  program                  :string(255)
+    #  department               :string(255)
+    #  agency                   :string(255)
+    #  description              :text
+    #  location                 :string(255)
+    #  input_opportunity_number :integer
+    #  total_value              :integer
+    #  win_probability          :integer
+    #  contract_length          :string(255)
+    #  solicitation_type        :string(255)
+    #  contract_type            :string(255)
+    #  rfp_release_date         :date
+    #  rfp_due_date             :date
+    #  award_date               :date
+    #  prime                    :string(255)
+    #  capture_phase            :string(255)
+    #  owner_id                 :integer
+    #  created_at               :datetime
+    #  updated_at               :datetime
+    #  input_status             :string(255)
+    #  acquisition_url          :string(255)
+    #  outcome                  :string(255)
+    #  our_value                :integer
+    #  search_sink              :text
+    
+    def self.is_a_number?(s)
+      s.to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/) == nil ? false : true
+    end
+
 end

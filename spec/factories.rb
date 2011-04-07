@@ -17,8 +17,8 @@ Factory.define :announcement do |ann|
 end
 
 Factory.define :opportunity do |opp|
-  opp.program           'test'
-  opp.department        'test'
+  opp.program           'program name'
+  opp.department        'department name'
 end
   
 #Factory.sequence :email do |n|

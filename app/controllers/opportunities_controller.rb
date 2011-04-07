@@ -7,7 +7,9 @@ class OpportunitiesController < ApplicationController
   def index
     setup_filters
     
-   @opportunities = Opportunity.where(@filters).paginate :include => [:owner, :watchers], 
+    @searchstring = session[:search]
+
+   @opportunities = Opportunity.where(@filters).search(@searchstring).paginate :include => [:owner, :watchers], 
       :page => params[:page], :per_page => 20, 
       :order => "#{sort_column} #{sort_direction}"
     
@@ -19,18 +21,21 @@ class OpportunitiesController < ApplicationController
   end
   
   def my
+    session[:search] = params[:search]
     session[:filters] ||= {}
     session[:filters] = session[:filters].merge({:owner_id => current_user.id.to_s}) if current_user.capture?
     redirect_to opportunities_path
   end
   
   def all
+    session[:search] = params[:search]
     session[:filters] ||= {}
     session[:filters].delete(:owner_id)
     redirect_to opportunities_path
   end
   
   def filter
+    session[:search] = params[:search]
     session[:filters] = params[:filters] || {}
     redirect_to opportunities_path
   end

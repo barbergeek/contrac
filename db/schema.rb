@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110330043215) do
+ActiveRecord::Schema.define(:version => 20110407192904) do
 
   create_table "announcements", :force => true do |t|
     t.string   "author"
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20110330043215) do
     t.string   "acquisition_url"
     t.string   "outcome"
     t.integer  "our_value"
+    t.text     "search_sink"
   end
 
   create_table "users", :force => true do |t|
