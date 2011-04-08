@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   include ActionView::Helpers::TextHelper
-
+  include ApplicationHelper
+  
   require 'ImportJob'
   
   rescue_from CanCan::AccessDenied do |exception|

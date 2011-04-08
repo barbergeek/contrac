@@ -1,10 +1,13 @@
 class OpportunitiesController < ApplicationController
+  
   helper_method :sort_column, :sort_direction
   before_filter :authenticate_user!
   
   # GET /opportunities
   # GET /opportunities.xml
   def index
+    store_location
+    
     setup_filters
     
     @searchstring = session[:search]
@@ -43,6 +46,7 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities/1
   # GET /opportunities/1.xml
   def show
+    
     @opportunity = Opportunity.find(params[:id])
     @comments = @opportunity.comments
     @commentable = @opportunity
@@ -57,6 +61,7 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities/new
   # GET /opportunities/new.xml
   def new
+    
     @opportunity = Opportunity.new
     @comments = @opportunity.comments
     @commentable = @opportunity
@@ -71,6 +76,7 @@ class OpportunitiesController < ApplicationController
 
   # GET /opportunities/1/edit
   def edit
+    
     @opportunity = Opportunity.find(params[:id])
     @comments = @opportunity.comments
     @commentable = @opportunity
@@ -134,7 +140,7 @@ class OpportunitiesController < ApplicationController
   end
   
   def calendar
-    
+    store_location
     setup_filters
 
   	@rows = 5
@@ -210,4 +216,5 @@ class OpportunitiesController < ApplicationController
       @owners = User.find(:all).keep_if {|user| user.capture? }
       
     end
+    
 end
