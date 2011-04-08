@@ -12,9 +12,8 @@ class OpportunitiesController < ApplicationController
     
     @searchstring = session[:search]
 
-   @opportunities = Opportunity.where(@filters).where(@owner_filters).includes([:business_developer, :capture_manager, :watchers]).search(@searchstring).paginate( 
-      :page => params[:page], :per_page => 20, 
-      :order => "#{sort_column} #{sort_direction}"
+   @opportunities = Opportunity.where(@filters).where(@owner_filters).includes([:business_developer, :capture_manager, :watchers]).order("#{sort_column} #{sort_direction}").search(@searchstring).paginate( 
+      :page => params[:page], :per_page => 20
       )
     
     respond_to do |format|
