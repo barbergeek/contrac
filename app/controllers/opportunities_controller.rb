@@ -38,11 +38,17 @@ class OpportunitiesController < ApplicationController
   end
   
   def filter
-    session[:search] = params[:search]
-    session[:filters] = params[:filters] || {}
-    session[:owner_filters] = nil
-    if params[:owners]
-      session[:owner_filters] = "business_developer_id = #{params[:owners][:owner_id].first} or capture_manager_id = #{params[:owners][:owner_id].first}"
+    if params[:button_action] == "Clear"
+      session[:search] = ""
+      session[:filters] = {}
+      session[:owner_filters] = nil
+    else
+      session[:search] = params[:search]
+      session[:filters] = params[:filters] || {}
+      session[:owner_filters] = nil
+      if params[:owners]
+        session[:owner_filters] = "business_developer_id = #{params[:owners][:owner_id].first} or capture_manager_id = #{params[:owners][:owner_id].first}"
+      end
     end
     redirect_back_or opportunities_path
   end

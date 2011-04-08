@@ -1,6 +1,4 @@
 <%= render :partial => 'filters' %>
-
-<%= content_tag("h3","Filtered!") unless @filters.empty? %>
 <%= will_paginate @opportunities, :class =>"span-24 last" %>
 <table class="opportunities">
 	<thead>

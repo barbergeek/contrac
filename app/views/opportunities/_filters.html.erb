@@ -1,9 +1,9 @@
 <div id="opportunity-filter" class="accordion-collapsible span-24 last checkboxes">
-<h3><a href="#">Filters and Search</a></h3>
+<%= content_tag(:h3, link_to("Filters and Search#{' [Filtered]' unless @filters.empty? && @owner_filters.empty? && @searchstring.empty?}",'#')) %>
 <div>
 	<%= form_tag filter_opportunities_path do %>
 		<%= hidden_field_tag "my", "true" if params[:my]%>
-		Search: <%= search_field_tag 'search', @searchstring %> <%= submit_tag 'Search'%><br/>
+		Search: <%= search_field_tag 'search', @searchstring %> <%= submit_tag 'Search', :name => 'button_action'%> <%= submit_tag 'Clear', :name => 'button_action'%><br/>
 		Fields searched: acronym, program, description, input_opportunity_number, solicitation_type, contract_type, prime
 		<br/><br/>
 	<div class="column span-8 border clear">
