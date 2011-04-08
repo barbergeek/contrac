@@ -12,9 +12,10 @@ class OpportunitiesController < ApplicationController
     
     @searchstring = session[:search]
 
-   @opportunities = Opportunity.where(@filters).search(@searchstring).paginate :include => [:owner, :watchers], 
+   @opportunities = Opportunity.where(@filters).where(@owner_filters).includes([:business_developer, :capture_manager, :watchers]).search(@searchstring).paginate( 
       :page => params[:page], :per_page => 20, 
       :order => "#{sort_column} #{sort_direction}"
+      )
     
     respond_to do |format|
       format.html # index.html.erb
@@ -26,21 +27,25 @@ class OpportunitiesController < ApplicationController
   def my
     session[:search] = params[:search]
     session[:filters] ||= {}
-    session[:filters] = session[:filters].merge({:owner_id => current_user.id.to_s}) if current_user.capture?
+    session[:owner_filters] = "business_developer_id = #{current_user.id} or capture_manager_id = #{current_user.id} or watched_opportunities.user_id = #{current_user.id}"
     redirect_to opportunities_path
   end
   
   def all
     session[:search] = params[:search]
     session[:filters] ||= {}
-    session[:filters].delete(:owner_id)
+    session[:owner_filters] = nil
     redirect_to opportunities_path
   end
   
   def filter
     session[:search] = params[:search]
     session[:filters] = params[:filters] || {}
-    redirect_to opportunities_path
+    session[:owner_filters] = nil
+    if params[:owners]
+      session[:owner_filters] = "business_developer_id = #{params[:owners][:owner_id].first} or capture_manager_id = #{params[:owners][:owner_id].first}"
+    end
+    redirect_back_or opportunities_path
   end
 
   # GET /opportunities/1
@@ -50,6 +55,8 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.find(params[:id])
     @comments = @opportunity.comments
     @commentable = @opportunity
+    @owners = User.by_initials.keep_if {|user| user.capture? }
+    @bders = User.by_initials.keep_if {|user| user.bd? }
         
     respond_to do |format|
       format.html { render 'edit' } # render the edit page in readonly mode
@@ -66,6 +73,7 @@ class OpportunitiesController < ApplicationController
     @comments = @opportunity.comments
     @commentable = @opportunity
     @owners = User.by_initials.keep_if {|user| user.capture? }
+    @bders = User.by_initials.keep_if {|user| user.bd? }
         
     respond_to do |format|
       format.html # new.html.erb
@@ -81,6 +89,7 @@ class OpportunitiesController < ApplicationController
     @comments = @opportunity.comments
     @commentable = @opportunity
     @owners = User.by_initials.keep_if {|user| user.capture? }
+    @bders = User.by_initials.keep_if {|user| user.bd? }
     
     respond_to do |format|
       format.html # new.html.erb
@@ -150,10 +159,10 @@ class OpportunitiesController < ApplicationController
     @end = @start.advance(:months => (@rows*@columns)).advance(:days => -1)
     
     if params[:order_by] == "due_date"
-      @opportunities = Opportunity.calendar.where(@filters).where("rfp_due_date between ? and ?",@start,@end).order("rfp_due_date")
+      @opportunities = Opportunity.calendar.where(@filters).where(@owner_filters).includes([:business_developer, :capture_manager, :watchers]).where("rfp_due_date between ? and ?",@start,@end).order("rfp_due_date")
       @order_by = :due_date
     else
-      @opportunities = Opportunity.calendar.where(@filters).where("rfp_release_date between ? and ?",@start,@end).order("rfp_release_date")
+      @opportunities = Opportunity.calendar.where(@filters).where(@owner_filters).includes([:business_developer, :capture_manager, :watchers]).where("rfp_release_date between ? and ?",@start,@end).order("rfp_release_date")
       @order_by = :release_date
     end
     
@@ -182,7 +191,13 @@ class OpportunitiesController < ApplicationController
   
   def own
     @opportunity = Opportunity.find(params[:id])
-    @opportunity.owner = current_user
+    if current_user.capture_manager?
+      @opportunity.capture_manager = current_user
+    elsif current_user.bd?
+      @opportunity.business_developer = current_user
+    else
+      @opportunity.capture_manager = current_user
+    end
     @opportunity.save!
     
     respond_to do |format|
@@ -207,7 +222,7 @@ class OpportunitiesController < ApplicationController
       @agency_filters = @filters[:agency] || {}
       @input_status_filters = @filters[:input_status] || {}
       @capture_phase_filters = @filters[:capture_phase] || {}
-      @owner_filters = @filters[:owner_id] || {}
+      @owner_filters = session[:owner_filters] || {}
 
       @departments = Opportunity.find(:all, :select => "distinct department")
       @agencies = Opportunity.find(:all, :select => "distinct agency", :conditions => "agency is not null and agency <> ''")

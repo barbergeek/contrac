@@ -29,7 +29,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, 
          :recoverable, :rememberable, :trackable, :validatable
   
-  has_many :opportunities, :foreign_key => :owner_id
+  has_many :opportunities, :foreign_key => :business_developer_id
+  has_many :proposals, :foreign_key => :capture_manager_id
   has_many :watched_opportunities
   has_many :watched, :through => :watched_opportunities, :source => :opportunity
 
@@ -38,6 +39,8 @@ class User < ActiveRecord::Base
   
   # Roles
   ROLES = %w[admin business_developer bd_manager capture_manager senior_manager]
+  BD_ROLES = %w[business_developer bd_manager]
+  CAPTURE_ROLES = BD_ROLES + %w[capture_manager]
   
   def self.by_initials
     order("initials")

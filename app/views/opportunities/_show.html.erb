@@ -17,8 +17,9 @@ RFP Due Date: <%= @opportunity.rfp_expected_due_date %><br />
 Award Date: <%= @opportunity.award_date %><br />
 Prime: <%= @opportunity.prime %><br />
 Capture Phase: <%= @opportunity.capture_phase %><br />
-Owner: <%= @opportunity.owner_initials unless @opportunity.owner.nil? %><br />
-Latest Comments: <%= @opportunity.comments.last.content unless @opportunity.comments.last.nil? %><br />
+BD: <%= @opportunity.business_developer_initials if @opportunity.business_developer %><br />
+Capture: <%= @opportunity.capture_manager_initials if @opportunity.capture_manager %><br />
+Latest Comments: <%= @opportunity.comments.last.content if @opportunity.comments %><br />
 Created At: <%= @opportunity.created_at %><br />
 Updated At: <%= @opportunity.updated_at %>
 </p>

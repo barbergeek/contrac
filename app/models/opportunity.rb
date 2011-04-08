@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110407192904
+# Schema version: 20110408154136
 #
 # Table name: opportunities
 #
@@ -21,7 +21,7 @@
 #  award_date               :date
 #  prime                    :string(255)
 #  capture_phase            :string(255)
-#  owner_id                 :integer
+#  business_developer_id    :integer
 #  created_at               :datetime
 #  updated_at               :datetime
 #  input_status             :string(255)
@@ -29,10 +29,12 @@
 #  outcome                  :string(255)
 #  our_value                :integer
 #  search_sink              :text
+#  capture_manager_id       :integer
 #
 
 class Opportunity < ActiveRecord::Base
-  belongs_to :owner, :class_name => "User"
+  belongs_to :business_developer, :class_name => "User"
+  belongs_to :capture_manager, :class_name => "User"
   has_many :comments, :as => :commentable
   belongs_to :input_record, :foreign_key => "input_opportunity_number",
               :primary_key => "input_opportunity_number", :readonly => :true
@@ -41,14 +43,19 @@ class Opportunity < ActiveRecord::Base
   
   delegate  :name,
             :initials,
-            :to => :owner,
+            :to => :business_developer,
+            :prefix => true
+            
+  delegate  :name,
+            :initials,
+            :to => :capture_manager,
             :prefix => true
             
   attr_accessible :acronym, :program, :department, :agency, :description, :location,
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
                   :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase, 
-                  :input_status, :owner_id, :acquisition_url, :comments, :comments_attributes, :outcome,
-                  :our_value, :watchers, :owner, :watched_opportunities, :input_opportunity_number, :rfp_expected_due_date
+                  :input_status, :business_developer_id, :capture_manager_id, :acquisition_url, :comments, :comments_attributes, :outcome,
+                  :our_value, :watchers, :business_developer, :capture_manager, :watched_opportunities, :input_opportunity_number, :rfp_expected_due_date
                   
   accepts_nested_attributes_for :comments, :reject_if => proc { |attributes| attributes['content'].blank? }
   
@@ -85,7 +92,7 @@ class Opportunity < ActiveRecord::Base
   end
   
   def owned_by?(who)
-    owner == who
+    business_developer == who || capture_manager == who
   end
   
   def title
@@ -117,7 +124,7 @@ class Opportunity < ActiveRecord::Base
   end
   
   def self.for(who)
-    where("owner_id = ?",who.id)
+    where("business_developer_id = ? or capture_manager_id = ?",who.id,who.id)
   end
   
   def self.recently_updated(since = 7.days.ago)
@@ -175,35 +182,7 @@ class Opportunity < ActiveRecord::Base
     def set_expected_due_date
       self.rfp_due_date = rfp_due_date || (rfp_release_date + 1.month unless rfp_release_date.nil?)
     end
-    
-
-    #  id                       :integer         not null, primary key
-    #  acronym                  :string(255)
-    #  program                  :string(255)
-    #  department               :string(255)
-    #  agency                   :string(255)
-    #  description              :text
-    #  location                 :string(255)
-    #  input_opportunity_number :integer
-    #  total_value              :integer
-    #  win_probability          :integer
-    #  contract_length          :string(255)
-    #  solicitation_type        :string(255)
-    #  contract_type            :string(255)
-    #  rfp_release_date         :date
-    #  rfp_due_date             :date
-    #  award_date               :date
-    #  prime                    :string(255)
-    #  capture_phase            :string(255)
-    #  owner_id                 :integer
-    #  created_at               :datetime
-    #  updated_at               :datetime
-    #  input_status             :string(255)
-    #  acquisition_url          :string(255)
-    #  outcome                  :string(255)
-    #  our_value                :integer
-    #  search_sink              :text
-    
+      
     def self.is_a_number?(s)
       s.to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/) == nil ? false : true
     end

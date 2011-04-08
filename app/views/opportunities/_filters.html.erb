@@ -33,7 +33,7 @@
 	<div class="span-6 last">
 		<b><i>Capture/Business Development</b></i><br />
 		<% @owners.each do |owner| %>
-			<label><%= check_box_tag "filters[owner_id][]", owner.id.to_s, @owner_filters.include?(owner.id.to_s) %> <%= "#{owner.name} (#{owner.initials})" %></label><br />
+			<label><%= check_box_tag "owners[owner_id][]", owner.id.to_s, @owner_filters.include?(owner.id.to_s) %> <%= "#{owner.name} (#{owner.initials})" %></label><br />
 		<% end %>
 	</div>
 	<div class="span-22 last prepend-top border clear"><b><i>Agency</b></i></div>

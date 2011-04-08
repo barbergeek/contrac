@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110407192904) do
+ActiveRecord::Schema.define(:version => 20110408154136) do
 
   create_table "announcements", :force => true do |t|
     t.string   "author"
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(:version => 20110407192904) do
     t.date     "award_date"
     t.string   "prime"
     t.string   "capture_phase"
-    t.integer  "owner_id"
+    t.integer  "business_developer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "input_status"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20110407192904) do
     t.string   "outcome"
     t.integer  "our_value"
     t.text     "search_sink"
+    t.integer  "capture_manager_id"
   end
 
   create_table "users", :force => true do |t|

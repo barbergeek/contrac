@@ -23,6 +23,6 @@
 	<td><%= opportunity.rfp_release_date %></td>
 	<td><%= opportunity.capture_phase %></td>
 	<td><%= content_tag("span",
-	 				"#{opportunity.owner.nil? ? '' : opportunity.owner_initials}",
-	 				:id => "opportunity-#{opportunity.id}-owner") %></td>
+	 				"#{opportunity.business_developer.nil? ? '' : opportunity.business_developer_initials}/#{opportunity.capture_manager.nil? ? '' : opportunity.capture_manager_initials}",
+	 				:id => "opportunity-#{opportunity.id}-owners") %></td>
 </tr>
