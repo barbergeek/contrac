@@ -43,8 +43,8 @@ class PortletsController < ApplicationController
         :name => 'Count',
         :data => data.values
       )
-      f.options[:x_axis][:categories] = data.keys
-      f.options[:y_axis][:title][:text] = "Count"
+      f.options[:xAxis][:categories] = data.keys
+      f.options[:yAxis][:title][:text] = "Count"
       f.options[:title][:text] = 'My Unawarded Opportunities'
       f.options[:legend][:enabled] = false
     end
@@ -61,8 +61,8 @@ class PortletsController < ApplicationController
         :name => 'Count',
         :data => data.values
       )
-      f.options[:x_axis][:categories] = data.keys
-      f.options[:y_axis][:title][:text] = "Count"
+      f.options[:xAxis][:categories] = data.keys
+      f.options[:yAxis][:title][:text] = "Count"
       f.options[:title][:text] = 'All Opportunities by INPUT Status'
       f.options[:legend][:enabled] = false
     end
