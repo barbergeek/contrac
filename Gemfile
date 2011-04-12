@@ -22,6 +22,7 @@ group :development do
 	gem 'rspec-rails'
 	gem	'annotate-models'
 	gem 'faker'
+    gem 'rails-footnotes'
 end
 
 group :test do
@@ -53,3 +54,4 @@ end
 # group :development, :test do
 #   gem 'webrat'
 # end
+

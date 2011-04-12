@@ -92,6 +92,8 @@ GEM
       activesupport (= 3.0.4)
       bundler (~> 1.0)
       railties (= 3.0.4)
+    rails-footnotes (3.7.0)
+      rails (>= 3.0.0)
     railties (3.0.4)
       actionpack (= 3.0.4)
       activesupport (= 3.0.4)
@@ -150,6 +152,7 @@ DEPENDENCIES
   mechanize
   nokogiri
   rails (= 3.0.4)
+  rails-footnotes
   rspec
   rspec-rails
   simple_form
