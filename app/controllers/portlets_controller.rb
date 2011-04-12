@@ -14,9 +14,44 @@ class PortletsController < ApplicationController
         :cursor => "pointer"
       })
     end
-  
+
     render_to_body :template => 'portlets/pie_chart'
   end
+
+  def portlet__unawarded_opportunities_by_capture_phase(*)
+    data = Opportunity.unawarded.with_capture_phase.capture_phase_count
+    @hc = LazyHighCharts::HighChart.new('graph') do |f|
+      f.series(
+        :type => 'column',
+        :name => 'Count',
+        :data => data.values
+      )
+      f.options[:xAxis][:categories] = data.keys
+      f.options[:yAxis][:title][:text] = "Count"
+      f.options[:title][:text] = 'Unawarded Opportunities by Capture Phase'
+      f.options[:legend][:enabled] = false
+    end
+
+    render_to_body :template => 'portlets/column_chart'
+  end
+
+  def portlet__my_unawarded_opportunities_by_capture_phase(current_user)
+    data = Opportunity.unawarded.for(current_user).with_capture_phase.capture_phase_count
+    @hc = LazyHighCharts::HighChart.new('graph') do |f|
+      f.series(
+        :type => 'column',
+        :name => 'Count',
+        :data => data.values
+      )
+      f.options[:xAxis][:categories] = data.keys
+      f.options[:yAxis][:title][:text] = "Count"
+      f.options[:title][:text] = 'My Unawarded Opportunities by Capture Phase'
+      f.options[:legend][:enabled] = false
+    end
+
+    render_to_body :template => 'portlets/column_chart'
+  end
+
 
   def portlet__unawarded_opportunities_by_input_status(*)
     data = Opportunity.unawarded.input_status_count
@@ -26,8 +61,8 @@ class PortletsController < ApplicationController
         :name => 'Count',
         :data => data.values
       )
-      f.options[:x_axis][:categories] = data.keys
-      f.options[:y_axis][:title][:text] = "Count"
+      f.options[:xAxis][:categories] = data.keys
+      f.options[:yAxis][:title][:text] = "Count"
       f.options[:title][:text] = 'Unawarded Opportunities by INPUT Status'
       f.options[:legend][:enabled] = false
     end
@@ -74,7 +109,7 @@ class PortletsController < ApplicationController
     announcements = Announcement.for_front_page
     render_to_body :template => 'portlets/announcements', :locals => {:title => "Announcements", :announcements => announcements}
   end
-  
+
   def portlet__upcoming_opportunities(*)
     data = Opportunity.pre_rfp.program_and_rfp_date.limit(5).by_rfp_date
     render_to_body :template => 'portlets/table', :locals => {:title => "Upcoming Opportunities", :table => data }
@@ -99,3 +134,4 @@ class PortletsController < ApplicationController
   end
 
 end
+

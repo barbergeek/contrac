@@ -1,20 +1,20 @@
 Contrac::Application.routes.draw do
-  
+
   resources :announcements
 
   devise_for :user do
     get "login", :to => "devise/sessions#new"
     get "logout", :to => "devise/sessions#destroy"
   end
-  
+
   resources :users do
     collection do
       post 'become'
     end
   end
-  
+
   resources :comments
-  
+
   match "/about" => "pages#about"
   match "/help" => 'pages#help'
   match "/contact" => 'pages#contact'
@@ -23,14 +23,14 @@ Contrac::Application.routes.draw do
   resources :opportunities do
     collection do
       post 'filter','calendar_order_by'
-      get 'my', 'calendar', 'all'
+      get 'my', 'calendar', 'all', 'dashboard'
     end
     member do
       post 'watch', 'own'
     end
     resources :comments
   end
-  
+
   resources :input_records, :only => [:index, :show, :edit, :update, :destroy] do
     collection do
       get 'import'
@@ -38,9 +38,9 @@ Contrac::Application.routes.draw do
       put 'merge'
     end
   end
-  
+
   root :to => "pages#home"
-  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -98,3 +98,4 @@ Contrac::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 end
+

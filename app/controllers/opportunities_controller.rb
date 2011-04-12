@@ -23,6 +23,9 @@ class OpportunitiesController < ApplicationController
     end
   end
 
+  def dashboard
+  end
+
   def my
     session[:search] = params[:search]
     session[:filters] ||= {}
