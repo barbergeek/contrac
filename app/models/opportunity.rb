@@ -40,73 +40,73 @@ class Opportunity < ActiveRecord::Base
               :primary_key => "input_opportunity_number", :readonly => :true
   has_many :watched_opportunities
   has_many :watchers, :through => :watched_opportunities, :source => :user
-  
+
   delegate  :name,
             :initials,
             :to => :business_developer,
             :prefix => true
-            
+
   delegate  :name,
             :initials,
             :to => :capture_manager,
             :prefix => true
-            
+
   attr_accessible :acronym, :program, :department, :agency, :description, :location,
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
-                  :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase, 
+                  :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase,
                   :input_status, :business_developer_id, :capture_manager_id, :acquisition_url, :comments, :comments_attributes, :outcome,
                   :our_value, :watchers, :business_developer, :capture_manager, :watched_opportunities, :input_opportunity_number, :rfp_expected_due_date
-                  
+
   accepts_nested_attributes_for :comments, :reject_if => proc { |attributes| attributes['content'].blank? }
-  
+
   before_save :set_expected_due_date
   before_save :fill_search_sink
 
   validates :program, :presence => true
   validates :department, :presence => true
-  
+
   PHASES = %w[identification qualification win_strategy pre-proposal proposal post_submittal post_award]
   OUTCOMES = %w[won lost no_bid]
-  
+
   scope :calendar,
      where("(outcome <> ? or outcome is null) and (capture_phase not in (?) or capture_phase is null) and rfp_release_date is not null and (input_status is null or input_status not in (?))", "no_bid", %w[post_submittal post_award], %w[Post-RFP Awarded])
      # where (outcome <> 'no_bid' or outcome is null) and (capture_phase not in ('post_submittal','post_award') or capture_phase is null) and rfp_release_date is not null;
 
   scope :unawarded,
     where("(outcome is null or outcome = '') and rfp_release_date is not null and (input_status is null or input_status not in (?))", ["Awarded","Deleted/Canceled"])
- 
+
   scope :pre_rfp,
     where("(outcome is null or outcome = '') and rfp_release_date is not null and (capture_phase is null or capture_phase not in (?))", %w[post_submittal post_award])
 
   scope :lost,
     where("outcome = 'lost'")
-  
+
   scope :won,
     where("outcome = 'won'")
-    
+
   scope :with_input_records
     where("input_opportunity_number is not null")
-    
+
   def watched_by?(who)
     watchers.include?(who)
   end
-  
+
   def owned_by?(who)
     business_developer == who || capture_manager == who
   end
-  
+
   def title
     acronym.blank? ? program : acronym
   end
-  
+
   def rfp_expected_due_date
     rfp_due_date || (rfp_release_date + 1.month unless rfp_release_date.nil?)
   end
-  
+
   def rfp_expected_due_date=(duedate)
     self.rfp_due_date = duedate
   end
-  
+
   def rfp_date(which)
     if which == :due_date
       rfp_due_date
@@ -114,23 +114,23 @@ class Opportunity < ActiveRecord::Base
       rfp_release_date
     end
   end
-  
+
   def self.department_count
     count(:all, :group => "department")
   end
-    
+
   def self.input_status_count
     count(:all, :group => "input_status")
   end
-  
+
   def self.for(who)
     where("business_developer_id = ? or capture_manager_id = ?",who.id,who.id)
   end
-  
+
   def self.recently_updated(since = 7.days.ago)
     where("updated_at > ?",since)
   end
-  
+
   def self.program_and_rfp_date
     select("id,program,rfp_release_date")
   end
@@ -138,31 +138,31 @@ class Opportunity < ActiveRecord::Base
   def self.program_and_update_date
     select("id,program,updated_at AS update_date")
   end
-  
+
   def self.by_rfp_date
     order("rfp_release_date asc")
   end
-  
+
   def self.by_updated_desc
     order("updated_at desc")
   end
-  
+
   def self.by_program
     order("program")
   end
-  
+
   def find_input_comment(comment)
     comments.find_by_content_and_source(comment, "INPUT")
   end
-  
+
   def new_input_comment=(comment)
     comments << Comment.new(:content => comment, :source => "INPUT") unless find_input_comment(comment)
   end
-  
+
   def new_input_comment_with_date(comment,date)
     comments << Comment.new(:content => comment, :source => "INPUT", :commented_at => date) unless find_input_comment(comment)
   end
-  
+
   def self.search(string)
     if string.blank?
       all
@@ -176,15 +176,16 @@ class Opportunity < ActiveRecord::Base
   def fill_search_sink
     self.search_sink = [acronym, program, description, input_opportunity_number, solicitation_type, contract_type, prime].collect {|item| item.to_s.strip.downcase}.join('||')
   end
-  
+
   protected
-  
+
     def set_expected_due_date
       self.rfp_due_date = rfp_due_date || (rfp_release_date + 1.month unless rfp_release_date.nil?)
     end
-      
+
     def self.is_a_number?(s)
       s.to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/) == nil ? false : true
     end
 
 end
+
