@@ -145,7 +145,8 @@ class OpportunitiesController < ApplicationController
   # DELETE /opportunities/1.xml
   def destroy
     @opportunity = Opportunity.find(params[:id])
-    @opportunity.destroy
+    #@opportunity.destroy
+    flash[:notice] = "Deleting records is disabled at this time"
 
     respond_to do |format|
       format.html { redirect_to(opportunities_url) }

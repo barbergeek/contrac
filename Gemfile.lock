@@ -29,7 +29,6 @@ GEM
       activemodel (= 3.0.4)
       activesupport (= 3.0.4)
     activesupport (3.0.4)
-    acts_as_paranoid (0.3.1)
     annotate-models (1.0.4)
     arel (2.0.9)
     bcrypt-ruby (2.1.4)
@@ -139,7 +138,6 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
-  acts_as_paranoid
   annotate-models
   cancan
   delayed_job
