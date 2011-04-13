@@ -20,7 +20,7 @@
 							<% if col == "id" %>
 								<% @id = val %>
 							<% else %>
-								<td><%= @id.nil? ? val : link_to(val,"opportunities/#{@id}") %></td>
+								<td><%= @id.nil? ? val : link_to(val,"/opportunities/#{@id}") %></td>
 								<% @id = nil %>
 							<% end %>
 						<% end %>
