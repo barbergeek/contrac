@@ -24,6 +24,8 @@ class OpportunitiesController < ApplicationController
   end
 
   def dashboard
+    store_location
+    
   end
 
   def my
