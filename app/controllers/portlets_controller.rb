@@ -1,5 +1,5 @@
 class PortletsController < ApplicationController
-
+  
   def portlet__opportunities_by_department(*)
     data = Opportunity.unawarded.department_count
     @hc = LazyHighCharts::HighChart.new('pie') do |f|
