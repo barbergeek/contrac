@@ -12,9 +12,13 @@ class OpportunitiesController < ApplicationController
 
     @searchstring = session[:search] || ""
 
-   @opportunities = Opportunity.where(@filters).where(@owner_filters).includes([:business_developer, :capture_manager, :watchers]).order("#{sort_column} #{sort_direction}").search(@searchstring).paginate(
-      :page => params[:page], :per_page => 20
-      )
+   @opportunities = Opportunity.
+      where(@filters).
+      where(@owner_filters).
+      includes([:business_developer, :capture_manager, :watchers]).
+      order("#{sort_column} #{sort_direction}").
+      search(@searchstring).
+      paginate(:page => params[:page], :per_page => 20)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -184,12 +188,7 @@ class OpportunitiesController < ApplicationController
 
   def watch
     @opportunity = Opportunity.find(params[:id])
-    if @opportunity.watched_by?(current_user)
-      @opportunity.watchers -= [current_user]
-    else
-      @opportunity.watchers << current_user
-    end
-    @opportunity.save!
+    @opportunity.toggle_watch(current_user)
 
     respond_to do |format|
       format.html { redirect_to(opportunities_path)}
@@ -200,14 +199,7 @@ class OpportunitiesController < ApplicationController
 
   def own
     @opportunity = Opportunity.find(params[:id])
-    if current_user.capture_manager?
-      @opportunity.capture_manager = current_user
-    elsif current_user.bd?
-      @opportunity.business_developer = current_user
-    else
-      @opportunity.capture_manager = current_user
-    end
-    @opportunity.save!
+    @opportunity.own(current_user)
 
     respond_to do |format|
       format.html { redirect_to(opportunities_path)}

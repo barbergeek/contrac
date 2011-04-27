@@ -184,6 +184,46 @@ class Opportunity < ActiveRecord::Base
     self.search_sink = [acronym, program, description, input_opportunity_number, solicitation_type, contract_type, prime].collect {|item| item.to_s.strip.downcase}.join('||')
   end
 
+  def toggle_watch(who)
+    if watched_by?(who)
+      unwatch(who)
+    else
+      watch(who)
+    end
+    save!
+  end
+
+  def watch(who)
+    watchers << who
+    save!
+  end
+
+  def unwatch(who)
+    watchers.delete(who)
+    save!
+  end
+
+  def own(who)
+    if who.capture_manager?
+      self.capture_manager = who
+    elsif who.bd?
+      self.business_developer = who
+    else
+      self.capture_manager = who
+    end
+    save!
+  end
+
+  def own_or_watch(who)
+    if capture_manager.nil? && who.capture_manager?
+      own(who)
+    elsif business_developer.nil? && who.bd?
+      own(who)
+    else
+      watch(who)
+    end
+  end
+
   protected
 
     def set_expected_due_date
