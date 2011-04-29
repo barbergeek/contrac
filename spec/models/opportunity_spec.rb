@@ -156,4 +156,124 @@ describe Opportunity do
     end
   end
   
+  context "owning" do
+    it "lets anyone own an opportunity" do
+      opp = Factory(:opportunity)
+      user = Factory(:user)
+      opp.own(user)
+      opp.should be_owned_by(user)
+    end
+    
+    it "sets a bd user as the business developer" do
+      opp = Factory(:opportunity)
+      user = Factory(:user, :roles => ["business_developer"])
+      opp.own(user)
+      opp.business_developer.should == user
+    end
+    
+    it "sets a capture user as the capture manager" do
+      opp = Factory(:opportunity)
+      user = Factory(:user, :roles => ["capture_manager"])
+      opp.own(user)
+      opp.capture_manager.should == user
+    end
+    
+    it "sets a general user as the capture manager" do
+      opp = Factory(:opportunity)
+      user = Factory(:user)
+      opp.own(user)
+      opp.capture_manager.should == user
+    end
+  end
+  
+  context "watching" do
+    it "lets anyone watch an opportunity" do
+      opp = Factory(:opportunity)
+      user = Factory(:user)
+      opp.should_not be_watched_by(user)
+      opp.watch(user)
+      opp.should be_watched_by(user)
+    end
+    
+    it "lets anyone unwatch an opportunity" do
+      opp = Factory(:opportunity)
+      user = Factory(:user)
+      opp.watch(user)
+      opp.unwatch(user)
+      opp.should_not be_watched_by(user)
+    end
+    
+    it "lets you toggle watching an opportunity" do
+      opp = Factory(:opportunity)
+      user = Factory(:user)
+      opp.should_not be_watched_by(user)
+      opp.toggle_watch(user)
+      opp.should be_watched_by(user)
+      opp.toggle_watch(user)
+      opp.should_not be_watched_by(user)
+    end
+    
+    it "should not change bd or capture manager ownership" do
+      opp = Factory(:opportunity)
+      user = Factory(:user)
+      bd_user = Factory(:user, :roles => ["business_developer"])
+      cm_user = Factory(:user, :roles => ["capture_manager"])
+      opp.business_developer = bd_user
+      opp.capture_manager = cm_user
+      opp.watch(user)
+      opp.business_developer.should == bd_user
+      opp.capture_manager.should == cm_user
+    end
+    
+  end
+  
+  context "own_or_watch" do
+    it "sets a capture manager as the capture manager if there isn't one already" do
+      opp = Factory(:opportunity)
+      user = Factory(:user, :roles => ["capture_manager"])
+      opp.capture_manager.should be_nil
+      opp.own_or_watch(user)
+      opp.capture_manager.should == user
+    end
+
+    it "sets a capture manager as a watcher if there is a capture manager" do
+      opp = Factory(:opportunity)
+      user = Factory(:user, :roles => ["capture_manager"])
+      user2 = Factory(:user, :roles => ["capture_manager"])
+      opp.capture_manager = user
+      opp.own_or_watch(user2)
+      opp.capture_manager.should == user
+      opp.should be_watched_by(user2)
+    end
+
+    it "sets a business developer as the business developer if there isn't one already" do
+      opp = Factory(:opportunity)
+      user = Factory(:user, :roles => ["business_developer"])
+      opp.business_developer.should be_nil
+      opp.own_or_watch(user)
+      opp.business_developer.should == user
+    end
+
+    it "sets a business developer as a watcher if there is a business developer" do
+      opp = Factory(:opportunity)
+      user = Factory(:user, :roles => ["business_developer"])
+      user2 = Factory(:user, :roles => ["business_developer"])
+      opp.business_developer = user
+      opp.own_or_watch(user2)
+      opp.business_developer.should == user
+      opp.should be_watched_by(user2)
+    end
+
+    it "sets a general user as a watcher, even if there aren't capture managers or business developers" do
+      opp = Factory(:opportunity)
+      user = Factory(:user)
+      opp.capture_manager.should be_nil
+      opp.business_developer.should be_nil
+      opp.own_or_watch(user)
+      opp.capture_manager.should be_nil
+      opp.business_developer.should be_nil
+      opp.should be_watched_by(user)
+    end
+
+  end
 end

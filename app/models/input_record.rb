@@ -91,6 +91,13 @@ class InputRecord < ActiveRecord::Base
     
     # save it
     opportunity.save!
+
+    # give ownership or watch to users
+    user_list.split(", ").each do |email|
+      user = User.find_by_email(email)
+      opportunity.own_or_watch(user) unless user.nil?
+    end unless user_list.nil?
+
   end
   
 end

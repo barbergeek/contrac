@@ -79,7 +79,7 @@ class Opportunity < ActiveRecord::Base
     where("capture_phase is not null and capture_phase <> ''")
 
   scope :pre_rfp,
-    where("(outcome is null or outcome = '') and rfp_release_date is not null and (capture_phase is null or capture_phase not in (?))", %w[post_submittal post_award])
+    where("(outcome is null or outcome = '') and rfp_release_date is not null and (capture_phase is null or capture_phase not in (?)) and (input_status is null or input_status not in (?))", %w[post_submittal post_award], ["Awarded","Deleted/Canceled","Source Selection","Umbrella Program","Protest"])
 
   scope :lost,
     where("outcome = 'lost'")
