@@ -67,6 +67,14 @@ class InputRecord < ActiveRecord::Base
       agency = nil
     end
     
+    # need to temporarily un-ignore the Opportunity record so we don't create duplicates
+    opp = Opportunity.unscoped.find_by_input_opportunity_number(input_opportunity_number)
+    was_ignored = false
+    if opp && opp.ignored?
+      opp.recover
+      was_ignored = true
+    end
+    
     create_opportunity(:program => title, :department => dept) if opportunity.nil?
 
     # merge missing data
@@ -98,6 +106,9 @@ class InputRecord < ActiveRecord::Base
       opportunity.own_or_watch(user) unless user.nil?
     end unless user_list.nil?
 
+    # re-ignore the record if needed
+    opp.destroy if was_ignored
+    
   end
   
 end
