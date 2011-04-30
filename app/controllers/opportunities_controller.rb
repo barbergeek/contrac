@@ -12,7 +12,9 @@ class OpportunitiesController < ApplicationController
 
     @searchstring = session[:search] || ""
 
-   @opportunities = Opportunity.
+    opp = session[:show_ignored] ? Opportunity.unscoped : Opportunity
+    
+   @opportunities = opp.
       where(@filters).
       where(@owner_filters).
       includes([:business_developer, :capture_manager, :watchers]).
@@ -51,6 +53,7 @@ class OpportunitiesController < ApplicationController
       session[:search] = ""
       session[:filters] = {}
       session[:owner_filters] = nil
+      session[:show_ignored] = false
     else
       session[:search] = params[:search]
       session[:filters] = params[:filters] || {}
@@ -58,6 +61,7 @@ class OpportunitiesController < ApplicationController
       if params[:owners]
         session[:owner_filters] = "business_developer_id = #{params[:owners][:owner_id].first} or capture_manager_id = #{params[:owners][:owner_id].first}"
       end
+      session[:show_ignored] = params[:ignore]
     end
     redirect_back_or opportunities_path
   end
@@ -153,10 +157,15 @@ class OpportunitiesController < ApplicationController
   # DELETE /opportunities/1
   # DELETE /opportunities/1.xml
   def destroy
-    @opportunity = Opportunity.find(params[:id])
-    #@opportunity.destroy
-    flash[:notice] = "Deleting records is disabled at this time"
-
+    @opportunity = Opportunity.unscoped.find(params[:id])
+    if @opportunity.ignored?
+      @opportunity.recover
+      flash[:notice] = "Opportunity recovered"
+    else
+      @opportunity.destroy
+      flash[:notice] = "Opportunity ignored"
+    end
+    
     respond_to do |format|
       format.html { redirect_to(opportunities_url) }
       format.xml  { head :ok }
@@ -226,6 +235,7 @@ class OpportunitiesController < ApplicationController
       @input_status_filters = @filters[:input_status] || {}
       @capture_phase_filters = @filters[:capture_phase] || {}
       @owner_filters = session[:owner_filters] || {}
+      @show_ignored = session[:show_ignored] || false
 
       @departments = Opportunity.find(:all, :select => "distinct department")
       @agencies = Opportunity.find(:all, :select => "distinct agency", :conditions => "agency is not null and agency <> ''")

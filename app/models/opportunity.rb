@@ -55,7 +55,8 @@ class Opportunity < ActiveRecord::Base
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
                   :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase,
                   :input_status, :business_developer_id, :capture_manager_id, :acquisition_url, :comments, :comments_attributes, :outcome,
-                  :our_value, :watchers, :business_developer, :capture_manager, :watched_opportunities, :input_opportunity_number, :rfp_expected_due_date
+                  :our_value, :watchers, :business_developer, :capture_manager, :watched_opportunities, 
+                  :input_opportunity_number, :rfp_expected_due_date
 
   accepts_nested_attributes_for :comments, :reject_if => proc { |attributes| attributes['content'].blank? }
 
@@ -65,6 +66,8 @@ class Opportunity < ActiveRecord::Base
   validates :program, :presence => true
   validates :department, :presence => true
 
+  default_scope where(:ignore => false)
+  
   PHASES = %w[identification qualification win_strategy pre-proposal proposal post_submittal post_award]
   OUTCOMES = %w[won lost no_bid]
 
@@ -90,6 +93,20 @@ class Opportunity < ActiveRecord::Base
   scope :with_input_records
     where("input_opportunity_number is not null")
 
+  def destroy
+    self.ignore = true
+    save!
+  end
+  
+  def recover
+    self.ignore = false
+    save!
+  end
+  
+  def ignored?
+    self.ignore
+  end
+  
   def watched_by?(who)
     watchers.include?(who)
   end

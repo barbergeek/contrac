@@ -276,4 +276,16 @@ describe Opportunity do
     end
 
   end
+
+  context "ignoring" do
+    it "should ignore 'destroy'ed records" do
+      opp = Factory(:opportunity)
+      id = opp.id
+      opps = Opportunity.find_by_id(id)
+      opps.should == opp
+      opp.destroy
+      opps = Opportunity.find_by_id(id)
+      opps.should_not == opp
+    end
+  end
 end

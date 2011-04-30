@@ -43,9 +43,12 @@
 			<div class="span-7 <%= "last" if group_count == 0 %>">
 			<% group.each do |agency| %>
 				<label class="checkbox-label"><%= check_box_tag "filters[agency][]", agency.agency, @agency_filters.include?(agency.agency) %> <%= agency.agency %></label><br />
-			<% end %>
+				<% end %>
+			</div>
+		<% end %>
+		<div class="span-22 last prepend-top border clear"><b><i>Other</b></i><br />
+			<label><%= check_box_tag "ignore", "ignore", @show_ignored %>Include Ignored/Deleted Records</label>
 		</div>
-	<% end %>
 	<% end %>
 </div>
 </div>
