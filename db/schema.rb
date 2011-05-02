@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110429195434) do
+ActiveRecord::Schema.define(:version => 20110502210210) do
 
   create_table "announcements", :force => true do |t|
     t.string   "author"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(:version => 20110429195434) do
     t.integer  "our_value"
     t.text     "search_sink"
     t.integer  "capture_manager_id"
-    t.boolean  "ignore",                   :default => false, :null => false
+    t.boolean  "ignored",                  :default => false, :null => false
   end
 
   create_table "users", :force => true do |t|

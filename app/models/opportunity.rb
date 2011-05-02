@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110408154136
+# Schema version: 20110502210210
 #
 # Table name: opportunities
 #
@@ -30,6 +30,7 @@
 #  our_value                :integer
 #  search_sink              :text
 #  capture_manager_id       :integer
+#  ignored                  :boolean         not null
 #
 
 class Opportunity < ActiveRecord::Base
@@ -66,7 +67,7 @@ class Opportunity < ActiveRecord::Base
   validates :program, :presence => true
   validates :department, :presence => true
 
-  default_scope where(:ignore => false)
+  default_scope where(:ignored => false)
   
   PHASES = %w[identification qualification win_strategy pre-proposal proposal post_submittal post_award]
   OUTCOMES = %w[won lost no_bid]
@@ -94,17 +95,21 @@ class Opportunity < ActiveRecord::Base
     where("input_opportunity_number is not null")
 
   def destroy
-    self.ignore = true
+    self.ignored = true
     save!
   end
   
+  def ignore
+    self.destroy
+  end
+  
   def recover
-    self.ignore = false
+    self.ignored = false
     save!
   end
   
   def ignored?
-    self.ignore
+    self.ignored
   end
   
   def watched_by?(who)
