@@ -6,6 +6,14 @@ Record #: <%= @opportunity.id %> | Created: <%= @opportunity.created_at %> | Mod
 	<%= link_to c, watch_opportunity_path(@opportunity), 
 		:method => :post %> | 	
 	<%= link_to 'Back', redirect_back_or_path(opportunities_path) %>
+	<span class="navigation">
+		<% if session[:opportunity_id_list] && session[:opportunity_id_list].index(@opportunity.id) %>
+			<%= first_opportunity_link(@opportunity.id)%> |
+			<%= previous_opportunity_link(@opportunity.id) %> | 
+			<%= next_opportunity_link(@opportunity.id)%> |
+			<%= last_opportunity_link(@opportunity.id)%>
+		<% end %>
+	</span>
 </p>
 
 <%= render 'form' %>
