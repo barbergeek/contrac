@@ -14,7 +14,7 @@ module OpportunitiesHelper
   
   def next_opportunity_link(current)
     current_index = session[:opportunity_id_list].index(current)
-    if current_index < session[:opportunity_id_list].length - 1
+    if current != session[:opportunity_id_list].last
       link_to "Next", edit_opportunity_url(session[:opportunity_id_list][current_index+1])
     else
       ("&nbsp;"*4).html_safe
@@ -23,7 +23,7 @@ module OpportunitiesHelper
   
   def previous_opportunity_link(current)
     current_index = session[:opportunity_id_list].index(current)
-    if current_index > 0
+    if current != session[:opportunity_id_list].first
       link_to "Previous", edit_opportunity_url(session[:opportunity_id_list][current_index-1])
     else
       ("&nbsp;"*8).html_safe

@@ -17,12 +17,13 @@ gem "hoptoad_notifier"
 gem "heroku"
 gem 'nokogiri'
 gem 'mechanize'
+gem 'acts-as-taggable-on'
 
 group :development do
 	gem 'rspec-rails'
 	gem	'annotate-models'
 	gem 'faker'
-    gem 'rails-footnotes'
+  gem 'rails-footnotes'
 end
 
 group :test do
