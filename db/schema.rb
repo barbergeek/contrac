@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110505020629) do
+ActiveRecord::Schema.define(:version => 20110506142811) do
 
   create_table "announcements", :force => true do |t|
     t.string   "author"
@@ -128,6 +128,10 @@ ActiveRecord::Schema.define(:version => 20110505020629) do
     t.text     "search_sink"
     t.integer  "capture_manager_id"
     t.boolean  "ignored",                  :default => false, :null => false
+    t.integer  "priority"
+    t.string   "solicitation"
+    t.string   "solicitation_source"
+    t.string   "vehicle"
   end
 
   create_table "taggings", :force => true do |t|

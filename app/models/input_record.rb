@@ -86,7 +86,8 @@ class InputRecord < ActiveRecord::Base
     opportunity.contract_length = contract_duration if opportunity.contract_length.blank?
     opportunity.solicitation_type = competition_type if opportunity.solicitation_type.blank?
     opportunity.contract_type = contract_type if opportunity.contract_type.blank?
-
+    opportunity.solicitation = rfp_number if opportunity.solicitation.blank?
+    
     # for now, always take these fields from input
     opportunity.rfp_release_date = rfp_date if opportunity.rfp_release_date != rfp_date
     opportunity.award_date = project_award_date if opportunity.award_date != project_award_date
