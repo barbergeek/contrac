@@ -14,14 +14,18 @@ class OpportunitiesController < ApplicationController
 
     opp = session[:show_ignored] ? Opportunity.unscoped : Opportunity
     
-   @opportunities = opp.
+    opportunity_list = opp.
       where(@filters).
       where(@owner_filters).
       includes([:business_developer, :capture_manager, :watchers]).
       order("#{sort_column} #{sort_direction}").
-      search(@searchstring).
+      search(@searchstring)
+    
+    @opportunities = opportunity_list.
       paginate(:page => params[:page], :per_page => 20)
 
+    session[:opportunity_id_list] = opportunity_list.map {|i| i.id}
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @opportunities }

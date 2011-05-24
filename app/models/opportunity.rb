@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110502210210
+# Schema version: 20110506142811
 #
 # Table name: opportunities
 #
@@ -31,6 +31,10 @@
 #  search_sink              :text
 #  capture_manager_id       :integer
 #  ignored                  :boolean         not null
+#  priority                 :integer
+#  solicitation             :string(255)
+#  solicitation_source      :string(255)
+#  vehicle                  :string(255)
 #
 
 class Opportunity < ActiveRecord::Base
@@ -57,7 +61,8 @@ class Opportunity < ActiveRecord::Base
                   :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase,
                   :input_status, :business_developer_id, :capture_manager_id, :acquisition_url, :comments, :comments_attributes, :outcome,
                   :our_value, :watchers, :business_developer, :capture_manager, :watched_opportunities, 
-                  :input_opportunity_number, :rfp_expected_due_date
+                  :input_opportunity_number, :rfp_expected_due_date, :priority, :solicitation,
+                  :solicitation_source, :vehicle
 
   accepts_nested_attributes_for :comments, :reject_if => proc { |attributes| attributes['content'].blank? }
 
@@ -71,6 +76,10 @@ class Opportunity < ActiveRecord::Base
   
   PHASES = %w[identification qualification win_strategy pre-proposal proposal post_submittal post_award]
   OUTCOMES = %w[won lost no_bid]
+  PRIORITIES = [["High",1],["Medium",2],["Low",3]]
+  VEHICLES = ["Full and Open","AF ICE2","AF NETCENTS","DHS EAGLE","DHS USVISIT","DIA SIA","DIA SITE",
+    "ENCORE II","JSIN","GSA Alliant","GSA Schedule","CEOSS","Seaport-E","CIO-SP2","ITES-2S","New IDIQ"]
+  SOURCES = %w[FBO HERBB FAACO Unknown/Other]
 
   scope :calendar,
      where("(outcome <> ? or outcome is null) and (capture_phase not in (?) or capture_phase is null) and rfp_release_date is not null and (input_status is null or input_status not in (?))", "no_bid", %w[post_submittal post_award], %w[Post-RFP Awarded])

@@ -1,5 +1,7 @@
 Contrac::Application.routes.draw do
 
+  resources :companies
+
   resources :announcements
 
   devise_for :user do

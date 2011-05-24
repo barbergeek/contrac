@@ -21,12 +21,15 @@
 		<%= f.input :location %>
 		<%= f.input :contract_type, :label => "Contract Type" %>
 		<%= f.input :contract_length, :label => "Contract Len." %>
+		<%= f.input :vehicle, :label => "Vehicle", :collection => Opportunity::VEHICLES.sort %>
 		<%= f.input :total_value, :as => :string, :label => "Total Value" %>
 		<%= f.input :our_value, :label => "IntePros Value", :input_html => {:size => 10}%>
 	</div>
 	<div class="column span-16 last append-bottom">
 		<div class="column span-10 border">
+			<%= f.input :solicitation, :label => "Solicitation #" %>
 			<%= f.input :solicitation_type, :label => "Solic. Type" %>
+			<%= f.input :solicitation_source, :label => "Source", :collection => Opportunity::SOURCES %>
 			<%= f.input :rfp_release_date, :as => :string, :label => "RFP Release", :input_html => {:class => "datepicker"} %>
 			<%= f.input :rfp_expected_due_date, :as => :string, :label => "RFP Due", :input_html => {:class => "datepicker"} %>
 			<%= f.input :award_date, :as => :string, :label => "Award Date", :input_html => {:class => "datepicker"} %>
@@ -38,6 +41,7 @@
 			<%= f.association :business_developer, :collection => @bders, :label => "Business Developer" %><br/>
 			<%= f.association :capture_manager, :collection => @owners, :label => "Capture Manager" %><br/>
 			<%= f.input :capture_phase, :label => "Phase", :collection => Opportunity::PHASES, :label_method => :humanize %>
+			<%= f.input :priority, :label => "Priority", :collection => Opportunity::PRIORITIES %>
 			<%= f.input :win_probability, :as => :string, :label => "Win Prob.", :input_html => {:size => 5} %>
 			<%= f.input :outcome, :collection => Opportunity::OUTCOMES, :label_method => :humanize %>
 		</div>
