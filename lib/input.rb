@@ -24,7 +24,13 @@ module INPUT
       end
     end
   end
-  
+
+  def self.get_company_opportunities
+    login
+    @agent.get("http://www.input.com/index.cfm?fractal=myInput.dsp.myCompanyOpportunities&showall")
+    table = @agent.page.search(".resultsTableBorder")
+  end
+
   def self.login
     unless @agent
       @agent = Mechanize::new

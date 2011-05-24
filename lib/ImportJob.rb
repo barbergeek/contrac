@@ -23,11 +23,11 @@ class ImportJob < Struct.new(:jobid)
     #InputRecord.delete_all
 
     # grab the table out of the data file
-    table = /<table[\w\s="'%]*?>(.*)<\/table>/ims.match(data.squish)
+    table = /<table.*?>(.*)<\/table>/im.match(data.squish)
     # split into array rows based on <tr></tr> and do some cleanup
-    tabledata = table[1].gsub(/\&nbsp;/," ").gsub(/ </,"<").gsub(/> /,">").gsub(/<b>|<\/b>/,"").scan(/<tr>.*?<\/tr>/ims)
+    tabledata = table[1].gsub(/\&nbsp;/," ").gsub(/ </,"<").gsub(/> /,">").gsub(/<b>|<\/b>|<img.*?>|<\/img>|<span.*?>|<\/span>|<td.*?>|<a .*?>|<\/a>/,"").scan(/<tr.*?>.*?<\/tr>/im)
     # split by columns and remove extraneous tags
-    tabledata.map!{ |row| row.gsub(/<tr><td>/,"").gsub(/<\/td><\/tr>/,"").split("</td><td>")}
+    tabledata.map!{ |row| row.gsub(/<tr.*?>/,"").gsub(/<\/td><\/tr>/,"").force_encoding("UTF-8").gsub(/\u{a0}/,"").split("</td>")}
 
     data_columns = {
       "Acronym" => :acronym,
@@ -82,8 +82,9 @@ class ImportJob < Struct.new(:jobid)
     keys = []
     cols = {}
     tabledata[0].each_index do |column|
-      keys[column] = data_columns[tabledata[0][column]]
+      keys[column] = data_columns[tabledata[0][column].strip]
       cols[data_columns[tabledata[0][column]]] = column
+      puts "found #{keys[column]} in #{cols[data_columns[tabledata[0][column]]]}"
     end
   
     record_count = 0
