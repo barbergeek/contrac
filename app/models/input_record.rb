@@ -99,13 +99,16 @@ class InputRecord < ActiveRecord::Base
     #store the "news" in input_record now, not attached to the opportunity
     
     # save it
-    opportunity.save!
-
-    # give ownership or watch to users
-    user_list.split(", ").each do |email|
-      user = User.find_by_email(email)
-      opportunity.own_or_watch(user) unless user.nil?
-    end unless user_list.nil?
+    if opportunity.save
+      # give ownership or watch to users
+      user_list.split(", ").each do |email|
+        user = User.find_by_email(email)
+        opportunity.own_or_watch(user) unless user.nil?
+      end unless user_list.nil?
+    else
+      # save failed, log the error
+      logger.warn "Save failed for #{input_opportunity_number}"
+    end
 
     # re-ignore the record if needed
     opp.destroy if was_ignored
