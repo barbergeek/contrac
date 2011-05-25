@@ -240,11 +240,13 @@ class OpportunitiesController < ApplicationController
       @capture_phase_filters = @filters[:capture_phase] || {}
       @owner_filters = session[:owner_filters] || {}
       @show_ignored = session[:show_ignored] || false
+      @priority_filters = @filters[:priority] || {}
 
       @departments = Opportunity.find(:all, :select => "distinct department")
       @agencies = Opportunity.find(:all, :select => "distinct agency", :conditions => "agency is not null and agency <> ''")
       @input_statuses = Opportunity.find(:all, :select => "distinct input_status")
       @capture_phases = Opportunity::PHASES
+      @priorities = Opportunity::PRIORITIES
       @owners = User.find(:all).keep_if {|user| user.capture? }
 
     end
