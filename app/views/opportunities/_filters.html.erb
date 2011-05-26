@@ -35,6 +35,12 @@
 		<% @owners.each do |owner| %>
 			<label><%= check_box_tag "owners[owner_id][]", owner.id.to_s, @owner_filters.include?(owner.id.to_s) %> <%= "#{owner.name} (#{owner.initials})" %></label><br />
 		<% end %>
+    <br />
+    <br />
+    <b><i>Priority</b></i><br />
+    <% Opportunity::PRIORITIES.each do |label, value| %>
+      <label><%= check_box_tag "filters[priority][]", value, @priority_filters.include?(value.to_s) %> <%= label %></label><br /><br />
+    <% end %>
 	</div>
 	<div class="span-22 last prepend-top border clear"><b><i>Agency</b></i></div>
 		<% group_count = 3 %>
