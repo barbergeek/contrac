@@ -1,5 +1,8 @@
 Contrac::Application.routes.draw do
 
+  get "admin", :to => "admin#index"
+  get "admin/notify"
+
   resources :companies
 
   resources :announcements

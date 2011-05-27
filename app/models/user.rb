@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110211181908
+# Schema version: 20110527014037
 #
 # Table name: users
 #
@@ -21,6 +21,7 @@
 #  name                 :string(255)
 #  initials             :string(255)
 #  color                :string(255)
+#  last_notified_at     :datetime
 #
 
 class User < ActiveRecord::Base

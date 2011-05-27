@@ -103,6 +103,10 @@ class Opportunity < ActiveRecord::Base
   scope :with_input_records
     where("input_opportunity_number is not null")
 
+  def self.my_updated(who,since)
+    includes([:business_developer, :capture_manager, :watchers]).where("(business_developer_id = #{who.id} or capture_manager_id = #{who.id} or watched_opportunities.user_id = #{who.id}) and opportunities.updated_at > ?",since)
+  end
+  
   def destroy
     self.ignored = true
     save!

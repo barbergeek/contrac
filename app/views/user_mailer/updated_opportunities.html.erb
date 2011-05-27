@@ -1,0 +1,7 @@
+<p><%= @user.name %>,</p>
+<p>The following opportunities have been updated in <%= link_to "Contrack", "http://contrack.inteprosfed.com" %> since <%= @user.last_notified_at || 1.week.ago %>.</p>
+<% @opportunities.each do |opp| %>
+<p><b><%= link_to "#{opp.program} [#{opp.acronym}]", opportunity_url(opp) %></b><br />
+	Last updated: <%= opp.updated_at %></p>
+	<hr/>
+<% end %>
