@@ -19,7 +19,7 @@ module INPUT
       input = InputRecord.find_or_create_by_input_opportunity_number(inputid)
       news.each do |newsitem|
         if /(?<news_date>[0-1][0-9]\/[0-3][0-9]\/[1-2][0-9][0-9][0-9]) - (?<news_story>.*)/ =~ newsitem
-          input.new_news_with_date(news_story,fix_date(news_date))
+          input.new_news_with_date(news_story,fix_input_date(news_date))
         end
       end
     end
@@ -46,7 +46,7 @@ module INPUT
     @input = InputRecord.find_or_create_by_input_opportunity_number(inputid)
   end
   
-  def self.fix_date(datevalue)
+  def self.fix_input_date(datevalue)
     if datevalue =~ /\//
        m,d,y = datevalue.split("/")
        "#{y}-#{m}-#{d}"

@@ -84,14 +84,14 @@ class ImportJob < Struct.new(:jobid)
     tabledata[0].each_index do |column|
       keys[column] = data_columns[tabledata[0][column].strip]
       cols[data_columns[tabledata[0][column]]] = column
-      puts "found #{keys[column]} in #{cols[data_columns[tabledata[0][column]]]}"
+#      puts "found #{keys[column]} in #{cols[data_columns[tabledata[0][column]]]}"
     end
   
     record_count = 0
   
     # load the data
-    tabledata.each_index do |row|   # for each row
-      unless row == 0 then            # skip the header row
+    for row in 1..(tabledata.length-1)   # for each row (except the header row)
+#        puts "loading row #{row}"
         opportunity_number_column = cols[:input_opportunity_number]
         opportunity_number = tabledata[row][opportunity_number_column]
         record = InputRecord.find_or_create_by_input_opportunity_number(opportunity_number) # get the record or make a new one
@@ -114,14 +114,13 @@ class ImportJob < Struct.new(:jobid)
                 record.send("organization=", "#{@dept}/#{tabledata[row][column]}")
               end
             when :rfp_date, :project_award_date, :last_updated, :incumbent_award_date, :incumbent_expire_date
-              record.send("#{keys[column]}=",fix_date(tabledata[row][column]))
+              record.send("#{keys[column]}=",INPUT.fix_input_date(tabledata[row][column]))
             else
               record.send("#{keys[column]}=", tabledata[row][column]) unless keys[column].nil? 
           end
         end
         record.save!
         record_count += 1
-      end
     end
           
     return record_count
@@ -133,13 +132,13 @@ class ImportJob < Struct.new(:jobid)
     end
   end
 
-    def fix_date(datevalue)
-      if datevalue =~ /\//
-         m,d,y = datevalue.split("/")
-         "#{y}-#{m}-#{d}"
-       else
-         datevalue
-       end
-    end
+#    def fix_date(datevalue)
+#      if datevalue =~ /\//
+#         m,d,y = datevalue.split("/")
+#         "#{y}-#{m}-#{d}"
+#       else
+#         datevalue
+#       end
+#    end
     
 end
