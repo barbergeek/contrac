@@ -24,6 +24,11 @@ class OpportunitiesController < ApplicationController
     @opportunities = opportunity_list.
       paginate(:page => params[:page], :per_page => 20)
 
+    if @opportunities.empty? && opportunity_list # if no opportunities, make sure we paginate from page 1
+      params[:page] = 1
+      @opportunities = opportunity_list.paginate(:page => params[:page], :per_page => 20)
+    end
+
     session[:opportunity_id_list] = opportunity_list.map {|i| i.id}
     
     respond_to do |format|
