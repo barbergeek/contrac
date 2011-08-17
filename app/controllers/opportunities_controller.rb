@@ -14,6 +14,8 @@ class OpportunitiesController < ApplicationController
 
     opp = session[:show_ignored] ? Opportunity.unscoped : Opportunity
     
+    opp = opp.exclude_outcomes(@outcome_exclusions) unless @outcome_exclusions.empty?
+
     opportunity_list = opp.
       where(@filters).
       where(@owner_filters).
@@ -23,6 +25,11 @@ class OpportunitiesController < ApplicationController
     
     @opportunities = opportunity_list.
       paginate(:page => params[:page], :per_page => 20)
+
+    if @opportunities.empty? && opportunity_list # if no opportunities, make sure we paginate from page 1
+      params[:page] = 1
+      @opportunities = opportunity_list.paginate(:page => params[:page], :per_page => 20)
+    end
 
     session[:opportunity_id_list] = opportunity_list.map {|i| i.id}
     
@@ -49,6 +56,7 @@ class OpportunitiesController < ApplicationController
     session[:search] = params[:search]
     session[:filters] ||= {}
     session[:owner_filters] = nil
+    session[:exclusions] ||= {}
     redirect_to opportunities_path
   end
 
@@ -58,6 +66,7 @@ class OpportunitiesController < ApplicationController
       session[:filters] = {}
       session[:owner_filters] = nil
       session[:show_ignored] = false
+      session[:exclusions] = {}
     else
       session[:search] = params[:search]
       session[:filters] = params[:filters] || {}
@@ -66,6 +75,7 @@ class OpportunitiesController < ApplicationController
         session[:owner_filters] = "business_developer_id = #{params[:owners][:owner_id].first} or capture_manager_id = #{params[:owners][:owner_id].first}"
       end
       session[:show_ignored] = params[:ignore]
+      session[:exclusions] = params[:exclusions]
     end
     redirect_back_or opportunities_path
   end
@@ -241,6 +251,8 @@ class OpportunitiesController < ApplicationController
       @owner_filters = session[:owner_filters] || {}
       @show_ignored = session[:show_ignored] || false
       @priority_filters = @filters[:priority] || {}
+      @exclude_filters = session[:exclusions] || {}
+      @outcome_exclusions = @exclude_filters[:outcome] || {}
 
       @departments = Opportunity.find(:all, :select => "distinct department")
       @agencies = Opportunity.find(:all, :select => "distinct agency", :conditions => "agency is not null and agency <> ''")

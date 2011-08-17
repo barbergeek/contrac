@@ -41,6 +41,12 @@
     <% Opportunity::PRIORITIES.each do |label, value| %>
       <label><%= check_box_tag "filters[priority][]", value, @priority_filters.include?(value.to_s) %> <%= label %></label><br /><br />
     <% end %>
+    <br />
+    <b><i>Exclude</i></b><br />
+      <% Opportunity::OUTCOMES.each do |value| %>
+      <label><%= check_box_tag "exclusions[outcome][]", value, @outcome_exclusions.include?(value) %> <%= value.titleize %></label><br /><br />
+      <% end %>
+     <br />
 	</div>
 	<div class="span-22 last prepend-top border clear"><b><i>Agency</b></i></div>
 		<% group_count = 3 %>
