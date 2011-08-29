@@ -289,3 +289,42 @@ describe Opportunity do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: opportunities
+#
+#  id                       :integer         not null, primary key
+#  acronym                  :string(255)
+#  program                  :string(255)
+#  department               :string(255)
+#  agency                   :string(255)
+#  description              :text
+#  location                 :string(255)
+#  input_opportunity_number :integer
+#  total_value              :integer
+#  win_probability          :integer
+#  contract_length          :string(255)
+#  solicitation_type        :string(255)
+#  contract_type            :string(255)
+#  rfp_release_date         :date
+#  rfp_due_date             :date
+#  award_date               :date
+#  prime                    :string(255)
+#  capture_phase            :string(255)
+#  business_developer_id    :integer
+#  created_at               :datetime
+#  updated_at               :datetime
+#  input_status             :string(255)
+#  acquisition_url          :string(255)
+#  outcome                  :string(255)
+#  our_value                :integer
+#  search_sink              :text
+#  capture_manager_id       :integer
+#  ignored                  :boolean         default(FALSE), not null
+#  priority                 :integer
+#  solicitation             :string(255)
+#  solicitation_source      :string(255)
+#  vehicle                  :string(255)
+#
+
