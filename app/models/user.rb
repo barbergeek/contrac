@@ -1,29 +1,3 @@
-# == Schema Information
-# Schema version: 20110527014037
-#
-# Table name: users
-#
-#  id                   :integer         not null, primary key
-#  email                :string(255)     default(""), not null
-#  encrypted_password   :string(128)     default(""), not null
-#  password_salt        :string(255)     default(""), not null
-#  reset_password_token :string(255)
-#  remember_token       :string(255)
-#  remember_created_at  :datetime
-#  sign_in_count        :integer         default(0)
-#  current_sign_in_at   :datetime
-#  last_sign_in_at      :datetime
-#  current_sign_in_ip   :string(255)
-#  last_sign_in_ip      :string(255)
-#  created_at           :datetime
-#  updated_at           :datetime
-#  roles_mask           :integer
-#  name                 :string(255)
-#  initials             :string(255)
-#  color                :string(255)
-#  last_notified_at     :datetime
-#
-
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable, :timeoutable, :registerable,
@@ -74,3 +48,28 @@ class User < ActiveRecord::Base
   end
   
 end
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id                   :integer         not null, primary key
+#  email                :string(255)     default(""), not null
+#  encrypted_password   :string(128)     default(""), not null
+#  reset_password_token :string(255)
+#  remember_token       :string(255)
+#  remember_created_at  :datetime
+#  sign_in_count        :integer         default(0)
+#  current_sign_in_at   :datetime
+#  last_sign_in_at      :datetime
+#  current_sign_in_ip   :string(255)
+#  last_sign_in_ip      :string(255)
+#  created_at           :datetime
+#  updated_at           :datetime
+#  roles_mask           :integer
+#  name                 :string(255)
+#  initials             :string(255)
+#  color                :string(255)
+#  last_notified_at     :datetime
+#
+

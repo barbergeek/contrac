@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rake', '~> 0.8.7'
+gem 'rake' #, '~> 0.8.7'
 gem 'rails', '3.0.7'
 gem 'sqlite3'
 gem "will_paginate", '~> 3.0.beta'
@@ -22,7 +22,7 @@ gem 'acts-as-taggable-on'
 
 group :development do
 	gem 'rspec-rails'
-	gem	'annotate-models'
+	gem	'annotate'
 	gem 'faker'
   gem 'rails-footnotes'
 end
