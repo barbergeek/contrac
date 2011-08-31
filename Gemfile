@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rake' #, '~> 0.8.7'
-gem 'rails', '3.0.7'
+gem 'rake'
+gem 'rails', '3.1.0'
 gem 'sqlite3'
 gem "will_paginate", '~> 3.0.beta'
 gem "simple_form"
@@ -9,6 +9,11 @@ gem "jquery-rails"
 gem "devise"
 gem "cancan"
 gem "gravatar_image_tag"
+
+gem "thin"	# use thin web server
+gem "sass-rails"
+gem "coffee-script"
+gem "uglifier"
 
 gem "delayed_job"
 gem "lazy_high_charts"
@@ -24,7 +29,7 @@ group :development do
 	gem 'rspec-rails'
 	gem	'annotate'
 	gem 'faker'
-  gem 'rails-footnotes'
+    gem 'rails-footnotes', '~> 3.7.1.rc1'
 end
 
 group :test do
