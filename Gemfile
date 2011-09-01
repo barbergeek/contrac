@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rake'
 gem 'rails', '3.1.0'
 gem 'sqlite3'
-gem "will_paginate", '~> 3.0.beta'
+gem "will_paginate", '~> 3.0'
 gem "simple_form"
 gem "jquery-rails"
 gem "devise"

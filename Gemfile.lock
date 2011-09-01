@@ -212,4 +212,4 @@ DEPENDENCIES
   thin
   uglifier
   webrat
-  will_paginate (~> 3.0.beta)
+  will_paginate (~> 3.0)
