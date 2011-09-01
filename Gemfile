@@ -12,8 +12,8 @@ gem "gravatar_image_tag"
 
 #gem "thin"	# use thin web server
 gem "sass-rails"
-gem "coffee-script"
-gem "uglifier"
+#gem "coffee-script"
+#gem "uglifier"
 
 gem "delayed_job"
 gem "lazy_high_charts"
@@ -42,7 +42,7 @@ group :test do
 end
 
 group :production do
-	gem 'therubyracer-heroku', '~> 0.8.1.pre3'
+	#gem 'therubyracer-heroku', '~> 0.8.1.pre3'
 	gem "pg"
 end
 
