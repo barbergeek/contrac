@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rake'
 gem 'rails', '3.1.0'
-gem 'sqlite3'
+
 gem "will_paginate", '~> 3.0'
 gem "simple_form"
 gem "jquery-rails"
@@ -10,7 +10,7 @@ gem "devise"
 gem "cancan"
 gem "gravatar_image_tag"
 
-gem "thin"	# use thin web server
+#gem "thin"	# use thin web server
 gem "sass-rails"
 gem "coffee-script"
 gem "uglifier"
@@ -26,6 +26,7 @@ gem 'mechanize'
 gem 'acts-as-taggable-on'
 
 group :development do
+	gem 'sqlite3'
 	gem 'rspec-rails'
 	gem	'annotate'
 	gem 'faker'
@@ -33,6 +34,7 @@ group :development do
 end
 
 group :test do
+	gem 'sqlite3'
 	gem	'rspec'
 	gem 'webrat'
 	gem 'spork'
@@ -41,6 +43,7 @@ end
 
 group :production do
 	gem 'therubyracer-heroku', '~> 0.8.1.pre3'
+	gem "pg"
 end
 
 # Use unicorn as the web server
