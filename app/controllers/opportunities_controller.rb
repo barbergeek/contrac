@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class OpportunitiesController < ApplicationController
 
   helper_method :sort_column, :sort_direction
