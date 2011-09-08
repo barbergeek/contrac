@@ -235,6 +235,13 @@ class OpportunitiesController < ApplicationController
     end
   end
 
+  def export
+    headers['Content-Type'] = "application/vnd.ms-excel"
+    headers['Content-Disposition'] = 'attachment; filename="excel-export.xls"'
+    headers['Cache-Control'] = ''
+    @records = Opportunity.find(:all)
+  end
+  
   private
     def sort_column
       (%w[users.initials]+Opportunity.column_names).include?(params[:sort]) ? params[:sort] : "program"

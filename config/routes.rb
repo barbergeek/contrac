@@ -28,7 +28,7 @@ Contrac::Application.routes.draw do
   resources :opportunities do
     collection do
       post 'filter','calendar_order_by'
-      get 'my', 'calendar', 'all', 'dashboard'
+      get 'my', 'calendar', 'all', 'dashboard','export'
     end
     member do
       post 'watch', 'own'
