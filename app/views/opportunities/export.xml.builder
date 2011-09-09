@@ -21,12 +21,12 @@ xml.Workbook({
    end
   end
  
-  xml.Worksheet 'ss:Name' => 'Blahblah' do
+  xml.Worksheet 'ss:Name' => 'Data' do
     xml.Table do
       
       # Header
       xml.Row do
-        for column in Opportunity.content_columns do
+        for column in Opportunity.columns do
           xml.Cell do
             xml.Data column.human_name, 'ss:Type' => 'String'
           end
@@ -36,9 +36,35 @@ xml.Workbook({
       # Rows
       for record in @records
         xml.Row do
-          for column in Opportunity.content_columns do
+          for column in Opportunity.columns do
             xml.Cell do
               xml.Data record.send(column.name), 'ss:Type' => 'String'
+            end
+          end
+        end
+      end
+      
+    end
+  end
+
+  xml.Worksheet 'ss:Name' => 'Users' do
+    xml.Table do
+      
+      # Header
+      xml.Row do
+        @users[0].attributes.each do |column, value|
+          xml.Cell do
+            xml.Data column, 'ss:Type' => 'String'
+          end
+        end
+      end
+      
+      # Rows
+      for record in @users
+        xml.Row do
+          record.attributes.each do |column,value|
+            xml.Cell do
+              xml.Data value, 'ss:Type' => 'String'
             end
           end
         end

@@ -240,6 +240,7 @@ class OpportunitiesController < ApplicationController
     headers['Content-Disposition'] = 'attachment; filename="excel-export.xls"'
     headers['Cache-Control'] = ''
     @records = Opportunity.find(:all)
+    @users = User.select("id,name,email,initials")
   end
   
   private
