@@ -7,11 +7,16 @@ Contrac::Application.routes.draw do
 
   resources :announcements
 
-  devise_for :user do
-    get "login", :to => "devise/sessions#new"
-    get "logout", :to => "devise/sessions#destroy"
-  end
+#  devise_for :user do
+#    get "login", :to => "devise/sessions#new"
+#    get "logout", :to => "devise/sessions#destroy"
+#  end
 
+  match "/login" => "sessions#new"
+  match "/logout" => "sessions#destroy"
+  
+  resources :sessions, :only => [:new, :create, :destroy]
+  
   resources :users do
     collection do
       post 'become'

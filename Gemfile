@@ -6,11 +6,11 @@ gem 'rails', '3.1.0'
 gem "will_paginate", '~> 3.0'
 gem "simple_form"
 gem "jquery-rails"
-gem "devise"
 gem "cancan"
 gem "gravatar_image_tag"
 
-#gem "thin"	# use thin web server
+gem "thin"
+
 gem "sass-rails"
 #gem "coffee-script"
 #gem "uglifier"
@@ -25,12 +25,13 @@ gem 'nokogiri'
 gem 'mechanize'
 gem 'acts-as-taggable-on'
 
+	
 group :development do
 	gem 'sqlite3'
 	gem 'rspec-rails'
 	gem	'annotate'
 	gem 'faker'
-    gem 'rails-footnotes', '~> 3.7.1.rc1'
+  gem 'rails-footnotes', '~> 3.7.1.rc1'
 end
 
 group :test do
