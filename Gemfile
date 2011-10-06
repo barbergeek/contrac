@@ -44,6 +44,7 @@ end
 group :production do
 	#gem 'therubyracer-heroku', '~> 0.8.1.pre3'
 	gem "pg"
+	gem "faker" #need to find out what is causing this dependency
 end
 
 # Use unicorn as the web server
