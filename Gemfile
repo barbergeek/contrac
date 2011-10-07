@@ -2,12 +2,15 @@ source 'http://rubygems.org'
 
 gem 'rake'
 gem 'rails', '3.1.0'
+gem 'rack', '1.3.3'
 
 gem "will_paginate", '~> 3.0'
 gem "simple_form"
 gem "jquery-rails"
 gem "cancan"
 gem "gravatar_image_tag"
+
+gem "sorcery"	#sorcery authentication library
 
 gem "thin"
 
@@ -25,12 +28,12 @@ gem 'nokogiri'
 gem 'mechanize'
 gem 'acts-as-taggable-on'
 
+gem 'faker'	#needed for rake tasks
 	
 group :development do
 	gem 'sqlite3'
 	gem 'rspec-rails'
 	gem	'annotate'
-	gem 'faker'
   gem 'rails-footnotes', '~> 3.7.1.rc1'
 end
 
@@ -45,7 +48,6 @@ end
 group :production do
 	#gem 'therubyracer-heroku', '~> 0.8.1.pre3'
 	gem "pg"
-	gem "faker" #need to find out what is causing this dependency
 end
 
 # Use unicorn as the web server

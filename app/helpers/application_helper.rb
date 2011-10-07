@@ -1,5 +1,5 @@
 module ApplicationHelper
-    
+  
   def title(title)
     @title = title || "CONtrack"
   end

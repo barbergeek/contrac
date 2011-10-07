@@ -35,8 +35,6 @@ Spork.prefork do
     
     ActiveSupport::Dependencies.clear
     
-    config.include Devise::TestHelpers, :type => :controller
-    
     def test_login(user)
       controller.sign_in(user)
     end

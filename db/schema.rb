@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110914035202) do
+ActiveRecord::Schema.define(:version => 20111007022509) do
 
   create_table "announcements", :force => true do |t|
     t.string   "author"
@@ -162,7 +162,7 @@ ActiveRecord::Schema.define(:version => 20110914035202) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",            :default => "", :null => false
+    t.string   "email",                        :default => "", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "roles_mask"
@@ -170,11 +170,14 @@ ActiveRecord::Schema.define(:version => 20110914035202) do
     t.string   "initials"
     t.string   "color"
     t.datetime "last_notified_at"
-    t.string   "password_digest"
-    t.string   "auth_token"
+    t.string   "crypted_password"
+    t.string   "salt"
+    t.string   "remember_me_token"
+    t.datetime "remember_me_token_expires_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"
 
   create_table "watched_opportunities", :force => true do |t|
     t.integer  "opportunity_id"

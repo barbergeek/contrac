@@ -12,10 +12,10 @@ Contrac::Application.routes.draw do
 #    get "logout", :to => "devise/sessions#destroy"
 #  end
 
-  match "/login" => "sessions#new"
-  match "/logout" => "sessions#destroy"
+#  match "/login" => "sessions#new"
+#  match "/logout" => "sessions#destroy"
   
-  resources :sessions, :only => [:new, :create, :destroy]
+#  resources :sessions, :only => [:new, :create, :destroy]
   
   resources :users do
     collection do

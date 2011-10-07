@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe PagesController do
-  include Devise::TestHelpers
 
   before (:each) do
     @user = Factory.create(:user)

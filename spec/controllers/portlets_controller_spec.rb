@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe PortletsController do
-  include Devise::TestHelpers
 
   before (:each) do
     @user = Factory.create(:user)
