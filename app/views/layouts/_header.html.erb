@@ -3,7 +3,7 @@
 	<nav class="round">
 		<ul>
 			<li><%= link_to "Home", root_path %></li>
-			<% if user_signed_in? %>
+			<% if logged_in? %>
 				<li><%= link_to "Logout", logout_path %></li>
 				<li><%= link_to "Profile", user_path(current_user) %></li>
 				<% if current_user.admin? %>
@@ -15,7 +15,7 @@
 			<li><%= link_to "Help", help_path %></li>
 			<% if Rails.env == "development" %>
 				<li>
-				<%= switch_user_select %>
+				<%#= switch_user_select %>
 				</li>
 			<% end %>
 		</ul>

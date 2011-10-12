@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
   
+  before_filter :require_login
+  
   def index
     @commentable = find_commentable
     @comments = @commentable.comments

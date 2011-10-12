@@ -16,10 +16,10 @@ class RemoveDeviseFields < ActiveRecord::Migration
     add_column :users, :password_digest, :string
     
     #reset password
-    User.all.each do |u|
-      u.password = 'foo123'
-      u.save!
-    end
+    #User.all.each do |u|
+    #  u.password = 'foo123'
+    #  u.save!
+    #end
     
   end
 

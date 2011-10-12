@@ -1,6 +1,6 @@
 class InputRecordsController < ApplicationController
 
-  before_filter :authenticate_user!
+  before_filter :require_login
 
   
   # GET /input_records/import

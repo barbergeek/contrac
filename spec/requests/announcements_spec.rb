@@ -3,8 +3,8 @@ require 'spec_helper'
 describe "Announcements" do
 
   before (:each) do
-    @user = Factory.create(:user)
-    login_as @user
+    @user = Factory.create(:user, :password => "foo", :password_confirmation => "foo")
+    integration_login @user
   end
 
   describe "GET /announcements" do

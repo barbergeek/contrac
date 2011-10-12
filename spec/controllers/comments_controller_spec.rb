@@ -4,7 +4,7 @@ describe CommentsController do
 
   before (:each) do
     @user = Factory.create(:user)
-    sign_in @user
+    login_user @user
   end
 
 

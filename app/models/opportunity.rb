@@ -237,11 +237,12 @@ class Opportunity < ActiveRecord::Base
 end
 
 
+
 # == Schema Information
 #
 # Table name: opportunities
 #
-#  id                       :integer         not null, primary key
+#  id                       :integer         primary key
 #  acronym                  :string(255)
 #  program                  :string(255)
 #  department               :string(255)
@@ -260,8 +261,8 @@ end
 #  prime                    :string(255)
 #  capture_phase            :string(255)
 #  business_developer_id    :integer
-#  created_at               :datetime
-#  updated_at               :datetime
+#  created_at               :timestamp
+#  updated_at               :timestamp
 #  input_status             :string(255)
 #  acquisition_url          :string(255)
 #  outcome                  :string(255)

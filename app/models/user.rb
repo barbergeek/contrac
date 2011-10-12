@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :roles, :name, :initials, :opportunities
   
   validates_presence_of :password, :on => :create
+  validates_confirmation_of :password
 
   # Roles
   ROLES = %w[admin business_developer bd_manager capture_manager senior_manager]

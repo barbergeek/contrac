@@ -135,15 +135,6 @@ ActiveRecord::Schema.define(:version => 20111007022509) do
     t.string   "vehicle"
   end
 
-  create_table "organizations", :force => true do |t|
-    t.string   "name"
-    t.string   "uppername"
-    t.string   "level"
-    t.integer  "parent_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"

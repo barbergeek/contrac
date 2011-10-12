@@ -4,11 +4,12 @@ describe InputRecord do
   pending "add some examples to (or delete) #{__FILE__}"
 end
 
+
 # == Schema Information
 #
 # Table name: input_records
 #
-#  id                           :integer         not null, primary key
+#  id                           :integer         primary key
 #  acronym                      :string(255)
 #  title                        :string(255)
 #  organization                 :string(255)
@@ -34,8 +35,8 @@ end
 #  priority                     :string(255)
 #  vertical                     :string(255)
 #  segment                      :string(255)
-#  created_at                   :datetime
-#  updated_at                   :datetime
+#  created_at                   :timestamp
+#  updated_at                   :timestamp
 #  input_url                    :string(255)
 #  comments                     :text
 #  summary                      :text

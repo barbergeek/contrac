@@ -77,7 +77,7 @@ Rails.application.config.sorcery.configure do |config|
     # user.salt_join_token = ""                                                       # what pattern to use to join the
                                                                                       # password with the salt
 
-    # user.salt_attribute_name = :salt                                                # change default salt attribute.
+    #user.salt_attribute_name = :password_salt                                                # change default salt attribute.
 
     # user.stretches = nil                                                            # how many times to apply
                                                                                       # encryption to the password.

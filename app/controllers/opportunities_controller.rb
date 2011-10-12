@@ -3,12 +3,12 @@ require 'will_paginate/array'
 class OpportunitiesController < ApplicationController
 
   helper_method :sort_column, :sort_direction
-  before_filter :authenticate_user!
+  before_filter :require_login
 
   # GET /opportunities
   # GET /opportunities.xml
   def index
-    store_location
+    #store_location
 
     setup_filters
 
@@ -43,7 +43,7 @@ class OpportunitiesController < ApplicationController
   end
 
   def dashboard
-    store_location
+    #store_location
     
   end
 

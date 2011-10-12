@@ -1,5 +1,7 @@
 class AnnouncementsController < ApplicationController
   
+  #before_filter :require_login
+  
   # GET /announcements
   # GET /announcements.xml
   def index

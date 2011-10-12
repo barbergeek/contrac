@@ -1,18 +1,3 @@
-# == Schema Information
-# Schema version: 20110330043215
-#
-# Table name: comments
-#
-#  id               :integer         not null, primary key
-#  content          :text
-#  commentable_id   :integer
-#  commentable_type :string(255)
-#  source           :string(255)
-#  created_at       :datetime
-#  updated_at       :datetime
-#  commented_at     :datetime
-#
-
 class Comment < ActiveRecord::Base
   belongs_to :commentable, :polymorphic => true
   before_create :set_comment_dt
@@ -37,4 +22,19 @@ class Comment < ActiveRecord::Base
     end
 
 end
+
+
+# == Schema Information
+#
+# Table name: comments
+#
+#  id               :integer         primary key
+#  content          :text
+#  commentable_id   :integer
+#  commentable_type :string(255)
+#  source           :string(255)
+#  created_at       :timestamp
+#  updated_at       :timestamp
+#  commented_at     :timestamp
+#
 

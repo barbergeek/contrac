@@ -10,10 +10,13 @@ gem "jquery-rails"
 gem "cancan"
 gem "gravatar_image_tag"
 
-gem "sorcery"	#sorcery authentication library
+#authentication library
+gem "sorcery"
 
+#web server
 gem "thin"
 
+#rails 3.1
 gem "sass-rails"
 #gem "coffee-script"
 #gem "uglifier"
@@ -31,18 +34,20 @@ gem 'acts-as-taggable-on'
 gem 'faker'	#needed for rake tasks
 	
 group :development do
-	gem 'sqlite3'
-	gem 'rspec-rails'
 	gem	'annotate'
-  gem 'rails-footnotes', '~> 3.7.1.rc1'
+  	gem 'rails-footnotes', '~> 3.7.1.rc1'
 end
 
 group :test do
-	gem 'sqlite3'
-	gem	'rspec'
-	gem 'webrat'
 	gem 'spork'
 	gem 'factory_girl_rails'
+end
+
+group :development, :test do
+	gem 'sqlite3'
+	gem 'rspec'
+	gem 'rspec-rails'
+	gem 'capybara'
 end
 
 group :production do
@@ -50,26 +55,10 @@ group :production do
 	gem "pg"
 end
 
-# Use unicorn as the web server
-# gem 'unicorn'
-
 # Deploy with Capistrano
 gem 'capistrano'
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'
 # gem 'ruby-debug19'
-
-# Bundle the extra gems:
-# gem 'bj'
-# gem 'nokogiri'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'aws-s3', :require => 'aws/s3'
-
-# Bundle gems for the local environment. Make sure to
-# put test-only gems in this group so their generators
-# and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end
 

@@ -6,6 +6,11 @@ require 'spec_helper'
 
 describe CompaniesController do
 
+  before (:each) do
+    @user = Factory.create(:user)
+    login_user @user
+  end
+
   def mock_company(stubs={})
     @mock_company ||= mock_model(Company, stubs).as_null_object
   end

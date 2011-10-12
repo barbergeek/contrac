@@ -1,4 +1,6 @@
 class PortletsController < ApplicationController
+
+  before_filter :require_login
   
   def portlet__opportunities_by_department(*)
     data = Opportunity.unawarded.department_count

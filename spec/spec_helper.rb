@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'spork'
+require 'capybara/rspec'
 
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However, 
@@ -14,6 +15,8 @@ Spork.prefork do
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+  include Sorcery::TestHelpers::Rails
 
   RSpec.configure do |config|
     # == Mock Framework
@@ -34,16 +37,12 @@ Spork.prefork do
     config.use_transactional_fixtures = true
     
     ActiveSupport::Dependencies.clear
-    
-    def test_login(user)
-      controller.sign_in(user)
-    end
-    
+        
     def integration_login(user)
       visit login_path
       fill_in :email,     :with => user.email
       fill_in :password,  :with => user.password
-      click_button
+      click_button 'Login'
     end
   end
   
