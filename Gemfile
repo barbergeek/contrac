@@ -48,6 +48,7 @@ group :development, :test do
 	gem 'rspec'
 	gem 'rspec-rails'
 	gem 'capybara'
+	gem 'ruby-debug19'
 end
 
 group :production do

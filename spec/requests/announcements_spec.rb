@@ -4,7 +4,7 @@ describe "Announcements" do
 
   before (:each) do
     @user = Factory.create(:user, :password => "foo", :password_confirmation => "foo")
-    integration_login @user
+    integration_login @user, "foo"
   end
 
   describe "GET /announcements" do
