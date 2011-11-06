@@ -4,8 +4,9 @@ class Announcement < ActiveRecord::Base
   validates_presence_of :author, :content, :title
   
   def self.for_front_page(limit = 3)
-    limit(limit).order("updated_at desc")
+    limit(limit).where("updated_at > ?",14.days.ago).order("updated_at desc")
   end
+  
   
   private
     def format
