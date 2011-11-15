@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rake'
 gem 'rails', '3.1.1'
-gem 'rack', '1.3.3'
+gem 'rack', '1.3.5'
 
 gem "will_paginate", '~> 3.0'
 gem "simple_form"
