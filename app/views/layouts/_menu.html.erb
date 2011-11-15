@@ -12,14 +12,15 @@
 				<li><%= link_to "Export", export_opportunities_path + ".xml" %></li>
 			</ul>
 		</li>
+		<li><%= link_to "Reports", reports_select_path %></li>
 		<li><a>Programs*</a></li>
-    <li><a>Contacts</a>
+	    <li><a>Contacts</a>
 			<ul>
-			<li><%= link_to "Companies", companies_path %></li>
-			<li><a>People*</a></li>
+				<li><%= link_to "Companies", companies_path %></li>
+				<li><a>People*</a></li>
 			</ul>
 		</li>
-    <li><a>Accounts/Campaigns*</a></li>
+	    <li><a>Accounts/Campaigns*</a></li>
 		<li><%= link_to "Input", input_records_path %></li>
 		<% if current_user.admin? %>
 			<li><%= link_to "Announcements", announcements_path %></li>

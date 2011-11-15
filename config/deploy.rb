@@ -4,9 +4,9 @@ set :repository,  "git@github.com:barbergeek/contrac.git"
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
-set :user, "root"
+set :user, "rails"
 ssh_options[:forward_agent] = true
-set :branch, "master"
+set :branch, "reports1"
 set :deploy_via, :remote_cache
 
 role :web, "contrack.scotthoge.com"                          # Your HTTP server, Apache/etc

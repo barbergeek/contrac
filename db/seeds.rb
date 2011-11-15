@@ -11,8 +11,19 @@ unless admin=User.find_by_initials("SNH")
                 :name => "Scott Hoge",
                 :initials => "SNH",
                 :email => "scott.hoge@gmail.com",
+<<<<<<< HEAD
                 :password => "foo123",
                 :password_confirmation => "foo123")
 end
 admin.roles=%w[admin capture_manager] #make him an admin
 admin.save!
+=======
+                :password => "foobar",
+                :password_confirmation => "foobar")
+end
+admin.roles=%w[admin capture_manager] #make him an admin
+admin.save!
+
+
+              
+>>>>>>> reports1

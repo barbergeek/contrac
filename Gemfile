@@ -21,6 +21,9 @@ gem "sass-rails"
 #gem "coffee-script"
 #gem "uglifier"
 
+#markup
+gem "haml"
+
 gem "delayed_job"
 gem "lazy_high_charts"
 gem "RedCloth"

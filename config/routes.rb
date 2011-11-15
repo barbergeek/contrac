@@ -1,5 +1,9 @@
 Contrac::Application.routes.draw do
 
+  get "reports/select"
+  post "reports/generate"
+  get "reports/display"
+
   get "admin", :to => "admin#index"
   get "admin/notify"
 

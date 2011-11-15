@@ -1,0 +1,7 @@
+<h1>Reports</h1>
+<p>Find me in app/views/reports/select.html.erb</p>
+<%= form_tag reports_generate_path do |f| %>
+	<%= label_tag "name", "Select Report: "%>
+	<%= select_tag "name",options_for_select(@reports), {include_blank: true} %><br/>
+	<%= submit_tag "Generate Report" %>
+<% end %>

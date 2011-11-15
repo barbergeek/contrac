@@ -18,4 +18,9 @@ test:
 production:
   adapter: postgresql
   database: contrack
+  host: localhost
+  port: 5433
+  username: rails
+  password: K33p0ut!
+
 
