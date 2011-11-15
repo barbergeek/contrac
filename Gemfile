@@ -15,6 +15,7 @@ gem "sorcery"
 
 #web server
 gem "thin"
+#gem "heroku"
 
 #rails 3.1
 gem "sass-rails"
@@ -29,7 +30,6 @@ gem "lazy_high_charts"
 gem "RedCloth"
 gem "switch_user"
 gem "hoptoad_notifier"
-gem "heroku"
 gem 'nokogiri'
 gem 'mechanize'
 gem 'acts-as-taggable-on'
