@@ -5,7 +5,7 @@ Record #: <%= @opportunity.id %> | Created: <%= @opportunity.created_at %> | Mod
 	<% c = @opportunity.watched_by?(current_user) ? "Unwatch" : "Watch" %>
 	<%= link_to c, watch_opportunity_path(@opportunity), 
 		:method => :post %> | 	
-	<%= link_to 'Back', redirect_back_or_to(opportunities_path) %>
+	<%= link_to 'Back', opportunities_path %>
 	<span class="navigation">
 		<% if session[:opportunity_id_list] && session[:opportunity_id_list].index(@opportunity.id) %>
 			<%= first_opportunity_link(@opportunity.id)%> |
