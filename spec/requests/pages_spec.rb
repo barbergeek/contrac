@@ -3,15 +3,10 @@ require 'spec_helper'
 describe "Testing Pages" do
   
   describe "GET /" do
-    it "works! (now write some real specs)" do
+    it "works!" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
       get root_path
       response.status.should be(200)
-    end
-    
-    it "should contain 'Login' before logging in" do
-      visit root_path
-      page.should have_content("Login")
     end
     
     it "should display the dashboard after logging in" do

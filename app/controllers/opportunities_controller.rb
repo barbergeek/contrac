@@ -79,7 +79,7 @@ class OpportunitiesController < ApplicationController
       session[:show_ignored] = params[:ignore]
       session[:exclusions] = params[:exclusions]
     end
-    redirect_back_or opportunities_path
+    redirect_back_or_to opportunities_path
   end
 
   # GET /opportunities/1
