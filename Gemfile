@@ -18,9 +18,11 @@ gem "thin"
 #gem "heroku"
 
 #rails 3.1
-gem "sass-rails"
-#gem "coffee-script"
-#gem "uglifier"
+group :assets do
+	gem "sass-rails"
+	gem "coffee-script"
+	gem "uglifier"
+end
 
 #markup
 gem "haml"
