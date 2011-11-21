@@ -8,4 +8,5 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require wijmo-open/js/jquery.wijmo-open.1.5.0.min
+//= require highcharts
 //= require custom

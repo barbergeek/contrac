@@ -57,8 +57,8 @@ group :development, :test do
 end
 
 group :production do
-	#gem 'therubyracer-heroku', '~> 0.8.1.pre3'
-	gem "pg"
+	gem 'therubyracer'
+	gem "pg"			# use postgresql in production
 end
 
 # Deploy with Capistrano
