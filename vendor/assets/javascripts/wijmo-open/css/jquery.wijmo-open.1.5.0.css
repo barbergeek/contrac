@@ -1364,7 +1364,7 @@ padding:0.4em;
 .wijmo-wijtooltip-arrow-tr .wijmo-wijtooltip-pointer-inner {
     border-left: 12px dashed transparent;
     border-right: 0 none;
-    +border-style:dashed;
+    border-style:dashed;
     _border-style:dashed;
     right: 2px;
 }
@@ -1372,7 +1372,7 @@ padding:0.4em;
 .wijmo-wijtooltip-arrow-tc .wijmo-wijtooltip-pointer-inner {
     border-left: 8px dashed transparent;
     border-right: 8px dashed transparent;
-    +border-style:dashed;
+    border-style:dashed;
     _border-style:dashed;
     left: -8px;
 }
@@ -1382,7 +1382,7 @@ padding:0.4em;
     border-right-style: dashed;
     border-right-color: inherit;
     border-right-width: 12px;
-    +border-style:dashed;
+    border-style:dashed;
     _border-style:dashed;
     left: 2px;
 }
@@ -1426,7 +1426,7 @@ padding:0.4em;
     border-top-style: dashed;
     border-top-color: inherit;
     border-top-width: 12px;
-    +border-style:dashed;
+    border-style:dashed;
     _border-style:dashed;
     bottom: 2px;
 }
@@ -1434,7 +1434,7 @@ padding:0.4em;
 .wijmo-wijtooltip-arrow-rc .wijmo-wijtooltip-pointer-inner {
     border-bottom: 8px dashed transparent;
     border-top: 8px dashed transparent;
-    +border-style:dashed;
+    border-style:dashed;
     _border-style:dashed;
     bottom: -8px;
 }
@@ -1443,7 +1443,7 @@ padding:0.4em;
     border-bottom-style: dashed;
     border-bottom-color: inherit;
     border-bottom-width: 12px;
-    +border-style:dashed;
+    border-style:dashed;
     _border-style:dashed;
     border-top: 0 none;
     top: 2px;
@@ -1485,7 +1485,7 @@ padding:0.4em;
 
 .wijmo-wijtooltip-arrow-br .wijmo-wijtooltip-pointer-inner {
     border-left: 12px dashed transparent;
-    +border-style:dashed;
+    border-style:dashed;
     _border-style:dashed;
     border-right: 0 none;
     right: 2px;
@@ -1494,7 +1494,7 @@ padding:0.4em;
 .wijmo-wijtooltip-arrow-bc .wijmo-wijtooltip-pointer-inner {
     border-left: 8px dashed transparent;
     border-right: 8px dashed transparent;
-    +border-style:dashed;
+    border-style:dashed;
     _border-style:dashed;
     left: -8px;
 }
@@ -1502,7 +1502,7 @@ padding:0.4em;
 .wijmo-wijtooltip-arrow-bl .wijmo-wijtooltip-pointer-inner {
     border-left: 0 none;
     border-right: 12px dashed transparent;
-    +border-style:dashed;
+    border-style:dashed;
     _border-style:dashed;
     left: 2px;
 }
@@ -1543,7 +1543,7 @@ padding:0.4em;
 .wijmo-wijtooltip-arrow-lb .wijmo-wijtooltip-pointer-inner {
     border-bottom: 0 none;
     border-top: 12px dashed transparent;
-    +border-style:dashed;
+    border-style:dashed;
     _border-style:dashed;
     bottom: 2px;
 }
@@ -1551,7 +1551,7 @@ padding:0.4em;
 .wijmo-wijtooltip-arrow-lc .wijmo-wijtooltip-pointer-inner {
     border-bottom: 8px dashed transparent;
     border-top: 8px dashed transparent;
-    +border-style:dashed;
+    border-style:dashed;
     _border-style:dashed;
     bottom: -8px;
 }
@@ -1560,7 +1560,7 @@ padding:0.4em;
     border-bottom-style: dashed;
     border-bottom-color: inherit;
     border-bottom-width: 12px;
-    +border-style:dashed;
+    border-style:dashed;
     _border-style:dashed;
     border-top: 0 none;
     top: 2px;
