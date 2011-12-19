@@ -1,14 +1,12 @@
-<%= simple_form_for(@company) do |f| %>
-  <%= f.error_notification %>
+<%= semantic_form_for @company do |f| %>
+  <%= f.semantic_errors %>
 
-  <div class="inputs">
     <%= f.input :name %>
 		<%= f.input :abbreviation %>
     <%= f.input :certification_list %>
     <%= f.input :active %>
-  </div>
 
-  <div class="actions">
-    <%= f.button :submit %>
-  </div>
+	<%= f.buttons do %>
+	  <%= f.commit_button %>
+	<% end %>
 <% end %>

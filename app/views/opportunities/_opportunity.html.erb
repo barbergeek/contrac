@@ -1,21 +1,23 @@
-<tr class="<%= cycle("odd","even") %>" id="opportunity-<%= opportunity.id %>">
-	<td><%= link_to 'Destroy', opportunity, :confirm => 'Are you sure?', 
-			:method => :delete, :class => "ui-icon ui-icon-trash #{opportunity.ignored? ? "ui-state-error" : ""}", :title => "Ignore" %><br/>
+<tr id="opportunity-<%= opportunity.id %>">
+	<td><%= link_to content_tag("span","Destroy", class: "label warning"), opportunity, :confirm => 'Are you sure?', 
+			:method => :delete, :title => "Ignore" %><br/>
 			<% unless opportunity.ignored? %>
-			<%= link_to 'Watch', watch_opportunity_path(opportunity), 
+			<%= link_to content_tag("span","Watch", 
+				class: "label #{opportunity.watched_by?(current_user) ? "notice" : ""}",
+				id: "watch-opportunity-#{opportunity.id}"), watch_opportunity_path(opportunity), 
 					:method => :post, 
-					:remote => true, 
-					:class => "ui-icon ui-icon-heart #{opportunity.watched_by?(current_user) ? "watched" : ""}", 
-					:id => "watch-opportunity-#{opportunity.id}"%>
-			<%= link_to 'Own', own_opportunity_path(opportunity), 
+					:remote => true 
+					%>
+			<%= link_to content_tag("span","Own", 
+				class: "label #{opportunity.owned_by?(current_user) ? "notice" : ""}",
+				id: "own-opportunity-#{opportunity.id}"), own_opportunity_path(opportunity), 
 					:method => :post,
 					:confirm => 'Are you sure you want to take ownership of this opportunity?',
-					:remote => true, 
-					:class => "ui-icon ui-icon-star #{opportunity.owned_by?(current_user) ? "owned" : ""}", 
-					:id => "own-opportunity-#{opportunity.id}"%>
+					:remote => true 
+					%>
 
-			<%= content_tag("span", "", 
-					:class => "ui-state-highlight ui-corner-all ui-icon ui-icon-alert") if opportunity.updated_at > 7.days.ago %>
+			<%= content_tag("span", "New", 
+					class: "label success") if opportunity.updated_at > 7.days.ago %>
 			<% end %>
 			</td>
 	<td><%= opportunity.acronym %></td>

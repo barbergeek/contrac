@@ -27,6 +27,8 @@ Contrac::Application.routes.draw do
   match "/about" => "pages#about"
   match "/help" => 'pages#help'
   match "/contact" => 'pages#contact'
+  match "/home" => 'pages#home'
+  
 #  match "/users" => 'user#index'
 
   resources :opportunities do

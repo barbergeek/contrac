@@ -1,7 +1,7 @@
 <% if @opportunity.watched_by?(current_user) %>
 $("#watch-opportunity-<%= @opportunity.id %>")
-	.addClass("watched")
+	.addClass("notice")
 <% else %>
 $("#watch-opportunity-<%= @opportunity.id %>")
-	.removeClass("watched")
+	.removeClass("notice")
 <% end %>

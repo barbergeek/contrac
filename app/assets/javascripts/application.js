@@ -6,7 +6,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
-//= require wijmo-open/js/jquery.wijmo-open.1.5.0.min
+// require jquery-ui
 //= require highcharts
-//= require custom
+// require custom
+//= require custom-bootstrap
+//= require twitter/bootstrap/dropdown.js
+//= require twitter/bootstrap/modal.js
+//= require twitter/bootstrap/tabs.js

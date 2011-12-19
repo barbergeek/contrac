@@ -1,6 +1,6 @@
 <%= render :partial => 'filters' %>
-<%= will_paginate @opportunities, :class =>"span-24 last" %>
-<table class="opportunities">
+<%= page_navigation_links @opportunities %>
+<table class="zebra-striped">
 	<thead>
 	  <tr>
 		<th class='icons'></th>
@@ -21,7 +21,7 @@
   	<%= render @opportunities %>
 	</tbody>
 </table>
-<%= will_paginate @opportunities %>
+<%= page_navigation_links @opportunities %>
 <br />
 
-<%= button_to 'New Opportunity', new_opportunity_path, :method => :get %>
+<%= button_to 'New Opportunity', new_opportunity_path, method: :get, class: "btn" %>

@@ -1,5 +1,5 @@
-<div class="column span-24 last">
-	<div class="span-8">
+<div class="row">
+	<div class="span">
 		Opportunity id: <%= o.input_opportunity_number %><br />
 		Acronym: <%= o.acronym %><br />
 		Title: <%= o.title %><br />
@@ -16,7 +16,7 @@
 		Contract Type: <%= o.contract_type %><br />
 		Contract Duration: <%= o.contract_duration %><br />
 	</div>
-	<div class="span-8">
+	<div class="span">
 		Primary Service: <%= o.primary_service %><br />
 		NAICS: <%= o.naics %><br />
 		Primary State of Performance: <%= o.primary_state_of_performance %><br />
@@ -30,7 +30,7 @@
 		<br />
 		Priority: <%= o.priority %><br />
 	</div>
-	<div class="span-8 last">
+	<div class="span">
 		Vertical: <%= o.vertical %><br />
 		Segment: <%= o.segment %><br />
 		<br />
@@ -41,7 +41,9 @@
 		Key Contacts: <%= o.key_contacts %><br />
 		User List: <%= o.user_list %><br />
 	</div>
-	<div class="span-24 clearfix last">
+</div>
+<div class="row">
+	<div class="span">
 		<br />
 		Summary <%= o.summary %><br />
 		<br />
@@ -51,4 +53,3 @@
 		Last Updated: <%= o.last_updated %><br />
 	</div>
 </div>
-<div class="clearfix"></div>

@@ -5,7 +5,9 @@ gem 'rails', '3.1.1'
 gem 'rack', '1.3.5'
 
 gem "will_paginate", '~> 3.0'
-gem "simple_form"
+gem "formtastic"
+gem "formtastic-bootstrap"
+#gem "tabulous"
 gem "jquery-rails"
 gem "cancan"
 gem "gravatar_image_tag"
@@ -19,6 +21,7 @@ gem "thin"
 
 #rails 3.1
 group :assets do
+	gem "less-rails-bootstrap"
 	gem "sass-rails"
 	gem "coffee-script"
 	gem "uglifier"
@@ -40,7 +43,7 @@ gem 'faker'	#needed for rake tasks
 	
 group :development do
 	gem	'annotate'
-  	gem 'rails-footnotes', '~> 3.7.1.rc1'
+#  	gem 'rails-footnotes', '~> 3.7.1.rc1'
 end
 
 group :test do

@@ -38,13 +38,11 @@ class OpportunitiesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @opportunities }
-      format.js { render :layout => false, :content_type => 'text/html' }
+#      format.js { render :layout => false, :content_type => 'text/html' }
     end
   end
 
   def dashboard
-    #store_location
-    
   end
 
   def my

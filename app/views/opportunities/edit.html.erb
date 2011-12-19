@@ -6,7 +6,7 @@ Record #: <%= @opportunity.id %> | Created: <%= @opportunity.created_at %> | Mod
 	<%= link_to c, watch_opportunity_path(@opportunity), 
 		:method => :post %> | 	
 	<%= link_to 'Back', opportunities_path %>
-	<span class="navigation">
+	<span class="pull-right">
 		<% if session[:opportunity_id_list] && session[:opportunity_id_list].index(@opportunity.id) %>
 			<%= first_opportunity_link(@opportunity.id)%> |
 			<%= previous_opportunity_link(@opportunity.id) %> | 
