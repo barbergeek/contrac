@@ -1,10 +1,7 @@
 <% portlet_title = hc.options[:title][:text] || "Portlet" -%>
 <% hc.options[:title][:text] = "" # clear it so we can put it on the portlet header instead -%>
-<div class="portlet">
-	<div class="portlet-header"><%= portlet_title %></div>
-	<div class="portlet-content">
-		<%= high_chart("widget_hc_#{portlet_title.parameterize}", hc) do |c| %>
-			<%= body %>
-		<% end %>
-	</div>
-</div>
+<% hc.html_options[:style] = "height: 400px, width:460px" %>
+<h3><%= portlet_title %></h3>
+<%= high_chart("widget_hc_#{@portlet_id}", hc) do |c| %>
+	<%= body %>
+<% end %>

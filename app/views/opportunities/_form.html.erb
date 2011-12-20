@@ -1,4 +1,4 @@
-<%= semantic_form_for @opportunity do |f| %>
+<%= semantic_form_for @opportunity, html: {class: "form-stacked"} do |f| %>
 	<% if @opportunity.errors.any? %>
 		<div id="error_explanation">
 			<h2>
@@ -55,8 +55,8 @@
 			</div>
 		</div>
 	</div>
-	<%= f.buttons do %>
-	  <%= f.commit_button %>
+	<%= f.buttons class: "well" do %>
+		<%= f.commit_button button_html: { class: "primary", disable_with: 'Wait...' } %>
 	<% end %>
 
 	<ul class="tabs" data-tabs="tabs">

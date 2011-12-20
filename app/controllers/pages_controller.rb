@@ -6,6 +6,7 @@ class PagesController < ApplicationController
   end
   
   def home
+    @announcements = Announcement.for_front_page
   end
 
   def about

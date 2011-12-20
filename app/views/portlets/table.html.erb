@@ -1,7 +1,5 @@
 <% title ||= "Table Portlet" %>
-<div class="portlet">
-	<div class="portlet-header"><%= title %></div>
-	<div class="portlet-content">
+	<h3><%= title %></h3>
 		<% unless table[0].nil? %>
 		<table>
 			<thead>
@@ -31,5 +29,3 @@
 		<% else %>
 			No data
 		<% end %>
-	</div>
-</div>

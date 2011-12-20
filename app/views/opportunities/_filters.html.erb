@@ -26,7 +26,7 @@
 							<% group_count -= 1 %>
 							<% group.each do |dept| %>
 								<li>
-									<label class="add-on"><%= check_box_tag "filters[department][]", dept.department, @dept_filters.include?(dept.department) %><label>
+									<label class="add-on"><%= check_box_tag "filters[department][]", dept.department, @dept_filters.include?(dept.department) %></label>
 									<span><%= dept.department %></span>
 								</li>
 							<% end %>

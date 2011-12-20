@@ -7,7 +7,7 @@
 //= require jquery
 //= require jquery_ujs
 // require jquery-ui
-//= require highcharts
+//= require highcharts.src
 // require custom
 //= require custom-bootstrap
 //= require twitter/bootstrap/dropdown.js

@@ -74,6 +74,7 @@
 	</div>
 		
 	<div class="container-fluid">
+		<% if logged_in? %>
 		<div class="sidebar">
 		  <div class="well">
 		    <h5>Recent Items</h5>
@@ -99,7 +100,8 @@
 		    </ul>
 		  </div>
 		</div>
-
+		<% end %>
+		
 		<div class="content">
 			<% flash.each do |key, msg| %>
 				<%= content_tag :div, msg, class: "alert-message #{key}", id: "notice_#{key}" %>
@@ -111,7 +113,7 @@
 			<%= yield %>
 
 			<footer>
-				<p>&copy; Scott Hoge 2011</p>
+				<p>&copy; Scott Hoge/QBE LLC 2011</p>
 			</footer>
 		</div>
 	</div>
