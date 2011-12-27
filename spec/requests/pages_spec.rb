@@ -10,6 +10,10 @@ describe "Testing Pages" do
     end
     
     it "should display the dashboard after logging in" do
+      
+      # stick an announcement on the dashboard to have something to look for
+      Factory.create(:announcement)
+      
       #integration_login Factory.create(:user)
 #      visit root_path
       user = Factory.create(:user, :password => "foobar", :password_confirmation => "foobar")
