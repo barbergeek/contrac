@@ -27,7 +27,7 @@ set :delayed_job_server_role, :worker
 
 require "bundler/capistrano"
 require "rvm/capistrano"
-require "delayed_job/recipes"
+require "delayed/recipes"
 
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
