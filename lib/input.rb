@@ -45,8 +45,8 @@ module INPUT
       @agent = Mechanize::new
       @agent.get("https://iq.govwin.com/login/loginPage.cfm")
       form = @agent.page.form_with(id: 'frmLoginForm')
-      form.username = "scott.hoge@qbellc.com"
-      form.password="K33p0ut!"
+      form.username = Setting.input_username
+      form.password = Setting.input_password
       form.submit
     end
   end

@@ -6,9 +6,9 @@ Contrac::Application.routes.draw do
 
   get "admin", :to => "admin#index"
   get "admin/notify"
+  get "admin/scrape_news"
 
   resources :companies
-
   resources :announcements
 
   match "/login" => "sessions#new", :as => :login
@@ -23,7 +23,8 @@ Contrac::Application.routes.draw do
   end
 
   resources :comments
-
+  resources :settings
+  
   match "/about" => "pages#about"
   match "/help" => 'pages#help'
   match "/contact" => 'pages#contact'

@@ -13,4 +13,10 @@ class AdminController < ApplicationController
     redirect_to root_path
   end
 
+  def scrape_news
+    INPUT.delay.scrape_all_news
+    flash[:notify] = "GovWin IQ news scraper queued"
+    redirect_to root_path
+  end
+
 end
