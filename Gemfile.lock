@@ -248,6 +248,7 @@ DEPENDENCIES
   capistrano
   capybara
   coffee-script
+  daemons
   delayed_job
   factory_girl_rails
   faker

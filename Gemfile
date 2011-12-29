@@ -31,6 +31,7 @@ end
 gem "haml"
 
 gem "delayed_job"
+gem "daemons"
 gem "lazy_high_charts"
 gem "RedCloth"
 gem "switch_user"

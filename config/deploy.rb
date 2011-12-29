@@ -13,6 +13,7 @@ role :web, "contrack.scotthoge.com"                          # Your HTTP server,
 role :app, "contrack.scotthoge.com"                          # This may be the same as your `Web` server
 role :db,  "contrack.scotthoge.com", :primary => true # This is where Rails migrations will run
 role :db,  "contrack.scotthoge.com"
+role :worker, "contrack.scotthoge.com"
 
 set :bundle_gemfile,  "Gemfile"
 set :bundle_dir,      File.join(fetch(:shared_path), 'bundle')
@@ -20,6 +21,8 @@ set :bundle_flags,    "--deployment --quiet"
 set :bundle_without,  [:development, :test]
 set :bundle_cmd,      "bundle" # e.g. "/opt/ruby/bin/bundle"
 #set :bundle_roles,    {:except => {:no_release => true}} # e.g. [:app, :batch]
+
+set :delayed_job_server_role, :worker
 
 require "bundler/capistrano"
 require "rvm/capistrano"
@@ -37,3 +40,7 @@ namespace :deploy do
       run "#{try_sudo} service nginx restart"
   end
 end
+
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:start",   "delayed_job:start"
+after "deploy:restart", "delayed_job:restart"
