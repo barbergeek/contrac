@@ -1,6 +1,7 @@
 default_run_options[:pty] = true
 set :application, "contrack"
 set :repository,  "git@github.com:barbergeek/contrac.git"
+set :rails_env, "production"
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
@@ -26,6 +27,7 @@ set :delayed_job_server_role, :worker
 
 require "bundler/capistrano"
 require "rvm/capistrano"
+require "delayed_job/recipes"
 
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
@@ -41,6 +43,7 @@ namespace :deploy do
   end
 end
 
+before "deploy:restart", "delayed_job:stop"
+after "deploy:restart", "delayed_job:restart"
 after "deploy:stop",    "delayed_job:stop"
 after "deploy:start",   "delayed_job:start"
-after "deploy:restart", "delayed_job:restart"
