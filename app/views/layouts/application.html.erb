@@ -61,6 +61,9 @@
 				<li><%= link_to "Login", login_path %></li>
 			<% end %>
 			<li><%= link_to "Help", help_path %></li>
+			<%= form_tag filter_opportunities_path do |f| %>
+				<%= search_field_tag "search", nil, placeholder: "Search" %>
+			<% end %>
 			<% if Rails.env == "development" %>
 				<li>
 				<%#= switch_user_select %>
