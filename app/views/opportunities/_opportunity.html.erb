@@ -1,6 +1,5 @@
 <tr id="opportunity-<%= opportunity.id %>">
-	<td><%= link_to content_tag("span","Destroy", class: "label warning"), opportunity, :confirm => 'Are you sure?', 
-			:method => :delete, :title => "Ignore" %><br/>
+	<td>
 			<% unless opportunity.ignored? %>
 			<%= link_to content_tag("span","Watch", 
 				class: "label #{opportunity.watched_by?(current_user) ? "notice" : ""}",
@@ -19,6 +18,8 @@
 			<%= content_tag("span", "New", 
 					class: "label success") if opportunity.updated_at > 7.days.ago %>
 			<% end %>
+			<%= link_to content_tag("span", "Destroy", class: "label warning"), opportunity, :confirm => 'Are you sure?', 
+					:method => :delete, :title => "Ignore" %>
 			</td>
 	<td><%= opportunity.acronym %></td>
 	<td><%= opportunity.ignored? ? opportunity.program : link_to(opportunity.program, edit_opportunity_path(opportunity)) %><br/>
