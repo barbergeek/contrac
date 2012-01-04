@@ -10,31 +10,16 @@ class OpportunitiesController < ApplicationController
   def index
     #store_location
 
-    setup_filters
+    get_opportunity_list if @opportunity_list.nil?
 
-    @searchstring = session[:search] || ""
-
-    opp = session[:show_ignored] ? Opportunity.unscoped : Opportunity
-    
-    opp = opp.exclude_outcomes(@outcome_exclusions) unless @outcome_exclusions.empty?
-
-    opportunity_list = opp.
-      where(@filters).
-      where(@owner_filters).
-      includes([:business_developer, :capture_manager, :watchers]).
-      order("#{sort_column} #{sort_direction}").
-      search(@searchstring)
-    
-    @opportunities = opportunity_list.
+    @opportunities = @opportunity_list.
       paginate(:page => params[:page], :per_page => 20)
 
-    if @opportunities.empty? && opportunity_list # if no opportunities, make sure we paginate from page 1
+    if @opportunities.empty? && @opportunity_list # if no opportunities, make sure we paginate from page 1
       params[:page] = 1
-      @opportunities = opportunity_list.paginate(:page => params[:page], :per_page => 20)
+      @opportunities = @opportunity_list.paginate(:page => params[:page], :per_page => 20)
     end
 
-    session[:opportunity_id_list] = opportunity_list.map {|i| i.id}
-    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @opportunities }
@@ -46,6 +31,7 @@ class OpportunitiesController < ApplicationController
   end
 
   def my
+    session[:action] = nil
     session[:search] = params[:search]
     session[:filters] ||= {}
     session[:owner_filters] = "business_developer_id = #{current_user.id} or capture_manager_id = #{current_user.id} or watched_opportunities.user_id = #{current_user.id}"
@@ -53,6 +39,7 @@ class OpportunitiesController < ApplicationController
   end
 
   def all
+    session[:action] = nil
     session[:search] = params[:search]
     session[:filters] ||= {}
     session[:owner_filters] = nil
@@ -61,6 +48,7 @@ class OpportunitiesController < ApplicationController
   end
 
   def filter
+    session[:action] = params[:button_action]
     if params[:button_action] == "Clear"
       session[:search] = ""
       session[:filters] = {}
@@ -77,7 +65,14 @@ class OpportunitiesController < ApplicationController
       session[:show_ignored] = params[:ignore]
       session[:exclusions] = params[:exclusions]
     end
-    redirect_back_or_to opportunities_path
+    
+    #get the opportunity list and redirect as appropriate
+    get_opportunity_list
+    if @opportunity_list.length == 1
+      redirect_to opportunity_path(@opportunity_list.first)
+    else
+      redirect_back_or_to opportunities_path
+    end
   end
 
   # GET /opportunities/1
@@ -268,8 +263,27 @@ class OpportunitiesController < ApplicationController
       @capture_phases = Opportunity::PHASES
       @priorities = Opportunity::PRIORITIES
       @owners = User.find(:all).keep_if {|user| user.capture? }
-
     end
 
+    def get_opportunity_list
+      setup_filters
+
+      @searchstring = session[:search] || ""
+
+      opp = session[:show_ignored] ? Opportunity.unscoped : Opportunity
+
+      opp = opp.exclude_outcomes(@outcome_exclusions) unless @outcome_exclusions.empty?
+
+      @opportunity_list = opp.
+        where(@filters).
+        where(@owner_filters).
+        includes([:business_developer, :capture_manager, :watchers]).
+        order("#{sort_column} #{sort_direction}").
+        search(@searchstring)
+        
+      session[:opportunity_id_list] = @opportunity_list.map {|i| i.id}
+      
+    end
+    
 end
 

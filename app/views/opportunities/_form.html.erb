@@ -15,37 +15,37 @@
 	<div class="row">
 		<div class="span">
 			<%= f.input :acronym %>
-			<%= f.input :program, :as => :text, :input_html => {:rows => 3, :cols => 24} %>
+			<%= f.input :program, as: :text, input_html: {rows: 3, cols: 24} %>
 			<%= f.input :department %>
 			<%= f.input :agency %>
 			<%= f.input :prime %>
 			<%= f.input :location %>
-			<%= f.input :contract_type, :label => "Contract Type" %>
-			<%= f.input :contract_length, :label => "Contract Len." %>
-			<%= f.input :vehicle, :label => "Vehicle", :collection => Opportunity::VEHICLES.sort %>
-			<%= f.input :total_value, :as => :string, :label => "Total Value" %>
-			<%= f.input :our_value, :label => "Our Value", :input_html => {:size => 10}%>
+			<%= f.input :contract_type, label: "Contract Type" %>
+			<%= f.input :contract_length, label: "Contract Len." %>
+			<%= f.input :vehicle, label: "Vehicle", collection: Opportunity::VEHICLES.sort %>
+			<%= f.input :total_value, as: :string, label: "Total Value" %>
+			<%= f.input :our_value, label: "Our Value", input_html: {size: 10}%>
 		</div>
 		<div class="span">
 			<div class="row">
 				<div class="span">
-					<%= f.input :solicitation, :label => "Solicitation #" %>
-					<%= f.input :solicitation_type, :label => "Solic. Type" %>
-					<%= f.input :solicitation_source, :label => "Source", :collection => Opportunity::SOURCES %>
-					<%= f.input :rfp_release_date, :as => :string, :label => "RFP Release", :input_html => {:class => "datepicker"} %>
-					<%= f.input :rfp_expected_due_date, :as => :string, :label => "RFP Due", :input_html => {:class => "datepicker"} %>
-					<%= f.input :award_date, :as => :string, :label => "Award Date", :input_html => {:class => "datepicker"} %>
-					<%= f.input :acquisition_url, :as => :string, :label => "URL" %>
-					<%= f.input :input_opportunity_number, :as => :string, :label => "INPUT id" %>
-					<%= f.input :input_status, :label => "INPUT status", :input_html => {:readonly => true} %>
+					<%= f.input :solicitation, label: "Solicitation #" %>
+					<%= f.input :solicitation_type, label: "Solic. Type" %>
+					<%= f.input :solicitation_source, label: "Source", collection: Opportunity::SOURCES %>
+					<%= f.input :rfp_release_date, as: :string, label: "RFP Release", input_html: {class: "datepicker"} %>
+					<%= f.input :rfp_expected_due_date, as: :string, label: "RFP Due", input_html: {class: "datepicker"} %>
+					<%= f.input :award_date, as: :string, label: "Award Date", input_html: {class: "datepicker"} %>
+					<%= f.input :acquisition_url, as: :string, label: "URL" %>
+					<%= f.input :input_opportunity_number, as: :string, label: "INPUT id" %>
+					<%= f.input :input_status, label: "INPUT status", input_html: {readonly: true} %>
 				</div>
 				<div class="span">
-					<%= f.input :business_developer, :collection => @bders, :label => "Business Developer" %><br/>
-					<%= f.input :capture_manager, :collection => @owners, :label => "Capture Manager" %><br/>
-					<%= f.input :capture_phase, :label => "Phase", :collection => Opportunity::PHASES, :label_method => :humanize %>
-					<%= f.input :priority, :label => "Priority", :collection => Opportunity::PRIORITIES %>
-					<%= f.input :win_probability, :as => :string, :label => "Win Prob.", :input_html => {:size => 5} %>
-					<%= f.input :outcome, :collection => Opportunity::OUTCOMES, :label_method => :humanize %>
+					<%= f.input :business_developer, collection: @bders, label: "Business Developer" %><br/>
+					<%= f.input :capture_manager, collection: @owners, label: "Capture Manager" %><br/>
+					<%= f.input :capture_phase, label: "Phase", collection: Opportunity::PHASES, member_label: :humanize %>
+					<%= f.input :priority, label: "Priority", collection: Opportunity::PRIORITIES %>
+					<%= f.input :win_probability, as: :string, label: "Win Prob.", input_html: {size: 5} %>
+					<%= f.input :outcome, collection: Opportunity::OUTCOMES, member_label: :humanize %>
 				</div>
 			</div>
 			<div class="row">
@@ -69,13 +69,13 @@
 	</ul>
 	<div class="tab-content">
 		<div id="comments-tab" class="active">
-			<%= render 'comments/comments', :f => f %>
+			<%= render 'comments/comments', f: f %>
 		</div>
 		<div id="input-tab">
 			<% if @opportunity.input_record.nil? %>
 				No INPUT data
 			<% else %>
-				<%= render 'show_input_data', :o => @opportunity.input_record %>
+				<%= render 'show_input_data', o: @opportunity.input_record %>
 			<% end %>
 		</div>
 		<div id="teaming-tab">

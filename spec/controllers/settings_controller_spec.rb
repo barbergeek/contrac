@@ -20,6 +20,11 @@ require 'spec_helper'
 
 describe SettingsController do
 
+  before (:each) do
+    @user = Factory.create(:user)
+    login_user @user
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Setting. As you add validations to Setting, be sure to
   # update the return value of this method accordingly.
