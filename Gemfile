@@ -16,7 +16,8 @@ gem "gravatar_image_tag"
 gem "sorcery"
 
 #web server
-gem "thin"
+#gem "thin"
+gem "passenger"
 #gem "heroku"
 
 #rails 3.1
