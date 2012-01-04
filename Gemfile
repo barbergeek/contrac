@@ -30,7 +30,7 @@ end
 #markup
 gem "haml"
 
-gem "delayed_job"
+gem "delayed_job_active_record"
 gem "daemons"
 gem "lazy_high_charts"
 gem "RedCloth"
