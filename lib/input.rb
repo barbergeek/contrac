@@ -1,6 +1,6 @@
 require 'mechanize'
 
-module INPUT
+class INPUT
   
   INPUT_HOST = "http://iq.govwin.com"
 
