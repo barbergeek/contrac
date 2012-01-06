@@ -9,3 +9,5 @@ doc/app
 *~
 .DS_Store
 webrat.log
+coverage
+coverage/*

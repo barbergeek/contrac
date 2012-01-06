@@ -1,9 +1,12 @@
 require 'rubygems'
-require 'spork'
+#require 'spork'
 require 'capybara/rspec'
 
-Spork.prefork do
-  # Loading more in this block will cause your tests to run faster. However, 
+require 'simplecov'
+SimpleCov.start 'rails'
+
+#Spork.prefork do
+  # Loading more in this block will cause your tests to run faster. However,
   # if you change any configuration or code from libraries loaded here, you'll
   # need to restart spork for it take effect.
   ENV["RAILS_ENV"] ||= 'test'
@@ -35,9 +38,9 @@ Spork.prefork do
     # examples within a transaction, remove the following line or assign false
     # instead of true.
     config.use_transactional_fixtures = true
-    
+
     ActiveSupport::Dependencies.clear
-        
+
     def integration_login(user, password)
       visit login_path
       fill_in "Email",     :with => user.email
@@ -45,10 +48,10 @@ Spork.prefork do
       click_button 'Login'
     end
   end
-  
-end
 
-Spork.each_run do
+#end
+
+#Spork.each_run do
   # This code will be run each time you run your specs.
-  
-end
+
+#end

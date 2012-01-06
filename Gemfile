@@ -22,10 +22,10 @@ gem "passenger"
 
 #rails 3.1
 group :assets do
-	gem "less-rails-bootstrap"
-	gem "sass-rails"
-	gem "coffee-script"
-	gem "uglifier"
+    gem "less-rails-bootstrap"
+    gem "sass-rails"
+    gem "coffee-script"
+    gem "uglifier"
 end
 
 #markup
@@ -41,29 +41,30 @@ gem 'nokogiri'
 gem 'mechanize'
 gem 'acts-as-taggable-on'
 
-gem 'faker'	#needed for rake tasks
-	
+gem 'faker' #needed for rake tasks
+
 group :development do
-	gem	'annotate'
-#  	gem 'rails-footnotes', '~> 3.7.1.rc1'
+    gem 'annotate'
+#   gem 'rails-footnotes', '~> 3.7.1.rc1'
 end
 
 group :test do
-	gem 'spork'
-	gem 'factory_girl_rails'
+    gem 'spork'
+    gem 'factory_girl_rails'
+    gem 'simplecov', require: false
 end
 
 group :development, :test do
-	gem 'sqlite3'
-	gem 'rspec'
-	gem 'rspec-rails'
-	gem 'capybara'
-	gem 'ruby-debug19'
+    gem 'sqlite3'
+    gem 'rspec'
+    gem 'rspec-rails'
+    gem 'capybara'
+    gem 'ruby-debug19'
 end
 
 group :production do
-	gem 'therubyracer'
-	gem "pg"			# use postgresql in production
+    gem 'therubyracer'
+    gem "pg"            # use postgresql in production
 end
 
 # Deploy with Capistrano
