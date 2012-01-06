@@ -44,7 +44,7 @@
             <%= f.input :priority, label: "Priority", collection: Opportunity::PRIORITIES %>
             <%= f.input :win_probability, as: :string, label: "Win Prob.", input_html: {size: 5} %>
             <%= f.input :outcome, collection: Opportunity::OUTCOMES, member_label: :humanize %>
-            <%= f.input :outcome_text, label: "Outcome Description", input_html: {rows: 5} %>
+            <%= f.input :outcome_text, as: :text, label: "Outcome Description", input_html: {rows: 5} %>
         </div>
       </div>
     <div class="row">
