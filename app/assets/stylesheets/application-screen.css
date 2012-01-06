@@ -3,21 +3,24 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
- * require blueprint/screen
  * require_tree ./screen
 */
 
-.modal-body { 
-	max-height: 500px; 
-	overflow-y: scroll;
-	}
+.modal-body {
+    max-height: 500px;
+    overflow-y: scroll;
+    }
 
-/*	
+/*
 label {
-	padding-right: 1em;
+    padding-right: 1em;
 }
 */
 
 form .input {
-	/* margin-left: 0px; */
+    /* margin-left: 0px; */
+}
+
+input, textarea, select {
+    width: 100%;
 }

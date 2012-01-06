@@ -1,127 +1,127 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><%= @title %></title>
-	<!-- <%= hoptoad_javascript_notifier %> -->
-	<!--[if lt IE 9]>
-		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-	<%= stylesheet_link_tag 'application' %>
-	<%= stylesheet_link_tag 'application-screen', :media => 'screen' %>
-<!--	<%= stylesheet_link_tag 'application-print', :media => 'print' %> -->
-	<%= javascript_include_tag "application" %>
-	<%= csrf_meta_tag %>
-	<style type="text/css">
-	      body {
-	        padding-top: 60px;
-	      }
-	    </style>
+    <title><%= @title %></title>
+    <!-- <%= hoptoad_javascript_notifier %> -->
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <%= stylesheet_link_tag 'application' %>
+    <%= stylesheet_link_tag 'application-screen', :media => 'screen' %>
+<!--    <%= stylesheet_link_tag 'application-print', :media => 'print' %> -->
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tag %>
+    <style type="text/css">
+          body {
+            padding-top: 60px;
+          }
+        </style>
 </head>
 <body>
-	<div class="topbar">
-	  <div class="topbar-inner">
-	    <div class="container-fluid">
-	      <%= link_to "Contrack", root_path, class: "brand" %>
-	      <ul class="nav" data-dropdown="dropdown">
-			<li class="<%= is_active_tab?(:pages)%>"><%= link_to "Home", root_path %></li>
-				<% if logged_in? %>
-					<li class="<%= is_active_tab?(:opportunities)%> dropdown"><a href="#" class="dropdown-toggle">Opportunities</a>
-						<ul class="dropdown-menu">
-							<li><%= link_to "Dashboard", dashboard_opportunities_path %></li>
-							<li><%= link_to "All Opportunities", all_opportunities_path %></li>
-							<% if current_user.capture? %>
-								<li><%= link_to "My Opportunities", my_opportunities_path %></li>
-							<% end %>
-							<li><%= link_to "Calendar", calendar_opportunities_path %></li>
-							<li><%= link_to "Export", export_opportunities_path + ".xml" %></li>
-						</ul>
-					</li>
-				    <li class="<%= is_active_tab?(:companies)%> dropdown"><a class="dropdown-toggle">Contacts</a>
-						<ul class="dropdown-menu">
-							<li><%= link_to "Companies", companies_path %></li>
-							<li><a>People*</a></li>
-						</ul>
-					</li>
-					<% if current_user.admin? %>
-						<li class="<%= is_active_tab?(:reports,:input_records,:announcements,:users,:admin)%> dropdown"><a class="dropdown-toggle">Admin</a>
-							<ul class="dropdown-menu">
-								<li><%= link_to "Reports", reports_select_path %></li>
-								<li><%= link_to "Input", input_records_path %></li>
-								<li><%= link_to "Announcements", announcements_path %></li>
-								<li><%= link_to "Users", users_path %></li>
-								<li><%= link_to "Notify", admin_notify_path %></li>
-								<li><%= link_to "Scrape News [Job]", admin_scrape_news_path %></li>
-								<li><a>Programs*</a></li>
-							    <li><a>Accounts/Campaigns*</a></li>
-							</ul>
-						</li>
-					<% end %>
-				<li><%= link_to "Logout", logout_path %></li>
-				<li><%= link_to "Help", help_path %></li>
-				<%= form_tag filter_opportunities_path do |f| %>
-					<%= hidden_field_tag "button_action", "Search" %>
-					<%= search_field_tag "search", nil, placeholder: "Search" %>
-				<% end %>
-			<% else %>
-				<li><%= link_to "Login", login_path %></li>
-			<% end %>
-			<% if Rails.env == "development" %>
-				<li>
-				<%#= switch_user_select %>
-				</li>
-			<% end %>
-	    </ul>
-		<% if logged_in? %>
-			<p class="pull-right">Logged in as <%= link_to current_user.name, user_path(current_user) %></p>
-		<% end %>
-	    </div>
-	  </div>
-	</div>
-		
-	<div class="container-fluid">
-		<% if logged_in? %>
-		<div class="sidebar">
-		  <div class="well">
-		    <h5>Recent Items</h5>
-		    <ul>
-		      <li><a href="#">Link</a></li>
-		      <li><a href="#">Link</a></li>
-		      <li><a href="#">Link</a></li>
-		      <li><a href="#">Link</a></li>
-		    </ul>
-		    <h5>Sidebar</h5>
-		    <ul>
-		      <li><a href="#">Link</a></li>
-		      <li><a href="#">Link</a></li>
-		      <li><a href="#">Link</a></li>
-		      <li><a href="#">Link</a></li>
-		      <li><a href="#">Link</a></li>
-		      <li><a href="#">Link</a></li>
-		    </ul>
-		    <h5>Sidebar</h5>
-		    <ul>
-		      <li><a href="#">Link</a></li>
-		      <li><a href="#">Link</a></li>
-		    </ul>
-		  </div>
-		</div>
-		<% end %>
-		
-		<div class="content">
-			<% flash.each do |key, msg| %>
-				<%= content_tag :div, msg, class: "alert-message #{key}", id: "notice_#{key}" %>
-				<%= content_tag :script, :type => "text/javascript" do -%>
-				setTimeout("$('#notice_<%= key %>').slideUp('slow');", 5000);
-				<% end %>
-			<% end %>
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="container-fluid">
+          <%= link_to "Contrack", root_path, class: "brand" %>
+          <ul class="nav" data-dropdown="dropdown">
+            <li class="<%= is_active_tab?(:pages)%>"><%= link_to "Home", root_path %></li>
+                <% if logged_in? %>
+                    <li class="<%= is_active_tab?(:opportunities)%> dropdown"><a href="#" class="dropdown-toggle">Opportunities</a>
+                        <ul class="dropdown-menu">
+                            <li><%= link_to "Dashboard", dashboard_opportunities_path %></li>
+                            <li><%= link_to "All Opportunities", all_opportunities_path %></li>
+                            <% if current_user.capture? %>
+                                <li><%= link_to "My Opportunities", my_opportunities_path %></li>
+                            <% end %>
+                            <li><%= link_to "Calendar", calendar_opportunities_path %></li>
+                            <li><%= link_to "Export", export_opportunities_path + ".xml" %></li>
+                        </ul>
+                    </li>
+                    <li class="<%= is_active_tab?(:companies)%> dropdown"><a class="dropdown-toggle">Contacts</a>
+                        <ul class="dropdown-menu">
+                            <li><%= link_to "Companies", companies_path %></li>
+                            <li><a>People*</a></li>
+                        </ul>
+                    </li>
+                    <% if current_user.admin? %>
+                        <li class="<%= is_active_tab?(:reports,:input_records,:announcements,:users,:admin)%> dropdown"><a class="dropdown-toggle">Admin</a>
+                            <ul class="dropdown-menu">
+                                <li><%= link_to "Reports", reports_select_path %></li>
+                                <li><%= link_to "Input", input_records_path %></li>
+                                <li><%= link_to "Announcements", announcements_path %></li>
+                                <li><%= link_to "Users", users_path %></li>
+                                <li><%= link_to "Notify", admin_notify_path %></li>
+                                <li><%= link_to "Scrape News [Job]", admin_scrape_news_path %></li>
+                                <li><a>Programs*</a></li>
+                                <li><a>Accounts/Campaigns*</a></li>
+                            </ul>
+                        </li>
+                    <% end %>
+                <li><%= link_to "Logout", logout_path %></li>
+                <li><%= link_to "Help", help_path %></li>
+                <%= form_tag filter_opportunities_path do |f| %>
+                    <%= hidden_field_tag "button_action", "Search" %>
+                    <%= search_field_tag "search", nil, placeholder: "Search" %>
+                <% end %>
+            <% else %>
+                <li><%= link_to "Login", login_path %></li>
+            <% end %>
+            <% if Rails.env == "development" %>
+                <li>
+                <%#= switch_user_select %>
+                </li>
+            <% end %>
+        </ul>
+        <% if logged_in? %>
+            <p class="pull-right">Logged in as <%= link_to current_user.name, user_path(current_user) %></p>
+        <% end %>
+        </div>
+      </div>
+    </div>
 
-			<%= yield %>
+    <div class="container-fluid">
+        <% if logged_in? %>
+        <div class="sidebar">
+          <div class="well">
+            <h5>Recent Items</h5>
+            <ul>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+            </ul>
+            <h5>Sidebar</h5>
+            <ul>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+            </ul>
+            <h5>Sidebar</h5>
+            <ul>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+            </ul>
+          </div>
+        </div>
+        <% end %>
 
-			<footer>
-				<p>&copy; Scott Hoge/QBE LLC 2011</p>
-			</footer>
-		</div>
-	</div>
+        <div class="content">
+            <% flash.each do |key, msg| %>
+                <%= content_tag :div, msg, class: "alert-message #{key}", id: "notice_#{key}" %>
+                <%= content_tag :script, :type => "text/javascript" do -%>
+                setTimeout("$('#notice_<%= key %>').slideUp('slow');", 5000);
+                <% end %>
+            <% end %>
+
+            <%= yield %>
+
+            <footer>
+                <p>&copy; Scott Hoge/QBE LLC 2012</p>
+            </footer>
+        </div>
+    </div>
 
 </body>
 </html>

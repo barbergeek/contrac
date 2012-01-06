@@ -21,9 +21,9 @@ class Opportunity < ActiveRecord::Base
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
                   :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase,
                   :input_status, :business_developer_id, :capture_manager_id, :acquisition_url, :comments, :comments_attributes, :outcome,
-                  :our_value, :watchers, :business_developer, :capture_manager, :watched_opportunities, 
+                  :our_value, :watchers, :business_developer, :capture_manager, :watched_opportunities,
                   :input_opportunity_number, :rfp_expected_due_date, :priority, :solicitation,
-                  :solicitation_source, :vehicle
+                  :solicitation_source, :vehicle, :outcome_text
 
   accepts_nested_attributes_for :comments, :reject_if => proc { |attributes| attributes['content'].blank? }
 
@@ -34,7 +34,7 @@ class Opportunity < ActiveRecord::Base
   validates :department, :presence => true
 
   default_scope where(:ignored => false)
-  
+
   PHASES = %w[identification qualification win_strategy pre-proposal proposal post_submittal post_award]
   OUTCOMES = %w[won lost no_bid]
   PRIORITIES = [["High",1],["Medium",2],["Low",3]]
@@ -71,25 +71,25 @@ class Opportunity < ActiveRecord::Base
   def self.my_updated(who,since)
     includes([:business_developer, :capture_manager, :watchers]).where("(business_developer_id = #{who.id} or capture_manager_id = #{who.id} or watched_opportunities.user_id = #{who.id}) and opportunities.updated_at > ?",since)
   end
-  
+
   def destroy
     self.ignored = true
     save!
   end
-  
+
   def ignore
     self.destroy
   end
-  
+
   def recover
     self.ignored = false
     save!
   end
-  
+
   def ignored?
     self.ignored
   end
-  
+
   def watched_by?(who)
     watchers.include?(who)
   end

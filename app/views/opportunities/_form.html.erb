@@ -1,90 +1,87 @@
 <%= semantic_form_for @opportunity, html: {class: "form-stacked"} do |f| %>
-	<% if @opportunity.errors.any? %>
-		<div id="error_explanation">
-			<h2>
-				<%= pluralize(@opportunity.errors.count, "error") %> prohibited this opportunity from being saved:
-			</h2>
-			<ul>
-				<% @opportunity.errors.full_messages.each do |msg| %>
-					<li><%= msg %></li>
-				<% end %>
-			</ul>
-		</div>
-	<% end %>
+    <% if @opportunity.errors.any? %>
+        <div id="error_explanation">
+            <h2>
+                <%= pluralize(@opportunity.errors.count, "error") %> prohibited this opportunity from being saved:
+            </h2>
+            <ul>
+                <% @opportunity.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
 
-	<div class="row">
-		<div class="span">
-			<%= f.input :acronym %>
-			<%= f.input :program, as: :text, input_html: {rows: 3, cols: 24} %>
-			<%= f.input :department %>
-			<%= f.input :agency %>
-			<%= f.input :prime %>
-			<%= f.input :location %>
-			<%= f.input :contract_type, label: "Contract Type" %>
-			<%= f.input :contract_length, label: "Contract Len." %>
-			<%= f.input :vehicle, label: "Vehicle", collection: Opportunity::VEHICLES.sort %>
-			<%= f.input :total_value, as: :string, label: "Total Value" %>
-			<%= f.input :our_value, label: "Our Value", input_html: {size: 10}%>
-		</div>
-		<div class="span">
-			<div class="row">
-				<div class="span">
-					<%= f.input :solicitation, label: "Solicitation #" %>
-					<%= f.input :solicitation_type, label: "Solic. Type" %>
-					<%= f.input :solicitation_source, label: "Source", collection: Opportunity::SOURCES %>
-					<%= f.input :rfp_release_date, as: :string, label: "RFP Release", input_html: {class: "datepicker"} %>
-					<%= f.input :rfp_expected_due_date, as: :string, label: "RFP Due", input_html: {class: "datepicker"} %>
-					<%= f.input :award_date, as: :string, label: "Award Date", input_html: {class: "datepicker"} %>
-					<%= f.input :acquisition_url, as: :string, label: "URL" %>
-					<%= f.input :input_opportunity_number, as: :string, label: "INPUT id" %>
-					<%= f.input :input_status, label: "INPUT status", input_html: {readonly: true} %>
-				</div>
-				<div class="span">
-					<%= f.input :business_developer, collection: @bders, label: "Business Developer" %><br/>
-					<%= f.input :capture_manager, collection: @owners, label: "Capture Manager" %><br/>
-					<%= f.input :capture_phase, label: "Phase", collection: Opportunity::PHASES, member_label: :humanize %>
-					<%= f.input :priority, label: "Priority", collection: Opportunity::PRIORITIES %>
-					<%= f.input :win_probability, as: :string, label: "Win Prob.", input_html: {size: 5} %>
-					<%= f.input :outcome, collection: Opportunity::OUTCOMES, member_label: :humanize %>
-				</div>
-			</div>
-			<div class="row">
-				<div class="span">
-					<%= f.input :description, input_html: {rows: 5} %>
-				</div>
-			</div>
-		</div>
-	</div>
-	<%= f.buttons class: "well" do %>
-		<%= f.commit_button button_html: { class: "primary", disable_with: 'Wait...' } %>
-	<% end %>
+    <div class="row">
+        <div class="span-one-third">
+            <%= f.input :acronym %>
+            <%= f.input :program, as: :text, input_html: {rows: 3, cols: 24} %>
+            <%= f.input :department %>
+            <%= f.input :agency %>
+            <%= f.input :prime %>
+            <%= f.input :location %>
+            <%= f.input :contract_type, label: "Contract Type" %>
+            <%= f.input :contract_length, label: "Contract Len." %>
+            <%= f.input :vehicle, label: "Vehicle", collection: Opportunity::VEHICLES.sort %>
+            <%= f.input :total_value, as: :string, label: "Total Value" %>
+            <%= f.input :our_value, label: "Our Value", input_html: {size: 10}%>
+        </div>
+        <div class="span-one-third">
+            <%= f.input :solicitation, label: "Solicitation #" %>
+            <%= f.input :solicitation_type, label: "Solic. Type" %>
+            <%= f.input :solicitation_source, label: "Source", collection: Opportunity::SOURCES %>
+            <%= f.input :rfp_release_date, as: :string, label: "RFP Release", input_html: {class: "datepicker"} %>
+            <%= f.input :rfp_expected_due_date, as: :string, label: "RFP Due", input_html: {class: "datepicker"} %>
+            <%= f.input :award_date, as: :string, label: "Award Date", input_html: {class: "datepicker"} %>
+            <%= f.input :acquisition_url, as: :string, label: "URL" %>
+            <%= f.input :input_opportunity_number, as: :string, label: "INPUT id" %>
+            <%= f.input :input_status, label: "INPUT status", input_html: {readonly: true} %>
+        </div>
+        <div class="span-one-third">
+            <%= f.input :business_developer, collection: @bders, label: "Business Developer" %><br/>
+            <%= f.input :capture_manager, collection: @owners, label: "Capture Manager" %><br/>
+            <%= f.input :capture_phase, label: "Phase", collection: Opportunity::PHASES, member_label: :humanize %>
+            <%= f.input :priority, label: "Priority", collection: Opportunity::PRIORITIES %>
+            <%= f.input :win_probability, as: :string, label: "Win Prob.", input_html: {size: 5} %>
+            <%= f.input :outcome, collection: Opportunity::OUTCOMES, member_label: :humanize %>
+            <%= f.input :outcome_text, label: "Outcome Description", input_html: {rows: 5} %>
+        </div>
+      </div>
+    <div class="row">
+        <div class="span-two-thirds">
+            <%= f.input :description, input_html: {rows: 5, class: "span-two-thirds"} %>
+        </div>
+    </div>
+    <%= f.buttons class: "well" do %>
+        <%= f.commit_button button_html: { class: "primary", disable_with: 'Wait...' } %>
+    <% end %>
 
-	<ul class="tabs" data-tabs="tabs">
-		<li class="active"><a href="#comments-tab">Comments</a></li>
-		<li><a href="#input-tab">INPUT</a></li>
-		<li><a href="#teaming-tab">Teaming</a></li>
-		<li><a href="#history-tab">History</a></li>
-		<li><a href="#capture-tab">Capture</a></li>
-		<li><a href="#proposal-tab">Proposal</a></li>
-	</ul>
-	<div class="tab-content">
-		<div id="comments-tab" class="active">
-			<%= render 'comments/comments', f: f %>
-		</div>
-		<div id="input-tab">
-			<% if @opportunity.input_record.nil? %>
-				No INPUT data
-			<% else %>
-				<%= render 'show_input_data', o: @opportunity.input_record %>
-			<% end %>
-		</div>
-		<div id="teaming-tab">
-			Teaming
-		</div>
-		<div id="history-tab">
-			History
-		</div>
-	</div>
+    <ul class="tabs" data-tabs="tabs">
+        <li class="active"><a href="#comments-tab">Comments</a></li>
+        <li><a href="#input-tab">INPUT</a></li>
+        <li><a href="#teaming-tab">Teaming</a></li>
+        <li><a href="#history-tab">History</a></li>
+        <li><a href="#capture-tab">Capture</a></li>
+        <li><a href="#proposal-tab">Proposal</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="comments-tab" class="active">
+            <%= render 'comments/comments', f: f %>
+        </div>
+        <div id="input-tab">
+            <% if @opportunity.input_record.nil? %>
+                No INPUT data
+            <% else %>
+                <%= render 'show_input_data', o: @opportunity.input_record %>
+            <% end %>
+        </div>
+        <div id="teaming-tab">
+            Teaming
+        </div>
+        <div id="history-tab">
+            History
+        </div>
+    </div>
 
-	
+
 <% end %>

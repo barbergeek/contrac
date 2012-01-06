@@ -7,8 +7,8 @@
 </ul>
 
 <%= f.fields_for :comments, Comment.new do |form| %>
-	<%= form.text_area :content, :rows => 3 %>
+    <%= form.text_area :content, :rows => 3 %>
   <%= form.hidden_field :source, :value => "#{current_user.initials}" %>
-	<%= submit_tag "Add comment" %>
+    <%= submit_tag "Add comment", class: "btn primary", disable_with: 'Wait...' %>
 <% end %>
 
