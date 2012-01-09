@@ -1,8 +1,8 @@
 require 'mechanize'
 
-class INPUT
+class GovwinIQ
   
-  INPUT_HOST = "http://iq.govwin.com"
+  IQ_HOST = "http://iq.govwin.com"
 
   def self.scrape_all_news
     login
@@ -15,7 +15,7 @@ class INPUT
   
   def self.scrape_news(inputid)
     login
-    @agent.get("#{INPUT_HOST}/getopp.cfm?OppID=#{inputid}&PrdctCd=PFOIT&ClickThruType=Up&archive")
+    @agent.get("#{IQ_HOST}/getopp.cfm?OppID=#{inputid}&PrdctCd=PFOIT&ClickThruType=Up&archive")
     news = @agent.page.search("#oppProcurementActivityContent .detailDataTxt").map(&:text).map(&:strip)
     if news
       input = InputRecord.find_or_create_by_input_opportunity_number(inputid)
@@ -29,13 +29,13 @@ class INPUT
 
   def self.scrape_opportunity(inputid)
     login
-    @agent.get("#{INPUT_HOST}/getopp.cfm?OppID=#{inputid}&PrdctCd=PFOIT&ClickThruType=Up&archive")
+    @agent.get("#{IQ_HOST}/getopp.cfm?OppID=#{inputid}&PrdctCd=PFOIT&ClickThruType=Up&archive")
     opp = @agent.page.search(".detailSectionOuterBorder span").map(&:text).map(&:strip)
   end
   
   def self.get_company_opportunities
     login
-    @agent.get("#{INPUT_HOST}/index.cfm?fractal=myInput.dsp.myCompanyOpportunities&showall")
+    @agent.get("#{IQ_HOST}/index.cfm?fractal=myInput.dsp.myCompanyOpportunities&showall")
     #table = @agent.page.search(".resultsTableBorder")
     opportunity_ids = @agent.page.search(".resultsDataTxt:nth-child(4)").map(&:text).map(&:strip).map(&:chop)
   end

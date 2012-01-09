@@ -1,10 +1,10 @@
 class AdminController < ApplicationController
-  
+
   before_filter :require_login
-  
+
   def index
   end
-  
+
   def notify
     User.all.each do |u|
       UserMailer.updated_opportunities(u).deliver
@@ -14,7 +14,7 @@ class AdminController < ApplicationController
   end
 
   def scrape_news
-    INPUT.delay.scrape_all_news
+    GovwinIQ.delay.scrape_all_news
     flash[:notify] = "GovWin IQ news scraper queued"
     redirect_to root_path
   end
