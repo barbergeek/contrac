@@ -31,8 +31,11 @@ end
 #markup
 gem "haml"
 
+#Delayed Job
 gem "delayed_job_active_record"
 gem "daemons"
+gem "delayed_job_web"
+
 gem "lazy_high_charts"
 gem "RedCloth"
 gem "switch_user"

@@ -13,9 +13,9 @@ Contrac::Application.routes.draw do
 
   match "/login" => "sessions#new", :as => :login
   match "/logout" => "sessions#destroy", :as => :logout
-  
+
   resources :sessions, :only => [:new, :create, :destroy]
-  
+
   resources :users do
     collection do
       post 'become'
@@ -24,12 +24,14 @@ Contrac::Application.routes.draw do
 
   resources :comments
   resources :settings
-  
+
   match "/about" => "pages#about"
   match "/help" => 'pages#help'
   match "/contact" => 'pages#contact'
   match "/home" => 'pages#home'
-  
+
+  match "/delayed_job" => DelayedJobWeb, :anchor => false
+
 #  match "/users" => 'user#index'
 
   resources :opportunities do
