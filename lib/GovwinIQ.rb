@@ -22,7 +22,7 @@ class GovwinIQ
     form = @agent.page.form("SelectListForm")
 #    form.button_with(text: ">>").click
     form.submit
-    f = File.new("tmp/exports/govwin-iq-export.xls","w")
+    f = File.new("tmp/govwin-iq-export.xls","w")
     f.write(@agent.page.body)
     f.close
   end
