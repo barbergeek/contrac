@@ -1,7 +1,7 @@
 require 'mechanize'
 
 class GovwinIQ
-  
+
   IQ_HOST = "http://iq.govwin.com"
 
   def self.scrape_all_news
@@ -12,7 +12,7 @@ class GovwinIQ
       scrape_news(o.input_opportunity_number)
     end
   end
-  
+
   def self.scrape_news(inputid)
     login
     @agent.get("#{IQ_HOST}/getopp.cfm?OppID=#{inputid}&PrdctCd=PFOIT&ClickThruType=Up&archive")
@@ -30,14 +30,30 @@ class GovwinIQ
   def self.scrape_opportunity(inputid)
     login
     @agent.get("#{IQ_HOST}/getopp.cfm?OppID=#{inputid}&PrdctCd=PFOIT&ClickThruType=Up&archive")
-    opp = @agent.page.search(".detailSectionOuterBorder span").map(&:text).map(&:strip)
+    oppname = @agent.page.search(".detailName").map(&:text).map(&:strip)
+    oppdata = @agent.page.search(".detailSectionOuterBorder span").map(&:text).map(&:strip)
+    puts "Scraping [#{inputid}] - #{oppname[0]}"
+    return oppname[0].gsub(/\u{a0}/,"").squish, oppdata
   end
-  
+
   def self.get_company_opportunities
     login
     @agent.get("#{IQ_HOST}/index.cfm?fractal=myInput.dsp.myCompanyOpportunities&showall")
     #table = @agent.page.search(".resultsTableBorder")
     opportunity_ids = @agent.page.search(".resultsDataTxt:nth-child(4)").map(&:text).map(&:strip).map(&:chop)
+    opportunity_ids.each do |inputid|
+      input = InputRecord.find_or_create_by_input_opportunity_number(inputid)
+      oppname, oppdata = GovwinIQ.scrape_opportunity(inputid)
+
+      # extract title and acronym
+      x = /(.*)\s\((.*)\)|(.*)/.match(oppname)
+      puts "#{inputid} - #{x[0]}||#{x[1]}||#{x[2]}"
+      input.title = x[1] || x[0]
+      input.acronym = x[2]
+
+
+      input.save
+    end
   end
 
   def self.login
@@ -50,11 +66,11 @@ class GovwinIQ
       form.submit
     end
   end
-  
+
   def self.find_input(inputid)
     @input = InputRecord.find_or_create_by_input_opportunity_number(inputid)
   end
-  
+
   def self.fix_input_date(datevalue)
     if datevalue =~ /\//
        m,d,y = datevalue.split("/")
@@ -63,5 +79,5 @@ class GovwinIQ
        datevalue
      end
   end
-  
+
 end
