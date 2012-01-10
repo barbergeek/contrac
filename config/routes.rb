@@ -7,6 +7,7 @@ Contrac::Application.routes.draw do
   get "admin", :to => "admin#index"
   get "admin/notify"
   get "admin/scrape_news"
+  get "admin/get_export"
 
   resources :companies
   resources :announcements
