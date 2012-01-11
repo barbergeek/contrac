@@ -36,12 +36,15 @@ gem "delayed_job_active_record"
 gem "daemons"
 gem "delayed_job_web"
 
+#Spreadsheet interface (for GovwinIQ)
+gem "roo"
+gem 'nokogiri'
+gem 'mechanize'
+
 gem "lazy_high_charts"
 gem "RedCloth"
 gem "switch_user"
 gem "hoptoad_notifier"
-gem 'nokogiri'
-gem 'mechanize'
 gem 'acts-as-taggable-on'
 
 gem 'faker' #needed for rake tasks

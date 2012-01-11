@@ -20,8 +20,8 @@ class AdminController < ApplicationController
   end
 
   def get_export
-    GovwinIQ.delay.get_export
-    flash[:notify] = "GovWin IQ export queued"
+    GovwinIQ.delay.export_and_load
+    flash[:notify] = "GovWin IQ export and load queued"
     redirect_to root_path
   end
 
