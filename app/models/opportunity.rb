@@ -6,6 +6,7 @@ class Opportunity < ActiveRecord::Base
               :primary_key => "input_opportunity_number", :readonly => :true
   has_many :watched_opportunities
   has_many :watchers, :through => :watched_opportunities, :source => :user
+  has_many :tasks
 
   delegate  :name,
             :initials,
@@ -23,9 +24,10 @@ class Opportunity < ActiveRecord::Base
                   :input_status, :business_developer_id, :capture_manager_id, :acquisition_url, :comments, :comments_attributes, :outcome,
                   :our_value, :watchers, :business_developer, :capture_manager, :watched_opportunities,
                   :input_opportunity_number, :rfp_expected_due_date, :priority, :solicitation,
-                  :solicitation_source, :vehicle, :outcome_text
+                  :solicitation_source, :vehicle, :outcome_text, :tasks, :tasks_attributes
 
   accepts_nested_attributes_for :comments, :reject_if => proc { |attributes| attributes['content'].blank? }
+  accepts_nested_attributes_for :tasks #:reject_if => ?
 
   before_save :set_expected_due_date
   before_save :fill_search_sink
@@ -238,6 +240,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: opportunities
@@ -274,5 +277,6 @@ end
 #  solicitation             :string(255)
 #  solicitation_source      :string(255)
 #  vehicle                  :string(255)
+#  outcome_text             :text
 #
 

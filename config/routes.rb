@@ -1,5 +1,7 @@
 Contrac::Application.routes.draw do
 
+  resources :tasks
+
   get "reports/select"
   post "reports/generate"
   get "reports/display"

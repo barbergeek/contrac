@@ -1,0 +1,15 @@
+<%= semantic_form_for @task do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :name %>
+    <%= f.input :notes %>
+    <%= f.input :owner %>
+    <%= f.input :status %>
+    <%= f.input :due_at %>
+    <%= f.input :closed_at %>
+    <%= f.input :assigned_by %>
+  <% end %>
+
+  <%= f.buttons do %>
+    <%= f.commit_button %>
+  <% end %>
+<% end %>

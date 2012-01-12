@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120106201117) do
+ActiveRecord::Schema.define(:version => 20120112025705) do
 
   create_table "announcements", :force => true do |t|
     t.string    "author"
@@ -159,6 +159,19 @@ ActiveRecord::Schema.define(:version => 20120106201117) do
 
   create_table "tags", :force => true do |t|
     t.string "name"
+  end
+
+  create_table "tasks", :force => true do |t|
+    t.string   "name"
+    t.text     "notes"
+    t.integer  "owner_id"
+    t.integer  "opportunity_id"
+    t.string   "status"
+    t.datetime "due_at"
+    t.datetime "closed_at"
+    t.integer  "assigned_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

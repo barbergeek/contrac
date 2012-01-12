@@ -1,0 +1,17 @@
+<h3>Tasks</h3>
+
+<ul id="tasks">
+  <% f.object.tasks.each do |task| %>
+    <li><%= task.owner.nil? ? "Unassigned" : task.owner.initials %>: <%= task.name %></li>
+  <% end %>
+</ul>
+
+<%= f.semantic_fields_for :tasks, Task.new do |form| %>
+    <%= form.input :name %>
+    <%= form.input :notes, :rows => 3 %>
+    <%= form.input :owner %>
+    <%= form.input :due_at %>
+  <%#= form.input :assigned_by, value: "#{current_user}" , as: :hidden %>
+    <%= submit_tag "Add task", class: "btn primary", disable_with: 'Wait...' %>
+<% end %>
+

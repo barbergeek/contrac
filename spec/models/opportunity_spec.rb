@@ -291,6 +291,7 @@ describe Opportunity do
 end
 
 
+
 # == Schema Information
 #
 # Table name: opportunities
@@ -327,5 +328,6 @@ end
 #  solicitation             :string(255)
 #  solicitation_source      :string(255)
 #  vehicle                  :string(255)
+#  outcome_text             :text
 #
 

@@ -58,7 +58,8 @@
 
     <ul class="tabs" data-tabs="tabs">
         <li class="active"><a href="#comments-tab">Comments</a></li>
-        <li><a href="#input-tab">INPUT</a></li>
+        <li><a href="#tasks-tab">Tasks</a></li>
+        <li><a href="#input-tab">GovwinIQ</a></li>
         <li><a href="#teaming-tab">Teaming</a></li>
         <li><a href="#history-tab">History</a></li>
         <li><a href="#capture-tab">Capture</a></li>
@@ -67,6 +68,9 @@
     <div class="tab-content">
         <div id="comments-tab" class="active">
             <%= render 'comments/comments', f: f %>
+        </div>
+        <div id="tasks-tab">
+            <%= render 'tasks/tasks', f: f %>
         </div>
         <div id="input-tab">
             <% if @opportunity.input_record.nil? %>
