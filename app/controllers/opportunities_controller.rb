@@ -65,7 +65,7 @@ class OpportunitiesController < ApplicationController
       session[:show_ignored] = params[:ignore]
       session[:exclusions] = params[:exclusions]
     end
-    
+
     #get the opportunity list and redirect as appropriate
     get_opportunity_list
     if @opportunity_list.length == 1
@@ -102,6 +102,8 @@ class OpportunitiesController < ApplicationController
     @owners = User.by_initials.keep_if {|user| user.capture? }
     @bders = User.by_initials.keep_if {|user| user.bd? }
 
+    @task = @opportunity.tasks.build()
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @opportunity }
@@ -117,6 +119,8 @@ class OpportunitiesController < ApplicationController
     @commentable = @opportunity
     @owners = User.by_initials.keep_if {|user| user.capture? }
     @bders = User.by_initials.keep_if {|user| user.bd? }
+
+    @task = @opportunity.tasks.build()
 
     respond_to do |format|
       format.html # new.html.erb
@@ -174,7 +178,7 @@ class OpportunitiesController < ApplicationController
       @opportunity.destroy
       flash[:notice] = "Opportunity ignored"
     end
-    
+
     respond_to do |format|
       format.html { redirect_to(opportunities_url) }
       format.xml  { head :ok }
@@ -185,8 +189,8 @@ class OpportunitiesController < ApplicationController
     store_location
     setup_filters
 
-  	@rows = 5
-  	@columns = 3 # must divide into 24
+    @rows = 5
+    @columns = 3 # must divide into 24
 
     @start = Date.today.beginning_of_quarter
     @end = @start.advance(:months => (@rows*@columns)).advance(:days => -1)
@@ -235,7 +239,7 @@ class OpportunitiesController < ApplicationController
     @records = Opportunity.find(:all)
     @users = User.select("id,name,email,initials")
   end
-  
+
   private
     def sort_column
       (%w[users.initials]+Opportunity.column_names).include?(params[:sort]) ? params[:sort] : "program"
@@ -280,10 +284,10 @@ class OpportunitiesController < ApplicationController
         includes([:business_developer, :capture_manager, :watchers]).
         order("#{sort_column} #{sort_direction}").
         search(@searchstring)
-        
+
       session[:opportunity_id_list] = @opportunity_list.map {|i| i.id}
-      
+
     end
-    
+
 end
 

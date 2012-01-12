@@ -15,3 +15,4 @@
 //= require twitter/bootstrap/tabs.js
 
 //= require opportunities
+//= require tasks

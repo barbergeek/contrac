@@ -1,0 +1,6 @@
+<% if @saved %>
+$("#tasks").prepend('<%= j render("tasks/task", task: @task) %>');
+$("#tasks-form").modal('hide');
+<% else %>
+alert("Task did not save");
+<% end %>

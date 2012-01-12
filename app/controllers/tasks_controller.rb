@@ -43,12 +43,14 @@ class TasksController < ApplicationController
     @task = Task.new(params[:task])
 
     respond_to do |format|
-      if @task.save
+      if @saved = @task.save
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.json { render json: @task, status: :created, location: @task }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @task.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -58,13 +60,17 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
 
+    @newtask = @task.opportunity.tasks.build()
+
     respond_to do |format|
       if @task.update_attributes(params[:task])
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
         format.json { head :ok }
+        format.js
       else
         format.html { render action: "edit" }
         format.json { render json: @task.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end

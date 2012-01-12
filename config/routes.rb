@@ -26,6 +26,7 @@ Contrac::Application.routes.draw do
   end
 
   resources :comments
+  resources :tasks
   resources :settings
 
   match "/about" => "pages#about"

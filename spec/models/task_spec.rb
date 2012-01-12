@@ -4,6 +4,7 @@ describe Task do
   pending "add some examples to (or delete) #{__FILE__}"
 end
 
+
 # == Schema Information
 #
 # Table name: tasks
@@ -16,7 +17,7 @@ end
 #  status         :string(255)
 #  due_at         :datetime
 #  closed_at      :datetime
-#  assigned_by    :integer
+#  assigned_by_id :integer
 #  created_at     :datetime
 #  updated_at     :datetime
 #

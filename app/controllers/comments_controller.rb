@@ -1,23 +1,18 @@
 class CommentsController < ApplicationController
-  
+
   before_filter :require_login
-  
+
   def index
     @commentable = find_commentable
     @comments = @commentable.comments
   end
-  
+
   def create
     @commentable = find_commentable
-    @comment = @commentable.comments.build(params[:comment])
-    if @comment.save
-      flash[:notice] = "Succesfully saved comment."
-      redirect_to :id => nil
-    else
-      render :action => 'new'
-    end
+    @comment = @commentable.comments.build(params)
+    @saved = @comment.save
   end
-  
+
   private
     def find_commentable
       params.each do |name, value|
@@ -27,5 +22,5 @@ class CommentsController < ApplicationController
       end
       nil
     end
-    
+
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120112025705) do
+ActiveRecord::Schema.define(:version => 20120112214517) do
 
   create_table "announcements", :force => true do |t|
     t.string    "author"
@@ -169,7 +169,7 @@ ActiveRecord::Schema.define(:version => 20120112025705) do
     t.string   "status"
     t.datetime "due_at"
     t.datetime "closed_at"
-    t.integer  "assigned_by"
+    t.integer  "assigned_by_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

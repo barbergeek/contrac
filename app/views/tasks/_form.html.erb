@@ -1,15 +1,18 @@
-<%= semantic_form_for @task do |f| %>
-  <%= f.inputs do %>
-    <%= f.input :name %>
-    <%= f.input :notes %>
-    <%= f.input :owner %>
-    <%= f.input :status %>
-    <%= f.input :due_at %>
-    <%= f.input :closed_at %>
-    <%= f.input :assigned_by %>
-  <% end %>
-
-  <%= f.buttons do %>
-    <%= f.commit_button %>
-  <% end %>
+<%= semantic_form_for @task, remote: true do |form| %>
+<div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <%= content_tag(:h3, "New Task") %>
+</div>
+<div class="modal-body">
+    <%= form.input :name, label: "Task Name" %>
+    <%= form.input :notes, input_html: {rows: 3}%>
+    <%= form.input :owner %>
+    <%= form.input :due_at, label: "Due Date", as: :datetime %>
+    <%= form.input :status, as: :select, collection: Task::STATUSES %>
+    <%= form.input :opportunity_id, as: :hidden, value: @task.opportunity_id %>
+    <%= form.input :assigned_by, value: "#{current_user.id}" , as: :hidden %>
+</div>
+<div class="modal-footer">
+    <%= form.commit_button button_html: { class: "primary"} %>
+</div>
 <% end %>

@@ -1,0 +1,6 @@
+<% if @saved %>
+$("#comments").prepend('<%= j render("comments/comment", comment: @comment) %>');
+$("#comments-tab #content").val('');
+<% else %>
+alert("Comment did not save");
+<% end %>

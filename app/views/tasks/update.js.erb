@@ -1,0 +1,4 @@
+$("#task-<%= @task.id %>").html('<%= j render("tasks/task", task: @task ) %>');
+$("#tasks-form").modal("hide");
+<% @task = @newtask %>
+$("#tasks-form").html('<%= j render("tasks/form") %>');

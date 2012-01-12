@@ -55,7 +55,7 @@
     <%= f.buttons class: "well" do %>
         <%= f.commit_button button_html: { class: "primary", disable_with: 'Wait...' } %>
     <% end %>
-
+<% end %>
     <ul class="tabs" data-tabs="tabs">
         <li class="active"><a href="#comments-tab">Comments</a></li>
         <li><a href="#tasks-tab">Tasks</a></li>
@@ -67,10 +67,10 @@
     </ul>
     <div class="tab-content">
         <div id="comments-tab" class="active">
-            <%= render 'comments/comments', f: f %>
+            <%= render 'comments/comments', f: @opportunity %>
         </div>
         <div id="tasks-tab">
-            <%= render 'tasks/tasks', f: f %>
+            <%= render 'tasks/tasks', f: @opportunity %>
         </div>
         <div id="input-tab">
             <% if @opportunity.input_record.nil? %>
@@ -86,6 +86,3 @@
             History
         </div>
     </div>
-
-
-<% end %>

@@ -1,14 +1,14 @@
 <h3>Comments</h3>
 
 <ul id="comments">
-  <% f.object.comments.each do |comment| %>
-    <li><%= comment.content %><br/><%= "by #{comment.source} on #{comment.created_at}" %></li>
+  <% f.comments.each do |comment| %>
+    <%= render "comments/comment", comment: comment %>
   <% end %>
 </ul>
 
-<%= f.fields_for :comments, Comment.new do |form| %>
-    <%= form.text_area :content, :rows => 3 %>
-  <%= form.hidden_field :source, :value => "#{current_user.initials}" %>
+<%= form_tag comments_path, remote: true do %>
+    Comment: <%= text_area_tag :content %>
+  <%= hidden_field_tag :source, "#{current_user.initials}" %>
+    <%= hidden_field_tag "#{f.class.to_s}_id", f.id %>
     <%= submit_tag "Add comment", class: "btn primary", disable_with: 'Wait...' %>
 <% end %>
-
