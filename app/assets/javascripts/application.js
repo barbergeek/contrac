@@ -9,10 +9,12 @@
 // require jquery-ui
 //= require highcharts.src
 // require custom
-//= require custom-bootstrap
 //= require twitter/bootstrap/dropdown.js
 //= require twitter/bootstrap/modal.js
 //= require twitter/bootstrap/tabs.js
 
 //= require opportunities
 //= require tasks
+
+// require jquery.tools.min
+//= require custom-bootstrap

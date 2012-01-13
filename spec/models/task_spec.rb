@@ -5,6 +5,7 @@ describe Task do
 end
 
 
+
 # == Schema Information
 #
 # Table name: tasks
@@ -15,10 +16,11 @@ end
 #  owner_id       :integer
 #  opportunity_id :integer
 #  status         :string(255)
-#  due_at         :datetime
-#  closed_at      :datetime
 #  assigned_by_id :integer
 #  created_at     :datetime
 #  updated_at     :datetime
+#  due_date       :date
+#  status_date    :date
+#  status_notes   :text
 #
 

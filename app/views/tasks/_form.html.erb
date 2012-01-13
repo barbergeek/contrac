@@ -7,8 +7,10 @@
     <%= form.input :name, label: "Task Name" %>
     <%= form.input :notes, input_html: {rows: 3}%>
     <%= form.input :owner %>
-    <%= form.input :due_at, label: "Due Date", as: :datetime %>
+    <%= form.input :due_date, as: :string, input_html: {name: "task[due_date]", type: "date"} %>
     <%= form.input :status, as: :select, collection: Task::STATUSES %>
+    <%= form.input :status_date, as: :string, input_html: {name: "task[status_date]", type: "date"} %>
+    <%= form.input :status_notes, input_html: {rows: 3} %>
     <%= form.input :opportunity_id, as: :hidden, value: @task.opportunity_id %>
     <%= form.input :assigned_by, value: "#{current_user.id}" , as: :hidden %>
 </div>

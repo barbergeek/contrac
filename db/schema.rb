@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120112214517) do
+ActiveRecord::Schema.define(:version => 20120113025019) do
 
   create_table "announcements", :force => true do |t|
     t.string    "author"
@@ -167,11 +167,12 @@ ActiveRecord::Schema.define(:version => 20120112214517) do
     t.integer  "owner_id"
     t.integer  "opportunity_id"
     t.string   "status"
-    t.datetime "due_at"
-    t.datetime "closed_at"
     t.integer  "assigned_by_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "due_date"
+    t.date     "status_date"
+    t.text     "status_notes"
   end
 
   create_table "users", :force => true do |t|
