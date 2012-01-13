@@ -85,6 +85,8 @@ class OpportunitiesController < ApplicationController
     @owners = User.by_initials.keep_if {|user| user.capture? }
     @bders = User.by_initials.keep_if {|user| user.bd? }
 
+    @task = @opportunity.tasks.build()
+
     respond_to do |format|
       format.html { render 'edit' } # render the edit page in readonly mode
       format.xml  { render :xml => @opportunity }
