@@ -84,6 +84,23 @@ class TasksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to tasks_url }
       format.json { head :ok }
+      format.js
     end
   end
+
+  # DELETE /tasks/1/cancel
+  # DELETE /tasks/1.json
+  def cancel
+    @task = Task.find(params[:id])
+    @task.status = "Cancelled"
+    @task.status_date = Date.today
+    @task.save
+
+    respond_to do |format|
+      format.html { redirect_to tasks_url }
+      format.json { head :ok }
+      format.js
+    end
+  end
+
 end

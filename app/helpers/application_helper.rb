@@ -1,5 +1,5 @@
 module ApplicationHelper
-  
+
   def title(title)
     @title = title || "CONtrack"
   end
@@ -11,7 +11,7 @@ module ApplicationHelper
     end
     active
   end
-  
+
   def sortable(column, title = nil)
     title ||= column.titleize
     css_class = (column == sort_column) ? "ui-icon ui-icon-triangle-1-" + (sort_direction == "asc" ? "n" : "s") : nil
@@ -24,7 +24,7 @@ module ApplicationHelper
   def page_navigation_links(pages)
     will_paginate(pages, :class => 'pagination', :inner_window => 2, :outer_window => 0, :renderer => BootstrapLinkRenderer, :previous_label => '&larr;'.html_safe, :next_label => '&rarr;'.html_safe)
   end
-  
+
   # Only need this helper once, it will provide an interface to convert a block into a partial.
     # 1. Capture is a Rails helper which will 'capture' the output of a block into a variable
     # 2. Merge the 'body' variable into our options hash
@@ -35,7 +35,7 @@ module ApplicationHelper
     render(:partial => partial_name, :locals => options)
   end
 
-#  # Create as many of these as you like, each should call a different partial 
+#  # Create as many of these as you like, each should call a different partial
 #    # 1. Render 'shared/rounded_box' partial with the given options and block content
 #  def rounded_box(title, options = {}, &block)
 #    block_to_partial('shared/rounded_box', options.merge(:title => title), &block)

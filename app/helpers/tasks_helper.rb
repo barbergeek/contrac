@@ -10,4 +10,9 @@ module TasksHelper
       ""
     end
   end
+
+  def get_upcoming_tasks
+    @upcoming_tasks = Task.my_upcoming(current_user).limit(7)
+  end
+
 end

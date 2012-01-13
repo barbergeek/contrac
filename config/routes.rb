@@ -26,7 +26,11 @@ Contrac::Application.routes.draw do
   end
 
   resources :comments
-  resources :tasks
+  resources :tasks do
+    member do
+      delete 'cancel'
+    end
+  end
   resources :settings
 
   match "/about" => "pages#about"

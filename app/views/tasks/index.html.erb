@@ -18,11 +18,11 @@
   <tr>
     <td><%= task.name %></td>
     <td><%= task.notes %></td>
-    <td><%= task.owner %></td>
+    <td><%= task.owner.nil? ? "Unassigned" : task.owner.name %></td>
     <td><%= task.status %></td>
-    <td><%= task.due_at %></td>
-    <td><%= task.closed_at %></td>
-    <td><%= task.assigned_by %></td>
+    <td><%= task.due_date %></td>
+    <td><%= task.status_date %></td>
+    <td><%= task.assigned_by.nil? ? "Unassigned" : task.assigned_by.name %></td>
     <td><%= link_to 'Show', task %></td>
     <td><%= link_to 'Edit', edit_task_path(task) %></td>
     <td><%= link_to 'Destroy', task, confirm: 'Are you sure?', method: :delete %></td>

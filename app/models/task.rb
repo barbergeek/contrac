@@ -9,6 +9,26 @@ class Task < ActiveRecord::Base
 
   validates_presence_of :name
 
+  scope :status_open,
+    where("status is null or status = 'Open'")
+
+  scope :status_closed,
+    where("status = 'Closed'")
+
+  scope :status_cancelled,
+    where("status = 'Cancelled'")
+
+  scope :due_before,
+    lambda { |time| where("due_date is null or due_date < ?",time)}
+
+  def self.mine(who)
+    where("owner_id = ?",who.id)
+  end
+
+  def self.my_upcoming(who)
+    status_open.mine(who).due_before(7.days.from_now)
+  end
+
 end
 
 

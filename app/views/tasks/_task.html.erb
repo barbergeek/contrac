@@ -2,5 +2,5 @@
 <%= task.notes %><br/>
 Assigned to: <%= task.owner.nil? ? "Unassigned" : task.owner.name %></br>
 Due: <%= task.due_date %><br/>
-<%= link_to "Edit", edit_task_path(task), remote: true %>
+<%= link_to "Edit", edit_task_path(task), remote: true %> | <%= link_to 'Cancel', cancel_task_path(task), confirm: 'Are you sure?', method: :delete, remote: true %> | <%= link_to 'Delete', task, confirm: 'Are you sure?', method: :delete, remote: true %>
 </li>
