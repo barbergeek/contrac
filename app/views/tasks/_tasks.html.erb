@@ -1,5 +1,5 @@
 <h3>Tasks</h3>
-<a class="btn primary" data-controls-modal="tasks-form" data-backgrop="static">New Task</a>
+<%= link_to "New Task", new_opportunity_task_path(f), remote: true, class: "btn" %>
 
 <ul id="tasks">
   <% f.tasks.each do |task| %>

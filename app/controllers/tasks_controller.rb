@@ -24,11 +24,14 @@ class TasksController < ApplicationController
   # GET /tasks/new
   # GET /tasks/new.json
   def new
+
     @task = Task.new
+    @task.opportunity_id = params[:opportunity_id]
 
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @task }
+      format.js
     end
   end
 

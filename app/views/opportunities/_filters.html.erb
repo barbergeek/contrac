@@ -1,75 +1,78 @@
 <a class="btn" data-controls-modal="opportunity-filter" data-backdrop="static" >Search Filters</a>
 <div id="opportunity-filter" class="modal hide">
-	<div class="modal-header">
-		<a href="#" class="close">&times;</a>
-		<%= content_tag(:h3, link_to("Filters and Search#{' [Filtered]' unless @filters.empty? && @owner_filters.empty? && @searchstring.empty?}",'#')) %>
-	</div>	
-	<div class="modal-body">
-	<%= form_tag filter_opportunities_path do %>
-		<%= hidden_field_tag "my", "true" if params[:my]%>
-		Search: <%= search_field_tag 'search', @searchstring %> <%= submit_tag 'Search', :name => 'button_action'%> <%= submit_tag 'Clear', :name => 'button_action'%><br/>
-		<ul class="pills" data-pills="pills">
-			<li class="active"><a href="#departments-filter">Department</a></li>
-			<li><a href="#input-status-filter">INPUT Status</a></li>
-			<li><a href="#capture-phase-filter">Capture Phase</a></li>
-			<li><a href="#capture-staff-filter">Capture Staff</a></li>
-			<li><a href="#agency-filter">Agency</a></li>
-			<li><a href="#other-filters">Other</a></li>
-		</ul>
+    <%= form_tag filter_opportunities_path do %>
+    <div class="modal-header">
+        <a href="#" class="close">&times;</a>
+        <%= content_tag(:h3, link_to("Filters and Search#{' [Filtered]' unless @filters.empty? && @owner_filters.empty? && @searchstring.empty?}",'#')) %>
+       Search: <%= search_field_tag 'search', @searchstring %>
+    </div>
+    <div class="modal-body">
+        <%= hidden_field_tag "my", "true" if params[:my]%>
+        <ul class="pills" data-pills="pills">
+            <li class="active"><a href="#departments-filter">Department</a></li>
+            <li><a href="#input-status-filter">INPUT Status</a></li>
+            <li><a href="#capture-phase-filter">Capture Phase</a></li>
+            <li><a href="#capture-staff-filter">Capture Staff</a></li>
+            <li><a href="#agency-filter">Agency</a></li>
+            <li><a href="#other-filters">Other</a></li>
+        </ul>
 
-		<div class="pill-content">
-			<div id="departments-filter" class="active">
-				<div class="input">
-		        	<ul class="inputs-list">
-						<% group_count = 2 %>
-						<% @departments.in_groups(group_count,false).each do |group| %>
-							<% group_count -= 1 %>
-							<% group.each do |dept| %>
-								<li>
-									<label class="add-on"><%= check_box_tag "filters[department][]", dept.department, @dept_filters.include?(dept.department) %></label>
-									<span><%= dept.department %></span>
-								</li>
-							<% end %>
-						<% end %>
-					</ul>
-				</div>
-			</div>
-			<div id="input-status-filter">
-				<% @input_statuses.each do |stat| %>
-					<label><%= check_box_tag "filters[input_status][]", stat.input_status, @input_status_filters.include?(stat.input_status) %> <%= stat.input_status %></label>
-				<% end %>
-			</div>
-			<div id="capture-phase-filter">
-				<% @capture_phases.each do |phase| %>
-					<label><%= check_box_tag "filters[capture_phase][]", phase, @capture_phase_filters.include?(phase) %> <%= phase.humanize %></label>
-				<% end %>
-			</div>
-			<div id="capture-staff-filter">
-				<% @owners.each do |owner| %>
-					<label><%= check_box_tag "owners[owner_id][]", owner.id.to_s, @owner_filters.include?(owner.id.to_s) %> <%= "#{owner.name} (#{owner.initials})" %></label><br/>
-				<% end %>
-			    <br />
-			    <br />
-			    <b><i>Priority</b></i><br />
-			    <% Opportunity::PRIORITIES.each do |label, value| %>
-			      <label><%= check_box_tag "filters[priority][]", value, @priority_filters.include?(value.to_s) %> <%= label %></label><br/>
-			    <% end %>
-			    <br />
-			    <b><i>Exclude</i></b><br />
-			      <% Opportunity::OUTCOMES.each do |value| %>
-			      <label><%= check_box_tag "exclusions[outcome][]", value, @outcome_exclusions.include?(value) %> <%= value.titleize %></label><br/>
-			      <% end %>
-			     <br />
-			</div>
-			<div id="agency-filter">
-				<% @agencies.each do |agency| %>
-					<label class="checkbox-label"><%= check_box_tag "filters[agency][]", agency.agency, @agency_filters.include?(agency.agency) %> <%= agency.agency %></label>
-				<% end %>
-			</div>
-			<div id="other-filters">
-				<label><%= check_box_tag "ignore", "ignore", @show_ignored %>Include Ignored/Deleted Records</label>
-			</div>
-		</div>
-	<% end %>
-	</div>
+        <div class="pill-content">
+            <div id="departments-filter" class="active">
+                <div class="input">
+                    <ul class="inputs-list">
+                        <% group_count = 2 %>
+                        <% @departments.in_groups(group_count,false).each do |group| %>
+                            <% group_count -= 1 %>
+                            <% group.each do |dept| %>
+                                <li>
+                                    <label class="add-on"><%= check_box_tag "filters[department][]", dept.department, @dept_filters.include?(dept.department) %></label>
+                                    <span><%= dept.department %></span>
+                                </li>
+                            <% end %>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+            <div id="input-status-filter">
+                <% @input_statuses.each do |stat| %>
+                    <label><%= check_box_tag "filters[input_status][]", stat.input_status, @input_status_filters.include?(stat.input_status) %> <%= stat.input_status %></label>
+                <% end %>
+            </div>
+            <div id="capture-phase-filter">
+                <% @capture_phases.each do |phase| %>
+                    <label><%= check_box_tag "filters[capture_phase][]", phase, @capture_phase_filters.include?(phase) %> <%= phase.humanize %></label>
+                <% end %>
+            </div>
+            <div id="capture-staff-filter">
+                <% @owners.each do |owner| %>
+                    <label><%= check_box_tag "owners[owner_id][]", owner.id.to_s, @owner_filters.include?(owner.id.to_s) %> <%= "#{owner.name} (#{owner.initials})" %></label><br/>
+                <% end %>
+                <br />
+                <br />
+                <b><i>Priority</b></i><br />
+                <% Opportunity::PRIORITIES.each do |label, value| %>
+                  <label><%= check_box_tag "filters[priority][]", value, @priority_filters.include?(value.to_s) %> <%= label %></label><br/>
+                <% end %>
+                <br />
+                <b><i>Exclude</i></b><br />
+                  <% Opportunity::OUTCOMES.each do |value| %>
+                  <label><%= check_box_tag "exclusions[outcome][]", value, @outcome_exclusions.include?(value) %> <%= value.titleize %></label><br/>
+                  <% end %>
+                 <br />
+            </div>
+            <div id="agency-filter">
+                <% @agencies.each do |agency| %>
+                    <label class="checkbox-label"><%= check_box_tag "filters[agency][]", agency.agency, @agency_filters.include?(agency.agency) %> <%= agency.agency %></label>
+                <% end %>
+            </div>
+            <div id="other-filters">
+                <label><%= check_box_tag "ignore", "ignore", @show_ignored %>Include Ignored/Deleted Records</label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <%= submit_tag 'Search', :name => 'button_action', class: "btn primary"%> <%= submit_tag 'Clear', :name => 'button_action', class: "btn"%>
+    </div>
+    <% end %>
 </div>

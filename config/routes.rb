@@ -51,6 +51,7 @@ Contrac::Application.routes.draw do
       post 'watch', 'own'
     end
     resources :comments
+    resources :tasks
   end
 
   resources :input_records, :only => [:index, :show, :edit, :update, :destroy] do
