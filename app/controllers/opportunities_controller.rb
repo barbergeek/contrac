@@ -87,6 +87,8 @@ class OpportunitiesController < ApplicationController
 
     @task = @opportunity.tasks.build()
 
+    update_recent_items @opportunity
+
     respond_to do |format|
       format.html { render 'edit' } # render the edit page in readonly mode
       format.xml  { render :xml => @opportunity }
@@ -124,6 +126,8 @@ class OpportunitiesController < ApplicationController
 
     @task = @opportunity.tasks.build()
 
+    update_recent_items @opportunity
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @opportunity }
@@ -139,6 +143,7 @@ class OpportunitiesController < ApplicationController
 
     respond_to do |format|
       if @opportunity.save
+        update_recent_items @opportunity
         format.html { redirect_to(@opportunity, :notice => 'Opportunity was successfully created.') }
         format.xml  { render :xml => @opportunity, :status => :created, :location => @opportunity }
       else
@@ -160,6 +165,7 @@ class OpportunitiesController < ApplicationController
 #              :source => current_user.initials)
 #          @opportunity.save!
 #        end
+        update_recent_items @opportunity
         format.html { redirect_to(@opportunity, :notice => 'Opportunity was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -188,7 +194,7 @@ class OpportunitiesController < ApplicationController
   end
 
   def calendar
-    store_location
+#    store_location
     setup_filters
 
     @rows = 5
@@ -289,6 +295,13 @@ class OpportunitiesController < ApplicationController
 
       session[:opportunity_id_list] = @opportunity_list.map {|i| i.id}
 
+    end
+
+    def update_recent_items(opportunity)
+      session[:recent_items] ||= []
+      session[:recent_items].delete([opportunity.id,opportunity.title])         # remove this from its old location
+      session[:recent_items].push([opportunity.id, opportunity.title])          # stick it on the end
+      session[:recent_items].delete_at(0) if session[:recent_items].length > 5  # chop it off if it's more than 5 items long
     end
 
 end

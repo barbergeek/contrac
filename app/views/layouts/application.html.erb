@@ -84,11 +84,11 @@
         <div class="sidebar">
           <div class="well">
             <h5>Recent Items</h5>
-            <ul>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
+            <ul><% unless session[:recent_items].nil?
+                session[:recent_items].reverse.each do |item_id, item_title| %>
+              <li><%= link_to item_title, opportunity_path(item_id) %></li>
+                <% end
+                end %>
             </ul>
             <h5>Upcoming Tasks (<%= "#{@upcoming_tasks.length}"%>)</h5>
             <ul>
