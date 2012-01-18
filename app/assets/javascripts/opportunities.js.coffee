@@ -5,6 +5,9 @@ jQuery ->
         else
             $("#opportunity_outcome_text_input").hide()
 
+    $("#calendar_order_by input:radio").click ->
+          $("#calendar_order_by").submit()
+
     if $("#opportunity_outcome").val()
         $("#opportunity_outcome_text_input").show()
     else

@@ -1,38 +1,47 @@
 <%= render :partial => 'filters' %>
 <%= "Start: #{@start}, End: #{@end}, Found: #{@opportunities.length}"%>
 <%= form_tag calendar_opportunities_path, :method => :get, :id => :calendar_order_by do %>
-	<%= content_tag :span, :id => "radio" do %>
-		<%= label :order_by, :release_date%>
-		<%= radio_button_tag :order_by, :release_date, @order_by == :release_date %>
-		<%= label :order_by, :due_date%>
-		<%= radio_button_tag :order_by, :due_date, @order_by == :due_date %>
-	<% end %>
+    <div class="inputs">
+    <%= content_tag :ul, :id => "radio", class: "inputs-list" do %>
+        <li>
+        <label>
+            <%= radio_button_tag :order_by, :release_date, @order_by == :release_date %>
+            <span>Release Date</span>
+        </label>
+        </li>
+        <li>
+        <label>
+            <%= radio_button_tag :order_by, :due_date, @order_by == :due_date %>
+            <span>Due Date</span>
+        </label>
+        </li>
+    <% end %>
+    </div>
 <% end %>
-<table class="opportunities">
-	<% span = 24 / @columns %>
-	<% (0..@rows-1).each do |row| %>
-	<thead>
-	  <tr>
-			<% m = row*@columns %>
-			<% (m..m+@columns-1).each do |col| %>
-				<th class="span-<%= span %> <%= "last" if col == m+@columns-1 %>"><%= @start.advance(:months => col).to_s(:month_and_year) %></th>
-			<% end %>
-	  </tr>
-	</thead>
-	<tbody>
-		<tr>
-			<% (m..m+@columns-1).each do |col| %>
-				<% first = true %>
-				<td>
-				<%(@opportunities.select {|o| 
-						o.rfp_date(@order_by).month == @start.advance(:months => col).month && o.rfp_date(@order_by).year == @start.advance(:months => col).year}).each do |o| %>
-						<%= tag("hr") unless first %>
-						<% first = false %>
-						<%= link_to o.title, o, :remote => true %><br/><%= o.rfp_date(@order_by).to_s(:short) %><%= " / #{o.input_status}" unless o.input_status.blank? %><%= " / #{o.capture_phase}" unless o.capture_phase.blank? %><%= " [#{o.business_developer_initials}]" if o.business_developer %>
-					<% end %>
-				</td>
-			<% end %>
-		</tr>
-	</tbody>
-	<% end %>
+<table class="bordered-table zebra-striped">
+    <% (0..@rows-1).each do |row| %>
+    <thead>
+      <tr>
+            <% m = row*@columns %>
+            <% (m..m+@columns-1).each do |col| %>
+                <th class="span-one-third"><%= @start.advance(:months => col).to_s(:month_and_year) %></th>
+            <% end %>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <% (m..m+@columns-1).each do |col| %>
+                <% first = true %>
+                <td>
+                <%(@opportunities.select {|o|
+                        o.rfp_date(@order_by).month == @start.advance(:months => col).month && o.rfp_date(@order_by).year == @start.advance(:months => col).year}).each do |o| %>
+                        <%= tag("hr") unless first %>
+                        <% first = false %>
+                        <%= link_to o.title, o , remote: false %><br/><%= o.rfp_date(@order_by).to_s(:short) %><%= " / #{o.input_status}" unless o.input_status.blank? %><%= " / #{o.capture_phase}" unless o.capture_phase.blank? %><%= " [#{o.business_developer_initials}]" if o.business_developer %>
+                    <% end %>
+                </td>
+            <% end %>
+        </tr>
+    </tbody>
+    <% end %>
 </table>

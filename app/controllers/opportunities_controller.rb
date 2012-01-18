@@ -268,6 +268,7 @@ class OpportunitiesController < ApplicationController
       @priority_filters = @filters[:priority] || {}
       @exclude_filters = session[:exclusions] || {}
       @outcome_exclusions = @exclude_filters[:outcome] || {}
+      @searchstring = session[:search] || ""
 
       @departments = Opportunity.find(:all, :select => "distinct department")
       @agencies = Opportunity.find(:all, :select => "distinct agency", :conditions => "agency is not null and agency <> ''")
@@ -279,8 +280,6 @@ class OpportunitiesController < ApplicationController
 
     def get_opportunity_list
       setup_filters
-
-      @searchstring = session[:search] || ""
 
       opp = session[:show_ignored] ? Opportunity.unscoped : Opportunity
 
