@@ -1,27 +1,28 @@
 <%= render :partial => 'filters' %>
+<%= link_to 'New Opportunity', new_opportunity_path, class: "btn primary" %>
 <%= page_navigation_links @opportunities %>
 <table class="zebra-striped">
-	<thead>
-	  <tr>
-		<th class='icons'></th>
-	    <th><%= sortable "acronym" %></th>
-	    <th><%= sortable "program", "Program Name" %><br/>
-	    	<%= sortable "department" %>/<%= sortable "agency" %></th>
-	    <th>Description</th>
+    <thead>
+      <tr>
+        <th class='icons'></th>
+        <th><%= sortable "acronym" %></th>
+        <th><%= sortable "program", "Program Name" %><br/>
+            <%= sortable "department" %>/<%= sortable "agency" %></th>
+        <th>Description</th>
     <th><%= sortable "priority", "Priority" %></th>
-		<th><%= sortable "input_opportunity_number", "INPUT" %></th>
-		<th><%= sortable "input_status", "INPUT Status" %></th>
-		<th><%= sortable "total_value", "Value" %></th>
-		<th><%= sortable "rfp_release_date", "RFP Release" %></th>
-		<th><%= sortable "capture_phase", "Phase" %></th>
-		<th><%= sortable "users.initials", "BD/Cap" %></th>
-	  </tr>
-	</thead>
-	<tbody>
-  	<%= render @opportunities %>
-	</tbody>
+        <th><%= sortable "input_opportunity_number", "INPUT" %></th>
+        <th><%= sortable "input_status", "INPUT Status" %></th>
+        <th><%= sortable "total_value", "Value" %></th>
+        <th><%= sortable "rfp_release_date", "RFP Release" %></th>
+        <th><%= sortable "capture_phase", "Phase" %></th>
+        <th><%= sortable "users.initials", "BD/Cap" %></th>
+      </tr>
+    </thead>
+    <tbody>
+    <%= render @opportunities %>
+    </tbody>
 </table>
 <%= page_navigation_links @opportunities %>
 <br />
 
-<%= button_to 'New Opportunity', new_opportunity_path, method: :get, class: "btn" %>
+<%= link_to 'New Opportunity', new_opportunity_path, class: "btn primary" %>
