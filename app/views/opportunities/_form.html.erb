@@ -1,4 +1,4 @@
-<%= semantic_form_for @opportunity, html: {class: "form-stacked"} do |f| %>
+<%= simple_form_for @opportunity, html: {class: "form-stacked"} do |f| %>
     <% if @opportunity.errors.any? %>
         <div id="error_explanation">
             <h2>
@@ -15,7 +15,7 @@
     <div class="row">
         <div class="span-one-third">
             <%= f.input :acronym %>
-            <%= f.input :program, as: :text, input_html: {rows: 3, cols: 24} %>
+            <%= f.input :program, input_html: {rows: 3, cols: 24} %>
             <%= f.input :department %>
             <%= f.input :agency %>
             <%= f.input :prime %>
@@ -38,13 +38,15 @@
             <%= f.input :input_status, label: "INPUT status", input_html: {readonly: true} %>
         </div>
         <div class="span-one-third">
-            <%= f.input :business_developer, collection: @bders, label: "Business Developer" %><br/>
-            <%= f.input :capture_manager, collection: @owners, label: "Capture Manager" %><br/>
+            <%= f.association :business_developer, collection: @bders, label: "Business Developer" %><br/>
+            <%= f.association :capture_manager, collection: @owners, label: "Capture Manager" %><br/>
             <%= f.input :capture_phase, label: "Phase", collection: Opportunity::PHASES, member_label: :humanize %>
             <%= f.input :priority, label: "Priority", collection: Opportunity::PRIORITIES %>
             <%= f.input :win_probability, as: :string, label: "Win Prob.", input_html: {size: 5} %>
             <%= f.input :outcome, collection: Opportunity::OUTCOMES, member_label: :humanize %>
+            <div id="opportunity_outcome_text_div">
             <%= f.input :outcome_text, as: :text, label: "Outcome Description", input_html: {rows: 5} %>
+            </div>
         </div>
       </div>
     <div class="row">
@@ -52,9 +54,9 @@
             <%= f.input :description, input_html: {rows: 5, class: "span-two-thirds"} %>
         </div>
     </div>
-    <%= f.buttons class: "well" do %>
-        <%= f.commit_button button_html: { class: "primary", disable_with: 'Wait...' } %>
-    <% end %>
+    <div class="well" %>
+        <%= f.button :submit, class: "btn primary", disable_with: 'Wait...'%>
+    </div>
 <% end %>
 <% unless @opportunity.new_record? %>
     <ul class="tabs" data-tabs="tabs">

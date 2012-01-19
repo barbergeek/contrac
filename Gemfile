@@ -5,9 +5,13 @@ gem 'rails', '3.1.3'
 gem 'rack', '1.3.5'
 
 gem "will_paginate", '~> 3.0'
-gem "formtastic"
-gem "formtastic-bootstrap"
-#gem "tabulous"
+
+#forms 
+#gem "formtastic"
+#gem "formtastic-bootstrap"
+gem "simple_form"
+
+
 gem "jquery-rails"
 gem "cancan"
 gem "gravatar_image_tag"

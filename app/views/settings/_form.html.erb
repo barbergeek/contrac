@@ -1,8 +1,6 @@
-<%= semantic_form_for @setting, html: {class: "form-stacked"} do |f| %>
+<%= simple_form_for @setting, html: {class: "form-stacked"} do |f| %>
   <%= f.input :key %>
-	<%= f.input :value %>
+    <%= f.input :value %>
 
-  <%= f.buttons do %>
-    <%= f.commit_button %>
-  <% end %>
+  <%= f.button :submit %>
 <% end %>
