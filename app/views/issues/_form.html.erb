@@ -1,0 +1,15 @@
+<%= simple_form_for @issue, remote: true do |form| %>
+<div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <%= content_tag(:h3, "New Bug or Feature") %>
+</div>
+<div class="modal-body">
+    <%= form.input :labels, :collection => ["Bug","Feature"], label: "Type", include_blank: false %>
+    <%= form.input :title, label: "Task Name" %>
+    <%= form.input :notes, as: :text, input_html: {rows: 3}%>
+    <%= form.hidden_field :submitted_by, value: current_user.name %>
+</div>
+<div class="modal-footer">
+    <%= form.button :submit, class: "btn primary" %>
+</div>
+<% end %>

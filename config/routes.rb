@@ -14,6 +14,8 @@ Contrac::Application.routes.draw do
   resources :companies
   resources :announcements
 
+  resources :issues
+
   match "/login" => "sessions#new", :as => :login
   match "/logout" => "sessions#destroy", :as => :logout
 

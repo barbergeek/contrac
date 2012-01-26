@@ -6,7 +6,7 @@ gem 'rack', '1.3.5'
 
 gem "will_paginate", '~> 3.0'
 
-#forms 
+#forms
 #gem "formtastic"
 #gem "formtastic-bootstrap"
 gem "simple_form"
@@ -44,6 +44,9 @@ gem "delayed_job_web"
 gem "roo"
 gem 'nokogiri'
 gem 'mechanize'
+
+#error/issue reporting to GitHub
+gem "octokit", "0.6.5"
 
 gem "lazy_high_charts"
 gem "RedCloth"

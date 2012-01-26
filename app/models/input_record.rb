@@ -5,15 +5,15 @@ class InputRecord < ActiveRecord::Base
   def find_news_item(comment)
     news_items.find_by_content_and_source(comment, "INPUT")
   end
-  
+
   def new_news=(comment)
     news_items << Comment.new(:content => comment, :source => "INPUT") unless find_news_item(comment)
   end
-  
+
   def new_news_with_date(comment,date)
     news_items << Comment.new(:content => comment, :source => "INPUT", :commented_at => date) unless find_news_item(comment)
   end
-  
+
   def merge_to_opportunity
 
     if organization =~ /\//
@@ -22,7 +22,7 @@ class InputRecord < ActiveRecord::Base
       dept = organization
       agency = nil
     end
-    
+
     # need to temporarily un-ignore the Opportunity record so we don't create duplicates
     opp = Opportunity.unscoped.find_by_input_opportunity_number(input_opportunity_number)
     was_ignored = false
@@ -30,7 +30,7 @@ class InputRecord < ActiveRecord::Base
       opp.recover
       was_ignored = true
     end
-    
+
     create_opportunity(:program => title, :department => dept) if opportunity.nil?
 
     # merge missing data
@@ -43,22 +43,23 @@ class InputRecord < ActiveRecord::Base
     opportunity.solicitation_type = competition_type if opportunity.solicitation_type.blank?
     opportunity.contract_type = contract_type if opportunity.contract_type.blank?
     opportunity.solicitation = rfp_number if opportunity.solicitation.blank?
-    
+
     # for now, always take these fields from input
     opportunity.rfp_release_date = rfp_date if opportunity.rfp_release_date != rfp_date
     opportunity.award_date = project_award_date if opportunity.award_date != project_award_date
     opportunity.input_status = status if opportunity.input_status != status
     # opportunity.rfp_release_date = rfp_date if opportunity.rfp_release_date.blank? && !rfp_date.blank?
     #  rfp_due_date          :date
-  
+
     #opportunity.new_input_comment = comments
     #store the "news" in input_record now, not attached to the opportunity
-    
+
     # save it
     if opportunity.save
       # give ownership or watch to users
       user_list.split(", ").each do |email|
         user = User.find_by_email(email)
+        user = User.find_by_email(email.gsub(/qbellc\.com/,"qbe.net")) if user.nil?
         opportunity.own_or_watch(user) unless user.nil?
       end unless user_list.nil?
     else
@@ -68,9 +69,9 @@ class InputRecord < ActiveRecord::Base
 
     # re-ignore the record if needed
     opp.destroy if was_ignored
-    
+
   end
-  
+
 end
 
 # == Schema Information
