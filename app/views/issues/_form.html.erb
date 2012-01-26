@@ -5,7 +5,7 @@
 </div>
 <div class="modal-body">
     <%= form.input :labels, :collection => ["Bug","Feature"], label: "Type", include_blank: false %>
-    <%= form.input :title, label: "Task Name" %>
+    <%= form.input :title, label: "Issue Title" %>
     <%= form.input :notes, as: :text, input_html: {rows: 3}%>
     <%= form.hidden_field :submitted_by, value: current_user.name %>
 </div>

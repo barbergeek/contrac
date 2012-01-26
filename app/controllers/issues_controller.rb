@@ -11,7 +11,7 @@ class IssuesController < ApplicationController
     @issue = Issue.new(params[:issue])
     @issue.notes += "\n\nReported by: #{@issue.submitted_by}"
     if @issue.save
-      flash[:notice] = "Issue created. Thank you for reporting a bug!"
+      flash[:notice] = "Issue created. Thank you for reporting a #{@issue.labels}!"
     else
       render :action => 'new'
     end
