@@ -1,39 +1,39 @@
 <% if logged_in? %>
 
-	<% unless @announcements.empty? %>
-		<div class="row">
-			<div class="span16 well">
-				<%= portlet :announcements %>
-			</div>
-		</div>
-	<% end %>
+    <% unless @announcements.empty? %>
+        <div class="row">
+            <div class="span16 well">
+                <%= portlet :announcements %>
+            </div>
+        </div>
+    <% end %>
 
-	<div class="row">
-		<div class="span8 well">
-			<%= portlet :upcoming_opportunities %>
-		</div>
-		<div class="span8 well">
-			<%= portlet :opportunities_by_department %>
-		</div>
-		<% if current_user.bd? %>
-			<div class="span8 well">
-				<%= portlet :my_upcoming_opportunities %>
-			</div>
-			<div class="span8 well">
-				<%= portlet :my_unawarded_opportunities_by_input_status %>
-			</div>
-		<% else %>
-			<div class="span8 well">
-				<%= portlet :recently_updated_opportunities %>
-			</div>
-		<% end %>
-		<div class="span8 well">
-			<%= portlet :all_opportunities_by_input_status %>
-		</div>
-		<div class="span8 well">
-		  <%= portlet :unawarded_opportunities_by_capture_phase %>
-		</div>
-	</div>
+    <div class="row">
+        <div class="span8 well">
+            <%= portlet :upcoming_opportunities %>
+        </div>
+        <div class="span8 well">
+            <%= portlet :opportunities_by_department %>
+        </div>
+        <% if current_user.bd? %>
+            <div class="span8 well">
+                <%= portlet :my_upcoming_opportunities %>
+            </div>
+            <div class="span8 well">
+                <%= portlet :my_unawarded_opportunities_by_input_status %>
+            </div>
+        <% else %>
+            <div class="span8 well">
+                <%= portlet :recently_updated_opportunities %>
+            </div>
+        <% end %>
+        <div class="span8 well">
+            <%= portlet :all_opportunities_by_input_status %>
+        </div>
+        <div class="span8 well">
+          <%= portlet :unawarded_opportunities_by_capture_phase %>
+        </div>
+    </div>
 
 <% else %>
  <h1><%= link_to "Login", login_path %></h1>

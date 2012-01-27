@@ -1,7 +1,7 @@
 class PortletsController < ApplicationController
 
   before_filter :require_login
-  
+
   def portlet__opportunities_by_department(current_user,portlet_id)
     data = Opportunity.unawarded.department_count
     @hc = LazyHighCharts::HighChart.new('pie') do |f|
@@ -123,7 +123,7 @@ class PortletsController < ApplicationController
     render_to_body :template => 'portlets/table', :locals => {:title => "Upcoming Opportunities", :table => data }
   end
 
-  def portlet__my_upcoming_opportunities(current_user)
+  def portlet__my_upcoming_opportunities(current_user,portlet_id)
     data = Opportunity.pre_rfp.program_and_rfp_date.for(current_user).limit(5).by_rfp_date
     render_to_body :template => 'portlets/table', :locals => {:title => "My Upcoming Opportunities", :table => data }
   end
