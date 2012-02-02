@@ -6,10 +6,11 @@
  * require_tree ./screen
 */
 
-.modal-body {
+/* .modal-body {
     max-height: 500px;
     overflow-y: scroll;
     }
+*/
 
 /*
 label {
@@ -20,6 +21,7 @@ label {
 form .input {
     /* margin-left: 0px; */
 }
+
 
 input, textarea, select {
     width: 100%;

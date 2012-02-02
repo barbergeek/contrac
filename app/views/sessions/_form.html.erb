@@ -1,13 +1,13 @@
 <%= form_tag sessions_path, :method => :post, class: "formtastic form-stacked" do %>
-	<div class="clearfix">
-		<%= label_tag :email %>
-		<%= text_field_tag :email %>
-	</div>
-	<div class="clearfix">
-		<%= label_tag :password %>
-		<%= password_field_tag :password %>
-	</div>
+    <div class="clearfix">
+        <%= label_tag :email %>
+        <%= text_field_tag :email %>
+    </div>
+    <div class="clearfix">
+        <%= label_tag :password %>
+        <%= password_field_tag :password %>
+    </div>
   <div class="well">
-    <%= submit_tag "Login", class: "btn primary" %>
+    <%= submit_tag "Login", class: "btn btn-primary" %>
   </div>
 <% end %>

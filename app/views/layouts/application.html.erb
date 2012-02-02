@@ -18,14 +18,14 @@
         </style>
 </head>
 <body>
-    <div class="topbar">
-      <div class="topbar-inner">
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
         <div class="container-fluid">
           <%= link_to "CONtrack", root_path, class: "brand" %>
           <ul class="nav" data-dropdown="dropdown">
             <li class="<%= is_active_tab?(:pages)%>"><%= link_to "Home", root_path %></li>
                 <% if logged_in? %>
-                    <li class="<%= is_active_tab?(:opportunities)%> dropdown"><a href="#" class="dropdown-toggle">Opportunities</a>
+                    <li class="<%= is_active_tab?(:opportunities)%> dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Opportunities<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><%= link_to "Dashboard", dashboard_opportunities_path %></li>
                             <li><%= link_to "All Opportunities", all_opportunities_path %></li>
@@ -36,14 +36,14 @@
                             <li><%= link_to "Export", export_opportunities_path + ".xml" %></li>
                         </ul>
                     </li>
-                    <li class="<%= is_active_tab?(:companies)%> dropdown"><a class="dropdown-toggle">Contacts</a>
+                    <li class="<%= is_active_tab?(:companies)%> dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Contacts<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><%= link_to "Companies", companies_path %></li>
                             <li><a>People*</a></li>
                         </ul>
                     </li>
                     <% if current_user.admin? %>
-                        <li class="<%= is_active_tab?(:reports,:input_records,:announcements,:users,:admin)%> dropdown"><a class="dropdown-toggle">Admin</a>
+                        <li class="<%= is_active_tab?(:reports,:input_records,:announcements,:users,:admin)%> dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Admin<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><%= link_to "Reports", reports_select_path %></li>
                                 <li><%= link_to "Input", input_records_path %></li>
@@ -59,10 +59,12 @@
                     <% end %>
                 <li><%= link_to "Logout", logout_path %></li>
                 <li><%= link_to "Help", help_path %></li>
-                <%= form_tag filter_opportunities_path do |f| %>
+                <li>
+                <%= form_tag filter_opportunities_path, class: "navbar-search" do |f| %>
                     <%= hidden_field_tag "button_action", "Search" %>
-                    <%= search_field_tag "search", nil, placeholder: "Search" %>
+                    <%= search_field_tag "search", nil, placeholder: "Search", class: "search-query" %>
                 <% end %>
+                </li>
             <% else %>
                 <li><%= link_to "Login", login_path %></li>
             <% end %>
@@ -73,38 +75,39 @@
             <% end %>
         </ul>
         <% if logged_in? %>
-            <p class="pull-right">Logged in as <%= link_to current_user.name, user_path(current_user) %></p>
+            <p class="navbar-text pull-right">Logged in as <%= link_to "#{current_user.name}", user_path(current_user) %></p>
         <% end %>
         </div>
       </div>
     </div>
 
     <div class="container-fluid">
+        <div class="row">
         <% if logged_in? %>
-        <div class="sidebar">
-          <div class="well">
-            <h5>Recent Items</h5>
-            <ul><% unless session[:recent_items].nil?
-                session[:recent_items].reverse.each do |item_id, item_title| %>
-              <li><%= link_to item_title, opportunity_path(item_id) %></li>
-                <% end
-                end %>
-            </ul>
-            <h5>Upcoming Tasks (<%= "#{@upcoming_tasks.length}"%>)</h5>
-            <ul>
-                <% @upcoming_tasks.each do |t| %>
-                    <li><%= link_to t.name, edit_task_path(t) %></li>
-                <% end %>
-            </ul>
-            <h5>Sidebar</h5>
-            <ul>
-              <li><%= link_to "Report a bug or feature", new_issue_path, remote: true %><div id="bug-popup" class="modal hide"></div></li>
-            </ul>
-          </div>
+        <div class="span3">
+            <div class="sidebar-nav well">
+                <h5>Recent Items</h5>
+                <ul><% unless session[:recent_items].nil?
+                    session[:recent_items].reverse.each do |item_id, item_title| %>
+                  <li><%= link_to item_title, opportunity_path(item_id) %></li>
+                    <% end
+                    end %>
+                </ul>
+                <h5>Upcoming Tasks (<%= "#{@upcoming_tasks.length}"%>)</h5>
+                <ul>
+                    <% @upcoming_tasks.each do |t| %>
+                        <li><%= link_to t.name, edit_task_path(t) %></li>
+                    <% end %>
+                </ul>
+                <h5>Sidebar</h5>
+                <ul>
+                  <li><%= link_to "Report a bug or feature", new_issue_path, remote: true %><div id="bug-popup" class="modal hide"></div></li>
+                </ul>
+            </div>
         </div>
         <% end %>
 
-        <div class="content">
+        <div class="offset3">
             <% flash.each do |key, msg| %>
                 <%= content_tag :div, msg, class: "alert-message #{key}", id: "notice_#{key}" %>
                 <%= content_tag :script, :type => "text/javascript" do -%>
@@ -114,10 +117,12 @@
 
             <%= yield %>
 
-            <footer>
-                <p>&copy; Scott Hoge/QBE LLC 2012</p>
-            </footer>
         </div>
+        </div>
+        <hr/>
+        <footer>
+            <p>&copy; Scott Hoge/QBE LLC 2012</p>
+        </footer>
     </div>
 
 </body>

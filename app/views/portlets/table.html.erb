@@ -1,31 +1,33 @@
+<div class="span6 well">
 <% title ||= "Table Portlet" %>
-	<h3><%= title %></h3>
-		<% unless table[0].nil? %>
-		<table>
-			<thead>
-				<tr>
-					<% table[0].attributes.each do |col,val| %>
-						<% unless col == "id" %>
-							<th><%= col.titleize %></th>
-						<% end %>
-					<% end %>
-				</tr>
-			</thead>
-			<tbody>
-				<% table.each do |row| %>
-					<tr>
-						<% row.attributes.each do |col,val| %>
-							<% if col == "id" %>
-								<% @id = val %>
-							<% else %>
-								<td><%= @id.nil? ? val : link_to(val,"/opportunities/#{@id}") %></td>
-								<% @id = nil %>
-							<% end %>
-						<% end %>
-					</tr>
-				<% end %>
-			</tbody>
-		</table>
-		<% else %>
-			No data
-		<% end %>
+    <h3><%= title %></h3>
+        <% unless table[0].nil? %>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <% table[0].attributes.each do |col,val| %>
+                        <% unless col == "id" %>
+                            <th><%= col.titleize %></th>
+                        <% end %>
+                    <% end %>
+                </tr>
+            </thead>
+            <tbody>
+                <% table.each do |row| %>
+                    <tr>
+                        <% row.attributes.each do |col,val| %>
+                            <% if col == "id" %>
+                                <% @id = val %>
+                            <% else %>
+                                <td><%= @id.nil? ? val : link_to(val,"/opportunities/#{@id}") %></td>
+                                <% @id = nil %>
+                            <% end %>
+                        <% end %>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <% else %>
+            No data
+        <% end %>
+</div>

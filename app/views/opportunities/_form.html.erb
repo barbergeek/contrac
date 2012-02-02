@@ -12,8 +12,8 @@
         </div>
     <% end %>
 
-    <div class="row">
-        <div class="span-one-third">
+    <div class="row-fluid">
+        <div class="span4">
             <%= f.input :acronym %>
             <%= f.input :program, input_html: {rows: 3, cols: 24} %>
             <%= f.input :department %>
@@ -26,7 +26,7 @@
             <%= f.input :total_value, as: :string, label: "Total Value" %>
             <%= f.input :our_value, label: "Our Value", input_html: {size: 10}%>
         </div>
-        <div class="span-one-third">
+        <div class="span4">
             <%= f.input :solicitation, label: "Solicitation #" %>
             <%= f.input :solicitation_type, label: "Solic. Type" %>
             <%= f.input :solicitation_source, label: "Source", collection: Opportunity::SOURCES %>
@@ -35,9 +35,14 @@
             <%= f.input :award_date, label: "Award Date", input_html: {class: "datepicker"} %>
             <%= f.input :acquisition_url, as: :string, label: "URL" %>
             <%= f.input :input_opportunity_number, as: :string, label: "INPUT id" %>
-            <%= f.input :input_status, label: "INPUT status", input_html: {readonly: true} %>
+            <div class="control-group">
+                <label class="control-label">GovWin IQ Status</label>
+                <div class="controls">
+                    <span class="input uneditable-input"><%= @opportunity.input_status %></span>
+                </div>
+            </div>
         </div>
-        <div class="span-one-third">
+        <div class="span4">
             <%= f.association :business_developer, collection: @bders, label: "Business Developer" %><br/>
             <%= f.association :capture_manager, collection: @owners, label: "Capture Manager" %><br/>
             <%= f.input :capture_phase, label: "Phase", collection: Opportunity::PHASES, member_label: :humanize %>
@@ -49,43 +54,43 @@
             </div>
         </div>
       </div>
-    <div class="row">
-        <div class="span-two-thirds">
+    <div class="row-fluid">
+        <div class="span8">
             <%= f.input :description, input_html: {rows: 5, class: "span-two-thirds"} %>
         </div>
     </div>
     <div class="well" %>
-        <%= f.button :submit, class: "btn primary", disable_with: 'Wait...'%>
+        <%= f.button :submit, class: "btn btn-primary", disable_with: 'Wait...'%>
     </div>
 <% end %>
 <% unless @opportunity.new_record? %>
-    <ul class="tabs" data-tabs="tabs">
-        <li class="active"><a href="#comments-tab">Comments</a></li>
-        <li><a href="#tasks-tab">Tasks</a></li>
-        <li><a href="#input-tab">GovwinIQ</a></li>
-        <li><a href="#teaming-tab">Teaming</a></li>
-        <li><a href="#history-tab">History</a></li>
-        <li><a href="#capture-tab">Capture</a></li>
-        <li><a href="#proposal-tab">Proposal</a></li>
+    <ul class="nav nav-tabs" id="opportunity-tabs">
+        <li class="active"><a href="#comments-tab" data-toggle="tab">Comments</a></li>
+        <li><a href="#tasks-tab" data-toggle="tab">Tasks</a></li>
+        <li><a href="#input-tab" data-toggle="tab">GovwinIQ</a></li>
+        <li><a href="#teaming-tab" data-toggle="tab">Teaming</a></li>
+        <li><a href="#history-tab" data-toggle="tab">History</a></li>
+        <li><a href="#capture-tab" data-toggle="tab">Capture</a></li>
+        <li><a href="#proposal-tab" data-toggle="tab">Proposal</a></li>
     </ul>
     <div class="tab-content">
-        <div id="comments-tab" class="active">
+        <div id="comments-tab" class="tab-pane fade active in">
             <%= render 'comments/comments', f: @opportunity %>
         </div>
-        <div id="tasks-tab">
+        <div id="tasks-tab" class="tab-pane fade">
             <%= render 'tasks/tasks', f: @opportunity %>
         </div>
-        <div id="input-tab">
+        <div id="input-tab" class="tab-pane fade">
             <% if @opportunity.input_record.nil? %>
                 No INPUT data
             <% else %>
                 <%= render 'show_input_data', o: @opportunity.input_record %>
             <% end %>
         </div>
-        <div id="teaming-tab">
+        <div id="teaming-tab" class="tab-pane fade">
             Teaming
         </div>
-        <div id="history-tab">
+        <div id="history-tab" class="tab-pane fade">
             History
         </div>
     </div>

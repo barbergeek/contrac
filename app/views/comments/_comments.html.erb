@@ -10,5 +10,5 @@
     Comment: <%= text_area_tag :content %>
   <%= hidden_field_tag :source, "#{current_user.initials}" %>
     <%= hidden_field_tag "#{f.class.to_s}_id", f.id %>
-    <%= submit_tag "Add comment", class: "btn primary", disable_with: 'Wait...' %>
+    <%= submit_tag "Add comment", class: "btn btn-primary", disable_with: 'Wait...' %>
 <% end %>

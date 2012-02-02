@@ -1,4 +1,4 @@
 $("#own-opportunity-<%= @opportunity.id %>")
-	.addClass("notice");
+    .addClass("label-info");
 $("#opportunity-<%= @opportunity.id %>-owners")
-	.html("<%= "#{@opportunity.business_developer.nil? ? '' : @opportunity.business_developer_initials}/#{@opportunity.capture_manager.nil? ? '' : @opportunity.capture_manager_initials}" %>");
+    .html("<%= "#{@opportunity.business_developer.nil? ? '' : @opportunity.business_developer_initials}/#{@opportunity.capture_manager.nil? ? '' : @opportunity.capture_manager_initials}" %>");

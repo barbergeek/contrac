@@ -1,15 +1,17 @@
+<div class="hero-unit">
 <% title ||= "Text Portlet" %>
-	<h3><%= title %></h3>
-		<% first = true %>
-	  <% announcements.each do |ann| %>
-			<div class="announcement">
-				<%= tag("hr") if announcements.size > 1 and !first %>
-		    <h3><%= ann.title %></h3>
-		    <%= content_tag("span",ann.formatted_text.html_safe, :class => "message") %>
-				<div class="footer">
-					<%= content_tag("span",ann.author, :class => "author") %>
-					<%= content_tag("span",ann.updated_at, :class => "updated_at" )%>
-				</div>
-			</div>
-			<% first = false %>
-	  <% end %>
+    <h3><%= title %></h3>
+        <% first = true %>
+      <% announcements.each do |ann| %>
+            <div class="announcement">
+                <%= tag("hr") if announcements.size > 1 and !first %>
+            <h3><%= ann.title %></h3>
+            <%= content_tag("span",ann.formatted_text.html_safe, :class => "message") %>
+                <div class="footer">
+                    <%= content_tag("span",ann.author, :class => "author") %>
+                    <%= content_tag("span",ann.updated_at, :class => "updated_at" )%>
+                </div>
+            </div>
+            <% first = false %>
+      <% end %>
+</div>

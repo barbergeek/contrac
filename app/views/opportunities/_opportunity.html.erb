@@ -1,37 +1,37 @@
 <tr id="opportunity-<%= opportunity.id %>">
-	<td>
-			<% unless opportunity.ignored? %>
-			<%= link_to content_tag("span","Watch", 
-				class: "label #{opportunity.watched_by?(current_user) ? "notice" : ""}",
-				id: "watch-opportunity-#{opportunity.id}"), watch_opportunity_path(opportunity), 
-					:method => :post, 
-					:remote => true 
-					%>
-			<%= link_to content_tag("span","Own", 
-				class: "label #{opportunity.owned_by?(current_user) ? "notice" : ""}",
-				id: "own-opportunity-#{opportunity.id}"), own_opportunity_path(opportunity), 
-					:method => :post,
-					:confirm => 'Are you sure you want to take ownership of this opportunity?',
-					:remote => true 
-					%>
+    <td>
+            <% unless opportunity.ignored? %>
+            <%= link_to content_tag("span","Watch",
+                class: "label #{opportunity.watched_by?(current_user) ? "label-info" : ""}",
+                id: "watch-opportunity-#{opportunity.id}"), watch_opportunity_path(opportunity),
+                    :method => :post,
+                    :remote => true
+                    %>
+            <%= link_to content_tag("span","Own",
+                class: "label #{opportunity.owned_by?(current_user) ? "label-info" : ""}",
+                id: "own-opportunity-#{opportunity.id}"), own_opportunity_path(opportunity),
+                    :method => :post,
+                    :confirm => 'Are you sure you want to take ownership of this opportunity?',
+                    :remote => true
+                    %>
 
-			<%= content_tag("span", "New", 
-					class: "label success") if opportunity.updated_at > 7.days.ago %>
-			<% end %>
-			<%= link_to content_tag("span", "Destroy", class: "label warning"), opportunity, :confirm => 'Are you sure?', 
-					:method => :delete, :title => "Ignore" %>
-			</td>
-	<td><%= opportunity.acronym %></td>
-	<td><%= opportunity.ignored? ? opportunity.program : link_to(opportunity.program, edit_opportunity_path(opportunity)) %><br/>
-	<i><%= opportunity.department %><%= '/'+opportunity.agency unless opportunity.agency.blank?%></i></td>
-	<td><%= opportunity.description %></td>
+            <%= content_tag("span", "New",
+                    class: "label label-success") if opportunity.updated_at > 7.days.ago %>
+            <% end %>
+            <%= link_to content_tag("span", "Destroy", class: "label label-warning"), opportunity, :confirm => 'Are you sure?',
+                    :method => :delete, :title => "Ignore" %>
+            </td>
+    <td><%= opportunity.acronym %></td>
+    <td><%= opportunity.ignored? ? opportunity.program : link_to(opportunity.program, edit_opportunity_path(opportunity)) %><br/>
+    <i><%= opportunity.department %><%= '/'+opportunity.agency unless opportunity.agency.blank?%></i></td>
+    <td><%= opportunity.description %></td>
   <td><%= opportunity.priority %></td>
-	<td><%= link_to_input opportunity.input_opportunity_number, :target => "_blank" %></td>
-	<td><%= opportunity.input_status %></td>
-	<td><%= opportunity.total_value %></td>
-	<td><%= opportunity.rfp_release_date %></td>
-	<td><%= opportunity.capture_phase %></td>
-	<td><%= content_tag("span",
-	 				"#{opportunity.business_developer.nil? ? '' : opportunity.business_developer_initials}/#{opportunity.capture_manager.nil? ? '' : opportunity.capture_manager_initials}",
-	 				:id => "opportunity-#{opportunity.id}-owners") %></td>
+    <td><%= link_to_input opportunity.input_opportunity_number, :target => "_blank" %></td>
+    <td><%= opportunity.input_status %></td>
+    <td><%= opportunity.total_value %></td>
+    <td><%= opportunity.rfp_release_date %></td>
+    <td><%= opportunity.capture_phase %></td>
+    <td><%= content_tag("span",
+                    "#{opportunity.business_developer.nil? ? '' : opportunity.business_developer_initials}/#{opportunity.capture_manager.nil? ? '' : opportunity.capture_manager_initials}",
+                    :id => "opportunity-#{opportunity.id}-owners") %></td>
 </tr>

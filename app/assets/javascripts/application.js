@@ -11,7 +11,8 @@
 // require custom
 //= require twitter/bootstrap/dropdown.js
 //= require twitter/bootstrap/modal.js
-//= require twitter/bootstrap/tabs.js
+//= require twitter/bootstrap/tab.js
+//= require twitter/bootstrap/transition.js
 
 //= require opportunities
 //= require tasks
