@@ -220,7 +220,7 @@ class GovwinIQ
           record.save!
           record_count += 1
       end
-  end
+
     return record_count
   end
 
