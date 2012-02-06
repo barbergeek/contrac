@@ -5,11 +5,11 @@ class ImportJob < Struct.new(:jobid)
     job = ImportJob.new
     job.import_and_merge(filedata)
   end
-  
+
   def success(job)
     Job.delete(jobid)
   end
-  
+
   def import_and_merge(data) #for Delayed_Job
     if import_input_data(data) > 0
       merge_input_data
@@ -18,7 +18,7 @@ class ImportJob < Struct.new(:jobid)
 
   # parse the input export file and insert the data into the InputRecords table
   def import_input_data(data)
-  
+
     # clear all the old data
     #InputRecord.delete_all
 
@@ -77,8 +77,8 @@ class ImportJob < Struct.new(:jobid)
       "Segment (Combined List)" => :segment_combined,
       "Key Contacts" => :key_contacts
     }
-  
-    # figure out which input columns map to which data columns                                        
+
+    # figure out which input columns map to which data columns
     keys = []
     cols = {}
     tabledata[0].each_index do |column|
@@ -86,9 +86,9 @@ class ImportJob < Struct.new(:jobid)
       cols[data_columns[tabledata[0][column]]] = column
 #      puts "found #{keys[column]} in #{cols[data_columns[tabledata[0][column]]]}"
     end
-  
+
     record_count = 0
-  
+
     # load the data
     for row in 1..(tabledata.length-1)   # for each row (except the header row)
 #        puts "loading row #{row}"
@@ -96,7 +96,7 @@ class ImportJob < Struct.new(:jobid)
         opportunity_number = tabledata[row][opportunity_number_column]
         record = InputRecord.find_or_create_by_input_opportunity_number(opportunity_number) # get the record or make a new one
         keys.each_index do |column|    # for each column in the input file, update the attribute
-          case keys[column] 
+          case keys[column]
             when :title   #need special processing for title to split URL from actual title
               if tabledata[row][column] =~ /<a/
                 data = /<a href="(.*?)">(.*?)<\/a>/i.match(tabledata[row][column])
@@ -114,15 +114,15 @@ class ImportJob < Struct.new(:jobid)
                 record.send("organization=", "#{@dept}/#{tabledata[row][column]}")
               end
             when :rfp_date, :project_award_date, :last_updated, :incumbent_award_date, :incumbent_expire_date
-              record.send("#{keys[column]}=",INPUT.fix_input_date(tabledata[row][column]))
+              record.send("#{keys[column]}=",GovwinIQ.fix_input_date(tabledata[row][column]))
             else
-              record.send("#{keys[column]}=", tabledata[row][column]) unless keys[column].nil? 
+              record.send("#{keys[column]}=", tabledata[row][column]) unless keys[column].nil?
           end
         end
         record.save!
         record_count += 1
     end
-          
+
     return record_count
   end
 
@@ -140,5 +140,5 @@ class ImportJob < Struct.new(:jobid)
 #         datevalue
 #       end
 #    end
-    
+
 end
