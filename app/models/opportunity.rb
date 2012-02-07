@@ -66,6 +66,19 @@ class Opportunity < ActiveRecord::Base
   scope :with_input_records
     where("input_opportunity_number is not null")
 
+  def outcome_label
+    case outcome
+    when "lost"
+      "label-important"
+    when "won"
+      "label-success"
+    when "no_bid"
+      "label-warning"
+    else
+      ""
+    end
+  end
+
   def self.exclude_outcomes(outcome)
     where("outcome not in (?) or outcome is null", outcome)
   end

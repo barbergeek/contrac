@@ -1,6 +1,8 @@
 <tr id="opportunity-<%= opportunity.id %>">
     <td>
             <% unless opportunity.ignored? %>
+            <%= content_tag("span", opportunity.outcome.humanize,
+                class: "label #{opportunity.outcome_label}") unless opportunity.outcome.blank? %>
             <%= link_to content_tag("span","Watch",
                 class: "label #{opportunity.watched_by?(current_user) ? "label-info" : ""}",
                 id: "watch-opportunity-#{opportunity.id}"), watch_opportunity_path(opportunity),
