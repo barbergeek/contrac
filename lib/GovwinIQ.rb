@@ -165,15 +165,15 @@ class GovwinIQ
 
 
     # get the data file
-    puts "Getting GovwinIQ Export..."
+    #puts "Getting GovwinIQ Export..."
     get_export
-    puts "done"
+    #puts "done"
 
     s = Roo::Spreadsheet.open(EXPORTFILE)
     if s
       s.default_sheet = s.sheets.first # use the first sheet in the workbook
 
-      puts "starting to parse file"
+      #puts "starting to parse file"
 
       # figure out which input columns map to which data columns
       keys = []
@@ -182,7 +182,7 @@ class GovwinIQ
       for column in s.first_column..s.last_column
         keys[column] = DATA_COLUMNS[s.cell(1,column)]
         cols[DATA_COLUMNS[s.cell(1,column)]] = column
-        puts "found #{keys[column]} in #{cols[DATA_COLUMNS[s.cell(1,column)]]}"
+        #puts "found #{keys[column]} in #{cols[DATA_COLUMNS[s.cell(1,column)]]}"
       end
 
       record_count = 0
