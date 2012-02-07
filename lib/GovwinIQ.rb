@@ -222,10 +222,12 @@ class GovwinIQ
       end
 
     end
+    
+    merge_input_data if record_count
     return record_count
   end
 
-  def merge_input_data
+  def self.merge_input_data
     InputRecord.all.each do |source|
       source.merge_to_opportunity
     end
