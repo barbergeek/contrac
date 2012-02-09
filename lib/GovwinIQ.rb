@@ -222,8 +222,12 @@ class GovwinIQ
       end
 
     end
-    
+
     merge_input_data if record_count
+
+    # reschedule the job in 6 hours
+    delay(run_at: 6.hours.from_now).export_and_load
+
     return record_count
   end
 
