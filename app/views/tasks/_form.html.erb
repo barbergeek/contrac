@@ -1,7 +1,7 @@
 <%= simple_form_for @task, remote: true do |form| %>
 <div class="modal-header">
-    <a href="#" class="close">&times;</a>
-    <%= content_tag(:h3, "New Task") %>
+    <a href="#" class="close" data-dismiss="modal">&times;</a>
+    <%= content_tag(:h3, task_header(@task)) %>
 </div>
 <div class="modal-body">
     <%= form.input :name, label: "Task Name" %>
@@ -15,6 +15,6 @@
     <%= form.input :assigned_by, value: "#{current_user.id}" , as: :hidden %>
 </div>
 <div class="modal-footer">
-    <%= form.button :submit, button_html: { class: "btn btn-primary"} %>
+    <%= form.button :submit, class: "btn btn-primary" %>
 </div>
 <% end %>

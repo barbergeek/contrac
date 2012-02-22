@@ -96,8 +96,9 @@
                 <h5>Upcoming Tasks (<%= "#{@upcoming_tasks.length}"%>)</h5>
                 <ul>
                     <% @upcoming_tasks.each do |t| %>
-                        <li><%= link_to t.name, edit_task_path(t) %></li>
+                        <li><%= link_to t.name, edit_task_path(t), remote: true %></li>
                     <% end %>
+                    <div id="tasks-form" class="modal hide"></div>
                 </ul>
                 <h5>Sidebar</h5>
                 <ul>
