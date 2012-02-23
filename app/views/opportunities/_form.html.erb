@@ -70,6 +70,16 @@
                     Pipeline Review
                 </label>
            <% end %>
+           <%= field_set_tag "GovWin IQ" do %>
+               <%= f.input :input_opportunity_number, as: :string, label: "GovWin IQ id" %>
+               <div class="control-group">
+                   <label class="control-label">Status</label>
+                   <div class="controls">
+                       <span class="input uneditable-input"><%= @opportunity.input_status %></span>
+                   </div>
+               </div>
+           <% end %>
+
         </div>
       </div>
     <div class="row-fluid">
@@ -85,15 +95,6 @@
                 <%= f.input :our_value, label: "QBE Value" %>
                 <%= f.input :percent_profit %>
                 <%= f.input :number_of_FTEs, label: "Number of FTEs" %>
-            <% end %>
-            <%= field_set_tag "GovWin IQ" do %>
-                <%= f.input :input_opportunity_number, as: :string, label: "GovWin IQ id" %>
-                <div class="control-group">
-                    <label class="control-label">Status</label>
-                    <div class="controls">
-                        <span class="input uneditable-input"><%= @opportunity.input_status %></span>
-                    </div>
-                </div>
             <% end %>
             <%= field_set_tag "Outcome" do %>
                 <%= f.input :outcome, collection: Opportunity::OUTCOMES, member_label: :humanize %>
