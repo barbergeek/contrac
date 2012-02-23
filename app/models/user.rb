@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
 
   # Roles
-  ROLES = %w[admin business_developer bd_manager capture_manager senior_manager]
+  ROLES = %w[admin business_developer bd_manager capture_manager senior_manager registration_manager]
   BD_ROLES = %w[business_developer bd_manager]
   CAPTURE_ROLES = BD_ROLES + %w[capture_manager]
 
@@ -47,6 +47,10 @@ class User < ActiveRecord::Base
 
   def capture_manager?
     roles.include?("capture_manager")
+  end
+
+  def can_change_registration?(opportunity)
+    roles.include?("registration_manager") or admin? or (id == opportunity.registered_by_id)
   end
 
 end

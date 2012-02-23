@@ -241,7 +241,7 @@ GEM
       ffi (~> 1.0.9)
       multi_json (~> 1.0.4)
       rubyzip
-    simple_form (1.5.2)
+    simple_form (2.0.0.rc)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     simplecov (0.5.4)
@@ -323,7 +323,7 @@ DEPENDENCIES
   rspec-rails
   ruby-debug19
   sass-rails
-  simple_form
+  simple_form (~> 2.0.0.rc)
   simplecov
   sorcery
   spork

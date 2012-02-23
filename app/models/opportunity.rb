@@ -7,6 +7,7 @@ class Opportunity < ActiveRecord::Base
   has_many :watched_opportunities
   has_many :watchers, :through => :watched_opportunities, :source => :user
   has_many :tasks
+  belongs_to :registered_by, :class_name => "User"
 
   delegate  :name,
             :initials,
@@ -18,13 +19,19 @@ class Opportunity < ActiveRecord::Base
             :to => :capture_manager,
             :prefix => true
 
+  delegate  :name,
+            :initials,
+            :to => :registered_by,
+            :prefix => true
+
   attr_accessible :acronym, :program, :department, :agency, :description, :location,
                   :input_number, :total_value, :win_probability, :contract_length, :solicitation_type,
                   :contract_type, :rfp_release_date, :rfp_due_date, :award_date, :prime, :capture_phase,
                   :input_status, :business_developer_id, :capture_manager_id, :acquisition_url, :comments, :comments_attributes, :outcome,
                   :our_value, :watchers, :business_developer, :capture_manager, :watched_opportunities,
                   :input_opportunity_number, :rfp_expected_due_date, :priority, :solicitation,
-                  :solicitation_source, :vehicle, :outcome_text, :tasks, :tasks_attributes
+                  :solicitation_source, :vehicle, :outcome_text, :tasks, :tasks_attributes, :registered_by_id,
+                  :percent_profit, :registered_on, :registration_method, :number_of_FTEs, :customer_problem, :approach, :services, :pipeline_review
 
   accepts_nested_attributes_for :comments, :reject_if => proc { |attributes| attributes['content'].blank? }
   accepts_nested_attributes_for :tasks #:reject_if => ?
@@ -43,6 +50,7 @@ class Opportunity < ActiveRecord::Base
   VEHICLES = ["Full and Open","AF ICE2","AF NETCENTS","DHS EAGLE","DHS USVISIT","DIA SIA","DIA SITE",
     "ENCORE II","JSIN","GSA Alliant","GSA Schedule","CEOSS","Seaport-E","CIO-SP2","ITES-2S","New IDIQ"]
   SOURCES = %w[FBO HERBB FAACO Unknown/Other]
+  SERVICES = %w[services hardware software]
 
   scope :calendar,
      where("(outcome <> ? or outcome is null) and (capture_phase not in (?) or capture_phase is null) and rfp_release_date is not null and (input_status is null or input_status not in (?))", "no_bid", %w[post_submittal post_award], %w[Post-RFP Awarded])
@@ -63,9 +71,23 @@ class Opportunity < ActiveRecord::Base
   scope :won,
     where("outcome = 'won'")
 
-  scope :with_input_records
+  scope :with_input_records,
     where("input_opportunity_number is not null")
 
+  scope :pipeline,
+    where("pipeline_review")
+
+  def services=(services)
+    self.services_mask = (services & SERVICES).map { |r| 2**SERVICES.index(r) }.sum
+  end
+
+  def services
+    SERVICES.reject do |r|
+      ((services_mask || 0) & 2**SERVICES.index(r)).zero?
+    end
+  end
+
+  #TODO: move to a helper
   def outcome_label
     case outcome
     when "lost"
@@ -196,7 +218,7 @@ class Opportunity < ActiveRecord::Base
   end
 
   def fill_search_sink
-    self.search_sink = [acronym, program, description, input_opportunity_number, solicitation_type, contract_type, prime].collect {|item| item.to_s.strip.downcase}.join('||')
+    self.search_sink = [acronym, program, description, input_opportunity_number, solicitation_type, contract_type, prime, customer_problem, approach].collect {|item| item.to_s.strip.downcase}.join('||')
   end
 
   def toggle_watch(who)
@@ -254,6 +276,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: opportunities
@@ -291,5 +314,15 @@ end
 #  solicitation_source      :string(255)
 #  vehicle                  :string(255)
 #  outcome_text             :text
+#  percent_profit           :integer
+#  registered_by_id         :integer
+#  registered_on            :date
+#  registration_method      :string(255)
+#  registration_history     :text
+#  number_of_FTEs           :integer
+#  customer_problem         :text
+#  approach                 :text
+#  services_mask            :integer
+#  pipeline_review          :boolean
 #
 

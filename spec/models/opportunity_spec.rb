@@ -292,6 +292,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: opportunities
@@ -329,5 +330,15 @@ end
 #  solicitation_source      :string(255)
 #  vehicle                  :string(255)
 #  outcome_text             :text
+#  percent_profit           :integer
+#  registered_by_id         :integer
+#  registered_on            :date
+#  registration_method      :string(255)
+#  registration_history     :text
+#  number_of_FTEs           :integer
+#  customer_problem         :text
+#  approach                 :text
+#  services_mask            :integer
+#  pipeline_review          :boolean
 #
 

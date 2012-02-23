@@ -9,7 +9,7 @@ gem "will_paginate", '~> 3.0'
 #forms
 #gem "formtastic"
 #gem "formtastic-bootstrap"
-gem "simple_form"
+gem "simple_form", '~> 2.0.0.rc'
 
 
 gem "jquery-rails"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120113025019) do
+ActiveRecord::Schema.define(:version => 20120222202316) do
 
   create_table "announcements", :force => true do |t|
     t.string    "author"
@@ -135,6 +135,16 @@ ActiveRecord::Schema.define(:version => 20120113025019) do
     t.string    "solicitation_source"
     t.string    "vehicle"
     t.text      "outcome_text"
+    t.integer   "percent_profit"
+    t.integer   "registered_by_id"
+    t.date      "registered_on"
+    t.string    "registration_method"
+    t.text      "registration_history"
+    t.integer   "number_of_FTEs"
+    t.text      "customer_problem"
+    t.text      "approach"
+    t.integer   "services_mask"
+    t.boolean   "pipeline_review"
   end
 
   create_table "settings", :force => true do |t|

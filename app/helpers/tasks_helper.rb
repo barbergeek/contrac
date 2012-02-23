@@ -16,6 +16,10 @@ module TasksHelper
   end
 
   def task_header(t)
-    t.new_record? ? "New Task" : t.opportunity.acronym.blank? ? t.opportunity.program : t.opportunity.acronym
+    if t.new_record?
+      "New Task"
+    else
+      ((t.opportunity.acronym.blank? ? t.opportunity.program : t.opportunity.acronym)  + " [" + link_to('Go', t.opportunity) +"]").html_safe
+    end
   end
 end
