@@ -13,6 +13,7 @@
 //= require twitter/bootstrap/modal.js
 //= require twitter/bootstrap/tab.js
 //= require twitter/bootstrap/transition.js
+//= require twitter/bootstrap/alert.js
 
 //= require opportunities
 //= require tasks

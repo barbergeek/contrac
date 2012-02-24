@@ -110,9 +110,12 @@
 
         <div class="offset3">
             <% flash.each do |key, msg| %>
-                <%= content_tag :div, msg, class: "alert-message #{key}", id: "notice_#{key}" %>
+                <%= content_tag :div, class: "alert alert-#{key}", id: "notice_#{key}" do %>
+                    <%= msg %>
+                    <a class="close" data-dismiss="alert">×</a>
+                <% end %>
                 <%= content_tag :script, :type => "text/javascript" do -%>
-                setTimeout("$('#notice_<%= key %>').slideUp('slow');", 5000);
+                setTimeout("$('#notice_<%= key %>').slideUp('slow');", 8000);
                 <% end %>
             <% end %>
 
