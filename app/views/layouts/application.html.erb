@@ -87,8 +87,9 @@
         <div class="span3">
             <div class="sidebar-nav well">
                 <h5>Recent Items</h5>
-                <ul><% unless session[:recent_items].nil?
-                    session[:recent_items].reverse.each do |item_id, item_title| %>
+                <ul><% unless current_user.recently_viewed.nil?
+                    current_user.recently_viewed.split("^").reverse.each do |item|
+                        item_id, item_title = item.split("|") %>
                   <li><%= link_to item_title, opportunity_path(item_id) %></li>
                     <% end
                     end %>

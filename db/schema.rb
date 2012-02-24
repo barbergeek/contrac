@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120222202316) do
+ActiveRecord::Schema.define(:version => 20120224160917) do
 
   create_table "announcements", :force => true do |t|
     t.string    "author"
@@ -198,6 +198,7 @@ ActiveRecord::Schema.define(:version => 20120222202316) do
     t.string   "salt"
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
+    t.string   "recently_viewed"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

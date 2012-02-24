@@ -297,10 +297,14 @@ class OpportunitiesController < ApplicationController
     end
 
     def update_recent_items(opportunity)
-      session[:recent_items] ||= []
-      session[:recent_items].delete([opportunity.id,opportunity.title])         # remove this from its old location
-      session[:recent_items].push([opportunity.id, opportunity.title])          # stick it on the end
-      session[:recent_items].delete_at(0) if session[:recent_items].length > 5  # chop it off if it's more than 5 items long
+      recent = current_user.recently_viewed || ""
+      list = recent.split("^")
+      item = "#{opportunity.id}|#{opportunity.title}"
+      list.delete(item)         # remove this from its old location
+      list.push(item)          # stick it on the end
+      list.delete_at(0) if list.length > 5  # chop it off if it's more than 5 items long
+      current_user.recently_viewed = list.join("^")
+      current_user.save
     end
 
 end
