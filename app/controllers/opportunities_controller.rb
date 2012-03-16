@@ -54,6 +54,7 @@ class OpportunitiesController < ApplicationController
       session[:filters] = {}
       session[:owner_filters] = nil
       session[:show_ignored] = false
+      session[:show_pipeline] = false
       session[:exclusions] = {}
     else
       session[:search] = params[:search]
@@ -63,6 +64,7 @@ class OpportunitiesController < ApplicationController
         session[:owner_filters] = "business_developer_id = #{params[:owners][:owner_id].first} or capture_manager_id = #{params[:owners][:owner_id].first}"
       end
       session[:show_ignored] = params[:ignore]
+      session[:show_pipeline] = params[:pipeline_review]
       session[:exclusions] = params[:exclusions]
     end
 
@@ -265,6 +267,7 @@ class OpportunitiesController < ApplicationController
       @capture_phase_filters = @filters[:capture_phase] || {}
       @owner_filters = session[:owner_filters] || {}
       @show_ignored = session[:show_ignored] || false
+      @show_pipeline = session[:show_pipeline] || false
       @priority_filters = @filters[:priority] || {}
       @exclude_filters = session[:exclusions] || {}
       @outcome_exclusions = @exclude_filters[:outcome] || {}
@@ -284,6 +287,8 @@ class OpportunitiesController < ApplicationController
       opp = session[:show_ignored] ? Opportunity.unscoped : Opportunity
 
       opp = opp.exclude_outcomes(@outcome_exclusions) unless @outcome_exclusions.empty?
+
+      opp = opp.pipeline if @show_pipeline
 
       @opportunity_list = opp.
         where(@filters).

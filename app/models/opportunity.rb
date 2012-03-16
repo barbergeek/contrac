@@ -75,7 +75,7 @@ class Opportunity < ActiveRecord::Base
     where("input_opportunity_number is not null")
 
   scope :pipeline,
-    where("pipeline_review")
+    where("pipeline_review = 't'")
 
   def services=(services)
     self.services_mask = (services & SERVICES).map { |r| 2**SERVICES.index(r) }.sum
