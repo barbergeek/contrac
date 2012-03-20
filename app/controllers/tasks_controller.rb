@@ -2,7 +2,14 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    #@tasks = Task.all
+    if current_user.admin?
+      @open_tasks = Task.status_open.order("due_date")
+      @closed_tasks = Task.status_closed.order("due_date")
+    else
+      @open_tasks = Task.mine(current_user).status_open.order("due_date")
+      @closed_tasks = Task.mine(current_user).status_closed.order("due_date")
+    end
 
     respond_to do |format|
       format.html # index.html.erb
