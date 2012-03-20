@@ -17,6 +17,7 @@
 
 //= require opportunities
 //= require tasks
+//= require people
 
 // require jquery.tools.min
 //= require custom-bootstrap

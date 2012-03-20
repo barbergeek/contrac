@@ -1,0 +1,6 @@
+$('#people').append('<%= j render(@people) %>');
+<% if @people.next_page %>
+$('.pagination').replaceWith('<%= j page_navigation_links(@people) %>');
+<% else %>
+$('.pagination').remove();
+<% end %>

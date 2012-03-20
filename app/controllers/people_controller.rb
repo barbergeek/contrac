@@ -5,6 +5,7 @@ class PeopleController < ApplicationController
     @people = Person.order("lastname").page(params[:page]).per_page(20)
 
     respond_to do |format|
+      format.js
       format.html # index.html.erb
       format.json { render json: @people }
     end

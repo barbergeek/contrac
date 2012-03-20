@@ -1,18 +1,11 @@
 <h1>Listing people</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Phone</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="span3">Name</div>
+<div class="span3">Phone</div>
+<div class="span4">Actions</div><br />
 <div id="people">
   <%= render @people %>
 </div>
-
-</table>
 
 <%= page_navigation_links @people %>
 
