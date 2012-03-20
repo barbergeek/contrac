@@ -87,7 +87,7 @@ class InputRecord < ActiveRecord::Base
           who.save!
         end
       end
-    end
+    end unless key_contacts.blank?
 
     # re-ignore the record if needed
     opp.destroy if was_ignored
