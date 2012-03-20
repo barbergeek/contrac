@@ -9,6 +9,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: users
@@ -26,5 +27,6 @@ end
 #  salt                         :string(255)
 #  remember_me_token            :string(255)
 #  remember_me_token_expires_at :datetime
+#  recently_viewed              :string(255)
 #
 

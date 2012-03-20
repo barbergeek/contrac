@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120224160917) do
+ActiveRecord::Schema.define(:version => 20120320030757) do
 
   create_table "announcements", :force => true do |t|
     t.string    "author"
@@ -145,6 +145,25 @@ ActiveRecord::Schema.define(:version => 20120224160917) do
     t.text      "approach"
     t.integer   "services_mask"
     t.boolean   "pipeline_review"
+  end
+
+  create_table "people", :force => true do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "nickname"
+    t.string   "rank"
+    t.string   "service"
+  end
+
+  create_table "person_opportunities", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "opportunity_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "settings", :force => true do |t|

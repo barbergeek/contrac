@@ -67,6 +67,28 @@ class InputRecord < ActiveRecord::Base
       logger.warn "Save failed for #{input_opportunity_number}"
     end
 
+    # merge people
+    # need to fix the regex
+    # x = i.key_contacts.match(/([^0-9]*)\s?([0-9-]*),?\s?/)
+    # i.key_contacts.split(", ")
+
+    key_contacts.split(" ,").each do |contact|  # split on a space-comma to handle names without phone numbers
+      contact.scan(/([^0-9]*)\s?([0-9-]*\s?[\w:\s]*),?/) do |name,phone|
+        unless name.blank?
+          n = name.strip
+          p = phone.strip
+          who = Person.find_or_create_by_name(n)
+          if who.phone.blank? && !p.blank?
+            who.phone = p
+          elsif who.phone != p && !p.blank? && !who.phone.blank?
+            who = Person.find_or_create_by_name_and_phone(n,p)
+          end
+          who.opportunities << opportunity unless who.opportunities.include?(opportunity)
+          who.save!
+        end
+      end
+    end
+
     # re-ignore the record if needed
     opp.destroy if was_ignored
 

@@ -7,6 +7,9 @@ class Opportunity < ActiveRecord::Base
   has_many :watched_opportunities
   has_many :watchers, :through => :watched_opportunities, :source => :user
   has_many :tasks
+  has_many :people, through: :person_opportunities
+  has_many :person_opportunities
+
   belongs_to :registered_by, :class_name => "User"
 
   delegate  :name,

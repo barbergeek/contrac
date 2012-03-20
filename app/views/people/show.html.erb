@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @person.name %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @person.phone %>
+</p>
+
+<h2>Opportunities</h2>
+<% @person.opportunities.each do |opp| %>
+<p><%= link_to opp.title,opp %></p>
+<% end %>
+
+<p>
+<%= link_to 'Edit', edit_person_path(@person) %> |
+<%= link_to 'Back', people_path %>
+</p>

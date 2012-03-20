@@ -39,7 +39,7 @@
                     <li class="<%= is_active_tab?(:companies)%> dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Contacts<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><%= link_to "Companies", companies_path %></li>
-                            <li><a>People*</a></li>
+                            <li><%= link_to "People", people_path %></li>
                         </ul>
                     </li>
                     <% if current_user.admin? %>
