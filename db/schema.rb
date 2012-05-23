@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120320030757) do
+ActiveRecord::Schema.define(:version => 20120523022211) do
 
   create_table "announcements", :force => true do |t|
     t.string   "author"
@@ -147,6 +147,9 @@ ActiveRecord::Schema.define(:version => 20120320030757) do
     t.boolean  "pipeline_review"
   end
 
+  add_index "opportunities", ["id"], :name => "index_opportunities_on_id", :unique => true
+  add_index "opportunities", ["ignored"], :name => "index_opportunities_on_ignored"
+
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.string   "uppername"
@@ -230,6 +233,7 @@ ActiveRecord::Schema.define(:version => 20120320030757) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["id"], :name => "index_users_on_id", :unique => true
   add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"
 
   create_table "watched_opportunities", :force => true do |t|
@@ -238,5 +242,8 @@ ActiveRecord::Schema.define(:version => 20120320030757) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "watched_opportunities", ["id"], :name => "index_watched_opportunities_on_id", :unique => true
+  add_index "watched_opportunities", ["opportunity_id"], :name => "index_watched_opportunities_on_opportunity_id"
 
 end
