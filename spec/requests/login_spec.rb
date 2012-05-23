@@ -17,7 +17,7 @@ describe 'testing login' do
       click_link "Login"
 
       password = "foobar"
-      user = Factory.create(:user, :password => password, :password_confirmation => password)
+      user = FactoryGirl.create(:user, :password => password, :password_confirmation => password)
 
       fill_in "Email",     :with => user.email
       fill_in "Password",  :with => password

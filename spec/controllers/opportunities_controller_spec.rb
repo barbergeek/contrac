@@ -7,7 +7,7 @@ require 'spec_helper'
 describe OpportunitiesController do
 
   before (:each) do
-    @user = Factory.create(:user)
+    @user = FactoryGirl.create(:user)
     login_user @user
   end
 
@@ -115,14 +115,14 @@ describe OpportunitiesController do
 
   describe "DELETE destroy" do
     pending "destroys the requested opportunity" do
-      opp = Factory(:opportunity)
+      opp = FactoryGirl.create(:opportunity)
       #Opportunity.stub(:find).with("37") { mock_opportunity }
       opp.should_receive(:destroy)
       delete :destroy, :id => opp.id
     end
 
     it "redirects to the opportunities list" do
-        opp = Factory(:opportunity, :id => 2)
+        opp = FactoryGirl.create(:opportunity, :id => 2)
         #Opportunity.stub(:find) { mock_opportunity }
         delete :destroy, :id => opp.id
         response.should redirect_to(opportunities_url)

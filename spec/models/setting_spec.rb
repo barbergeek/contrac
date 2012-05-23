@@ -22,7 +22,7 @@ describe Setting do
     end
 
     it "stores objects" do
-      x = Factory(:opportunity)
+      x = FactoryGirl.create(:opportunity)
       Setting.test = x
       Setting.test.should == x
     end
