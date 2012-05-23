@@ -53,5 +53,5 @@ after "deploy:stop",    "delayed_job:stop"
 after "deploy:start",   "delayed_job:start"
 
 task :bundle_install, :roles => :app do
-  run 'cd #{release_path} && bundle install'
+  run "cd #{release_path} && bundle install"
 end
