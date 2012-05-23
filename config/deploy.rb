@@ -43,7 +43,12 @@ namespace :deploy do
   end
 end
 
+after "deploy:update_code", :bundle_install
 before "deploy:restart", "delayed_job:stop"
 after "deploy:restart", "delayed_job:restart"
 after "deploy:stop",    "delayed_job:stop"
 after "deploy:start",   "delayed_job:start"
+
+task :bundle_install, :roles => :app do
+  run 'cd #{release_path} && bundle install'
+end
