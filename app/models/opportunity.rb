@@ -234,7 +234,7 @@ class Opportunity < ActiveRecord::Base
   end
 
   def watch(who)
-    unless watched_by?(who) do
+    unless watched_by?(who)
       watchers << who
       save!
     end
