@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Companies" do
 
   before (:each) do
-    @user = Factory(:user, :password => "foo", :password_confirmation => "foo")
+    @user = FactoryGirl.create(:user, :password => "foo", :password_confirmation => "foo")
     integration_login @user, "foo"
   end
 

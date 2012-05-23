@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Opportunities" do
 
   before (:each) do
-    @user = Factory.create(:user, :password => "foo", :password_confirmation => "foo")
+    @user = FactoryGirl.create(:user, :password => "foo", :password_confirmation => "foo")
     integration_login @user, "foo"
   end
 
@@ -15,7 +15,7 @@ describe "Opportunities" do
     end
     
     it "should show the opportunities list" do
-      opp = Factory.create(:opportunity)
+      opp = FactoryGirl.create(:opportunity)
       visit opportunities_path
       #save_and_open_page
       page.should have_content(opp.program)
@@ -24,8 +24,8 @@ describe "Opportunities" do
   
   describe "filters/searching" do
     it "should return a list of opportunities when returning multiples" do
-      opp = Factory.create(:opportunity, program: "Program1")
-      opp2 = Factory.create(:opportunity, program: "Program2")
+      opp = FactoryGirl.create(:opportunity, program: "Program1")
+      opp2 = FactoryGirl.create(:opportunity, program: "Program2")
       visit opportunities_path
       #click_on "Search Filters"
       within ("#opportunity-filter") do
@@ -38,8 +38,8 @@ describe "Opportunities" do
     end
     
     it "should go to the opportunity page when returning only one" do
-        opp = Factory.create(:opportunity, program: "Program1")
-        opp2 = Factory.create(:opportunity, program: "Don't find me")
+        opp = FactoryGirl.create(:opportunity, program: "Program1")
+        opp2 = FactoryGirl.create(:opportunity, program: "Don't find me")
         visit opportunities_path
         #click_on "Search Filters"
         within ("#opportunity-filter") do

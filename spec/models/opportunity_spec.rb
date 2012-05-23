@@ -43,9 +43,9 @@ describe Opportunity do
     end
     
     it "returns everything with a blank string" do
-      opp = Factory(:opportunity, :input_opportunity_number => 1234)
-      opp2 = Factory(:opportunity, :input_opportunity_number => 2345)
-      opp3 = Factory(:opportunity, :input_opportunity_number => 1111)
+      opp = FactoryGirl.create(:opportunity, :input_opportunity_number => 1234)
+      opp2 = FactoryGirl.create(:opportunity, :input_opportunity_number => 2345)
+      opp3 = FactoryGirl.create(:opportunity, :input_opportunity_number => 1111)
       opps = Opportunity.search("")
       opps.should include(opp)
       opps.should include(opp2)
@@ -54,27 +54,27 @@ describe Opportunity do
 
     context "finds an opportunity" do
       it "with an input opportunity number" do
-        opp = Factory(:opportunity, :input_opportunity_number => 1234)
+        opp = FactoryGirl.create(:opportunity, :input_opportunity_number => 1234)
         Opportunity.search(1234).should == [opp]
       end
       
       it "with a given string in the acronym" do
-        opp = Factory(:opportunity, :acronym => 'TESTING')
+        opp = FactoryGirl.create(:opportunity, :acronym => 'TESTING')
         Opportunity.search('TEST').should == [opp]
       end
       
       it "with a given string in the acronym - case-insensitive" do
-        opp = Factory(:opportunity, :acronym => 'TESTING')
+        opp = FactoryGirl.create(:opportunity, :acronym => 'TESTING')
         Opportunity.search('test').should == [opp]
       end
 
       it "with a given string in the program" do
-        opp = Factory(:opportunity, :program => 'TESTING')
+        opp = FactoryGirl.create(:opportunity, :program => 'TESTING')
         Opportunity.search('TEST').should == [opp]
       end
       
       it "with a given string in the program - case-insensitive" do
-        opp = Factory(:opportunity, :program => 'TESTING')
+        opp = FactoryGirl.create(:opportunity, :program => 'TESTING')
         Opportunity.search('test').should == [opp]
       end
       
@@ -82,37 +82,37 @@ describe Opportunity do
     
     context "finds only the right opportunity" do
       it "with a given input opportunity number" do
-        opp = Factory(:opportunity, :input_opportunity_number => 1234)
-        opp2 = Factory(:opportunity, :input_opportunity_number => 2345)
-        opp3 = Factory(:opportunity, :input_opportunity_number => 1111)
+        opp = FactoryGirl.create(:opportunity, :input_opportunity_number => 1234)
+        opp2 = FactoryGirl.create(:opportunity, :input_opportunity_number => 2345)
+        opp3 = FactoryGirl.create(:opportunity, :input_opportunity_number => 1111)
         Opportunity.search(2345).should == [opp2]
       end
 
       it "with a given string in the acronym" do
-        opp = Factory(:opportunity, :acronym => 'TEST')
-        Factory(:opportunity, :acronym => 'HELLO')
-        Factory(:opportunity, :acronym => 'HELLO2')
+        opp = FactoryGirl.create(:opportunity, :acronym => 'TEST')
+        FactoryGirl.create(:opportunity, :acronym => 'HELLO')
+        FactoryGirl.create(:opportunity, :acronym => 'HELLO2')
         Opportunity.search('TEST').should == [opp]
       end
       
       it "with a given string in the acronym - case-insensitive" do
-        opp = Factory(:opportunity, :acronym => 'TESTING')
-        Factory(:opportunity, :acronym => 'HELLO')
-        Factory(:opportunity, :acronym => 'HELLO2')
+        opp = FactoryGirl.create(:opportunity, :acronym => 'TESTING')
+        FactoryGirl.create(:opportunity, :acronym => 'HELLO')
+        FactoryGirl.create(:opportunity, :acronym => 'HELLO2')
         Opportunity.search('test').should == [opp]
       end
 
       it "with a given string in the program" do
-        opp = Factory(:opportunity, :program => 'TEST')
-        Factory(:opportunity, :program => 'HELLO')
-        Factory(:opportunity, :program => 'HELLO2')
+        opp = FactoryGirl.create(:opportunity, :program => 'TEST')
+        FactoryGirl.create(:opportunity, :program => 'HELLO')
+        FactoryGirl.create(:opportunity, :program => 'HELLO2')
         Opportunity.search('TEST').should == [opp]
       end
       
       it "with a given string in the program - case-insensitive" do
-        opp = Factory(:opportunity, :program => 'TESTING')
-        Factory(:opportunity, :program => 'HELLO')
-        Factory(:opportunity, :program => 'HELLO2')
+        opp = FactoryGirl.create(:opportunity, :program => 'TESTING')
+        FactoryGirl.create(:opportunity, :program => 'HELLO')
+        FactoryGirl.create(:opportunity, :program => 'HELLO2')
         Opportunity.search('test').should == [opp]
       end
 
@@ -120,35 +120,35 @@ describe Opportunity do
 
     context "finds multiple opportunities" do
       it "with a given string in the acronym" do
-        opp = Factory(:opportunity, :acronym => 'TESTING')
-        opp2 = Factory(:opportunity, :acronym => 'This TEST')
-        opp3 = Factory(:opportunity, :acronym => 'HELLO2')
+        opp = FactoryGirl.create(:opportunity, :acronym => 'TESTING')
+        opp2 = FactoryGirl.create(:opportunity, :acronym => 'This TEST')
+        opp3 = FactoryGirl.create(:opportunity, :acronym => 'HELLO2')
         opps = Opportunity.search('TEST')
         opps.should include(opp)
         opps.should include(opp2)
       end
 
       it "and only the right opportunities" do
-        opp = Factory(:opportunity, :acronym => 'TESTING')
-        opp2 = Factory(:opportunity, :acronym => 'This TEST')
-        opp3 = Factory(:opportunity, :acronym => 'HELLO2')
+        opp = FactoryGirl.create(:opportunity, :acronym => 'TESTING')
+        opp2 = FactoryGirl.create(:opportunity, :acronym => 'This TEST')
+        opp3 = FactoryGirl.create(:opportunity, :acronym => 'HELLO2')
         opps = Opportunity.search('TEST')
         opps.should_not include(opp3)
       end
 
       it "with a given string in the program" do
-        opp = Factory(:opportunity, :program => 'TESTING')
-        opp2 = Factory(:opportunity, :program => 'This TEST')
-        opp3 = Factory(:opportunity, :program => 'HELLO2')
+        opp = FactoryGirl.create(:opportunity, :program => 'TESTING')
+        opp2 = FactoryGirl.create(:opportunity, :program => 'This TEST')
+        opp3 = FactoryGirl.create(:opportunity, :program => 'HELLO2')
         opps = Opportunity.search('TEST')
         opps.should include(opp)
         opps.should include(opp2)
       end
 
       it "and only the right opportunities" do
-        opp = Factory(:opportunity, :program => 'TESTING')
-        opp2 = Factory(:opportunity, :program => 'This TEST')
-        opp3 = Factory(:opportunity, :program => 'HELLO2')
+        opp = FactoryGirl.create(:opportunity, :program => 'TESTING')
+        opp2 = FactoryGirl.create(:opportunity, :program => 'This TEST')
+        opp3 = FactoryGirl.create(:opportunity, :program => 'HELLO2')
         opps = Opportunity.search('TEST')
         opps.should_not include(opp3)
       end
@@ -158,29 +158,29 @@ describe Opportunity do
   
   context "owning" do
     it "lets anyone own an opportunity" do
-      opp = Factory(:opportunity)
-      user = Factory(:user)
+      opp = FactoryGirl.create(:opportunity)
+      user = FactoryGirl.create(:user)
       opp.own(user)
       opp.should be_owned_by(user)
     end
     
     it "sets a bd user as the business developer" do
-      opp = Factory(:opportunity)
-      user = Factory(:user, :roles => ["business_developer"])
+      opp = FactoryGirl.create(:opportunity)
+      user = FactoryGirl.create(:user, :roles => ["business_developer"])
       opp.own(user)
       opp.business_developer.should == user
     end
     
     it "sets a capture user as the capture manager" do
-      opp = Factory(:opportunity)
-      user = Factory(:user, :roles => ["capture_manager"])
+      opp = FactoryGirl.create(:opportunity)
+      user = FactoryGirl.create(:user, :roles => ["capture_manager"])
       opp.own(user)
       opp.capture_manager.should == user
     end
     
     it "sets a general user as the capture manager" do
-      opp = Factory(:opportunity)
-      user = Factory(:user)
+      opp = FactoryGirl.create(:opportunity)
+      user = FactoryGirl.create(:user)
       opp.own(user)
       opp.capture_manager.should == user
     end
@@ -188,24 +188,24 @@ describe Opportunity do
   
   context "watching" do
     it "lets anyone watch an opportunity" do
-      opp = Factory(:opportunity)
-      user = Factory(:user)
+      opp = FactoryGirl.create(:opportunity)
+      user = FactoryGirl.create(:user)
       opp.should_not be_watched_by(user)
       opp.watch(user)
       opp.should be_watched_by(user)
     end
     
     it "lets anyone unwatch an opportunity" do
-      opp = Factory(:opportunity)
-      user = Factory(:user)
+      opp = FactoryGirl.create(:opportunity)
+      user = FactoryGirl.create(:user)
       opp.watch(user)
       opp.unwatch(user)
       opp.should_not be_watched_by(user)
     end
     
     it "lets you toggle watching an opportunity" do
-      opp = Factory(:opportunity)
-      user = Factory(:user)
+      opp = FactoryGirl.create(:opportunity)
+      user = FactoryGirl.create(:user)
       opp.should_not be_watched_by(user)
       opp.toggle_watch(user)
       opp.should be_watched_by(user)
@@ -214,10 +214,10 @@ describe Opportunity do
     end
     
     it "should not change bd or capture manager ownership" do
-      opp = Factory(:opportunity)
-      user = Factory(:user)
-      bd_user = Factory(:user, :roles => ["business_developer"])
-      cm_user = Factory(:user, :roles => ["capture_manager"])
+      opp = FactoryGirl.create(:opportunity)
+      user = FactoryGirl.create(:user)
+      bd_user = FactoryGirl.create(:user, :roles => ["business_developer"])
+      cm_user = FactoryGirl.create(:user, :roles => ["capture_manager"])
       opp.business_developer = bd_user
       opp.capture_manager = cm_user
       opp.watch(user)
@@ -229,17 +229,17 @@ describe Opportunity do
   
   context "own_or_watch" do
     it "sets a capture manager as the capture manager if there isn't one already" do
-      opp = Factory(:opportunity)
-      user = Factory(:user, :roles => ["capture_manager"])
+      opp = FactoryGirl.create(:opportunity)
+      user = FactoryGirl.create(:user, :roles => ["capture_manager"])
       opp.capture_manager.should be_nil
       opp.own_or_watch(user)
       opp.capture_manager.should == user
     end
 
     it "sets a capture manager as a watcher if there is a capture manager" do
-      opp = Factory(:opportunity)
-      user = Factory(:user, :roles => ["capture_manager"])
-      user2 = Factory(:user, :roles => ["capture_manager"])
+      opp = FactoryGirl.create(:opportunity)
+      user = FactoryGirl.create(:user, :roles => ["capture_manager"])
+      user2 = FactoryGirl.create(:user, :roles => ["capture_manager"])
       opp.capture_manager = user
       opp.own_or_watch(user2)
       opp.capture_manager.should == user
@@ -247,17 +247,17 @@ describe Opportunity do
     end
 
     it "sets a business developer as the business developer if there isn't one already" do
-      opp = Factory(:opportunity)
-      user = Factory(:user, :roles => ["business_developer"])
+      opp = FactoryGirl.create(:opportunity)
+      user = FactoryGirl.create(:user, :roles => ["business_developer"])
       opp.business_developer.should be_nil
       opp.own_or_watch(user)
       opp.business_developer.should == user
     end
 
     it "sets a business developer as a watcher if there is a business developer" do
-      opp = Factory(:opportunity)
-      user = Factory(:user, :roles => ["business_developer"])
-      user2 = Factory(:user, :roles => ["business_developer"])
+      opp = FactoryGirl.create(:opportunity)
+      user = FactoryGirl.create(:user, :roles => ["business_developer"])
+      user2 = FactoryGirl.create(:user, :roles => ["business_developer"])
       opp.business_developer = user
       opp.own_or_watch(user2)
       opp.business_developer.should == user
@@ -265,8 +265,8 @@ describe Opportunity do
     end
 
     it "sets a general user as a watcher, even if there aren't capture managers or business developers" do
-      opp = Factory(:opportunity)
-      user = Factory(:user)
+      opp = FactoryGirl.create(:opportunity)
+      user = FactoryGirl.create(:user)
       opp.capture_manager.should be_nil
       opp.business_developer.should be_nil
       opp.own_or_watch(user)
@@ -279,7 +279,7 @@ describe Opportunity do
 
   context "ignoring" do
     it "should ignore 'destroy'ed records" do
-      opp = Factory(:opportunity)
+      opp = FactoryGirl.create(:opportunity)
       id = opp.id
       opps = Opportunity.find_by_id(id)
       opps.should == opp

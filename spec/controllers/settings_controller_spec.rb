@@ -21,7 +21,7 @@ require 'spec_helper'
 describe SettingsController do
 
   before (:each) do
-    @user = Factory.create(:user)
+    @user = FactoryGirl.create(:user)
     login_user @user
   end
 

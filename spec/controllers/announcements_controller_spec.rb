@@ -7,7 +7,7 @@ require 'spec_helper'
 describe AnnouncementsController do
 
   before (:each) do
-    @user = Factory.create(:user)
+    @user = FactoryGirl.create(:user)
     login_user @user
   end
 
@@ -17,7 +17,7 @@ describe AnnouncementsController do
 
   describe "GET index" do
     it "assigns all announcements as @announcements" do
-      @ann = Factory.create(:announcement)
+      @ann = FactoryGirl.create(:announcement)
       get :index
       assigns(:announcements).should eq([@ann])
     end
