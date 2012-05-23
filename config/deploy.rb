@@ -46,7 +46,7 @@ namespace :deploy do
   end
 end
 
-before "deploy:update_code", :bundle_install
+before "deploy:assets:precompile", :bundle_install
 before "deploy:restart", "delayed_job:stop"
 after "deploy:restart", "delayed_job:restart"
 after "deploy:stop",    "delayed_job:stop"
