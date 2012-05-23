@@ -4,7 +4,7 @@ set :repository,  "git@github.com:barbergeek/contrac.git"
 set :rails_env, "production"
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 set :rvm_ruby_string, '1.9.2'
-set :rvm_type, :user
+set :rvm_type, :system
  
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
@@ -46,7 +46,7 @@ namespace :deploy do
   end
 end
 
-after "deploy:update_code", :bundle_install
+before "deploy:update_code", :bundle_install
 before "deploy:restart", "delayed_job:stop"
 after "deploy:restart", "delayed_job:restart"
 after "deploy:stop",    "delayed_job:stop"
