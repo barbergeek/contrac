@@ -2,8 +2,10 @@ default_run_options[:pty] = true
 set :application, "contrack"
 set :repository,  "git@github.com:barbergeek/contrac.git"
 set :rails_env, "production"
-set :rvm_ruby_string, 'ruby-1.9.2-p290'
-
+$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
+set :rvm_ruby_string, '1.9.2'
+set :rvm_type, :user
+ 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 set :user, "rails"
