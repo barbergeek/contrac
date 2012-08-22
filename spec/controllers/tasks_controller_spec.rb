@@ -27,6 +27,11 @@ describe TasksController do
     {name: "test"}
   end
 
+  before (:each) do
+    @user = FactoryGirl.create(:user)
+    login_user @user
+  end
+
   describe "GET index" do
     it "assigns all tasks as @tasks" do
       task = Task.create! valid_attributes

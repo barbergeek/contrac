@@ -1,15 +1,15 @@
 source 'http://rubygems.org'
 
 gem 'rake'
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.8'
 gem 'rack'
 
-gem "will_paginate", '~> 3.0'
+gem "will_paginate", '>= 3.0'
 
 #forms
 #gem "formtastic"
 #gem "formtastic-bootstrap"
-gem "simple_form", '~> 2.0.1'
+gem "simple_form", '>= 2.0.1'
 
 
 gem "jquery-rails"
@@ -46,7 +46,7 @@ gem 'nokogiri'
 gem 'mechanize'
 
 #error/issue reporting to GitHub
-gem "octokit", "0.6.5"
+gem "octokit"
 
 gem "lazy_high_charts"
 gem "RedCloth"
