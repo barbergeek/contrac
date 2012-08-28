@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  authenticates_with_sorcery!
+  has_secure_password validations: false
 
   has_many :opportunities, :foreign_key => :business_developer_id
   has_many :proposals, :foreign_key => :capture_manager_id
@@ -9,10 +9,15 @@ class User < ActiveRecord::Base
   has_many :tasks_assigned, foreign_key: :assigned_by, source: :tasks
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :roles, :name, :initials, :opportunities, :tasks, :tasks_assigned
+  attr_accessible :email, :password, :password_confirmation,
+    :remember_me, :roles, :name, :initials,
+    :opportunities, :tasks, :tasks_assigned, :sso
 
-  validates_presence_of :password, :on => :create
-  validates_confirmation_of :password
+  validates_uniqueness_of :email
+
+  #make these optional if SSO is not set
+  #validates_presence_of :password, :on => :create
+  #validates_confirmation_of :password
 
   # Roles
   ROLES = %w[admin business_developer bd_manager capture_manager senior_manager registration_manager]

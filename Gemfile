@@ -17,7 +17,9 @@ gem "cancan"
 gem "gravatar_image_tag"
 
 #authentication library
-gem "sorcery"
+# - using custom authentication with optional POP3 authentication
+#gem "sorcery"
+gem "bcrypt-ruby"
 
 #web server
 #gem "thin"

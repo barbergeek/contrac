@@ -25,5 +25,28 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+  helper_method :current_user
+
+  def logged_in?
+    current_user
+  end
+  helper_method :logged_in?
+
+  def require_login
+    if !logged_in?
+      session[:return_to_url] = request.url if request.get?
+      redirect_to login_path
+    end
+  end
+  helper_method :require_login
+
+  def redirect_back_or_to(url, flash_hash = {})
+    redirect_to(session[:return_to_url] || url, :flash => flash_hash)
+    session[:return_to_url] = nil
+  end
+  helper_method :redirect_back_or_to
 
 end
